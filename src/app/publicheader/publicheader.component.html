@@ -1,0 +1,40 @@
+<nav class="gpnav">
+  <div class="nav-wrapper">
+    <a routerLink="/home" [routerLinkActive]="['active']" class="brand-logo center" style="max-width: 136px">
+      <img src="assets/img/logozz.png" alt="">
+    </a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul class="left hide-on-med-and-down">
+      <li>
+        <a routerLink="/home" [routerLinkActive]="['active']">Home</a>
+      </li>
+      <!-- <li><a routerLink="/about" [routerLinkActive]="['active']">About</a></li> -->
+      <li>
+        <a routerLink="/contact" [routerLinkActive]="['active']">Contact</a>
+      </li>
+    </ul>
+    <ul class="right hide-on-med-and-down">
+      <li class="login_btn">
+        <!-- <a *ngIf="!login" routerLink="/corporate"  class="btn waves-effect waves-light" >Corporate Login</a> -->
+        <a *ngIf="login" routerLink="/my-home" class="btn waves-effect waves-light">GP Dashboard</a>
+      </li>
+    </ul>
+    <ul class="side-nav home_slide" id="mobile-demo">
+      <li>
+        <a routerLink="/home" [routerLinkActive]="['active']">Home</a>
+      </li>
+      <li>
+        <a routerLink="/about" [routerLinkActive]="['active']">About</a>
+      </li>
+      <li>
+        <a routerLink="/contact" [routerLinkActive]="['active']">Contact</a>
+      </li>
+      <li class="login_btn">
+        <!-- <a *ngIf="!login" routerLink="/corporate" class="btn waves-effect waves-light" >Corporate Login</a> -->
+        <a *ngIf="login" routerLink="/my-home" class="btn waves-effect waves-light">GP Dashboard</a>
+      </li>
+    </ul>
+  </div>
+</nav>

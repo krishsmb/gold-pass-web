@@ -1,0 +1,62 @@
+$colors : (
+    'primary'   : #fabf18 ,
+    'secondary' : #43b880 ,
+    'light' : #f4f3f9 ,
+    'dark'  : #212121 ,
+    'gray'  : #ced0d2 ,
+    'darkgray'  : #4f4f4f ,
+    'transparent' : transparent ,
+    'white' : #fff ,
+    'medium-gray' : #808080 ,
+    "ashgray" : #2d5d75 ,
+    "ash-blue" : #203f63,
+    "dimgreen" : #66afa6,
+    "light-brown" : #e5925b,
+    "black" :#000
+);
+
+$avatars : (
+    "small" : 38px ,
+    "medium" : 48px ,
+    "large"  : 118px
+);
+
+
+$modals : (
+    "xs" : 200px ,
+    "sm" : 500px ,
+    "md" : 650px
+);
+
+
+$fb-blue : #3c5a99 ;
+$tab-right : #dfe4e8 ;
+
+$font-small : 12px;
+$font-normal : 14px;
+$font-medium : 20px;
+$font-extra  : 24px; 
+
+$placeholder : #98a8b0 ;
+$btn-height : 45px;
+$bodybg : #f2f5f7 ;
+$padding : 15px;
+
+$dadius : 10px;
+
+$video-detail :(
+    "play-list" : 350px ,
+    "play-list-bg" : #3c3c3c    
+);
+@each $key,$color in $colors{
+    .color-#{$key}{
+        color: $color;
+    }
+    button.#{$key}{
+        background-color: $color ;
+    }
+    .text-#{$key}
+    {
+    color: $color;
+    }
+}

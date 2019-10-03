@@ -1,0 +1,207 @@
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <div class="col m6 s12">
+        <ul class="collapsible collapse-wrapper" data-collapsible="expandable">
+          <li>
+            <div class="collapsible-header">
+              <i class="fas fa-key"></i> Change Password</div>
+            <div class="collapsible-body">
+              <div class="text-center">
+                <div [hidden]="!success_message" class="alert_success"> {{success_message}} </div>
+                <div [hidden]="!error_message" class="alert_danger"> {{error_message}} </div>
+              </div>
+              <form [formGroup]="cpForm" (submit)="changePassword()">
+                <div class="row">
+                  <div class="input-field col s12 input-box">
+                    <a href="javascript:void(0)" class="pass-view" (click)="showPassword('old_password','oldEyeIconPass',$event)">
+                      <i id="oldEyeIconPass" class="fas fa-eye-slash"></i>
+                    </a>
+                    <input formControlName="old_password" id="old_password" type="password" class="validate">
+                    <label for="old_password" class="active">Old Password</label>
+                    <control-messages [control]="cpForm.controls.old_password"></control-messages>
+                  </div>
+                  <div class="input-field col s12 relative input-box">
+                    <a href="javascript:void(0)" class="pass-view" (click)="showPassword('new_password','newEyeIconPass',$event)">
+                      <i id="newEyeIconPass" class="fas fa-eye-slash"></i>
+                    </a>
+                    <!-- <a   class="pass-view"> <i class="fas fa-eye-slash"></i> </a> -->
+                    <input formControlName="new_password" id="new_password" type="password" class="validate">
+                    <label for="new_password" class="active">New Password</label>
+                    <control-messages [control]="cpForm.controls.new_password"></control-messages>
+                  </div>
+                  <div class="input-field col s12 relative input-box">
+                    <a href="javascript:void(0)" class="pass-view" (click)="showPassword('confirm_password','eyeIconPassConf',$event)">
+                      <i id="eyeIconPassConf" class="fas fa-eye-slash"></i>
+                    </a>
+                    <!-- <a href="#" class="pass-view"> <i class="fas fa-eye-slash"></i> </a> -->
+                    <input formControlName="confirm_password" id="confirm_password" type="password" class="validate">
+                    <label for="confirm_password" class="active">Confirm Password</label>
+                    <control-messages [control]="cpForm.controls.confirm_password"></control-messages>
+                  </div>
+                  <div class="clear-fix"></div>
+                </div>
+                <div class="row">
+                  <div class="button-corp top20_margin ">
+                    <button class="btn-large waves-effect waves-light  btn-primary s12" type="submit" name="action" [disabled]="!cpForm.valid">SUBMIT </button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </li>
+          <!-- Saved Cards -->
+          <li>
+            <div class="collapsible-header">
+              <i class="fas fa-credit-card"></i> Gold Pass Financials</div>
+            <div class="collapsible-body">
+              <h4 class="section-title"> Gold Pass Financials</h4>
+              <div *ngIf="successcard_message">{{successcard_message}}</div>
+              <div class="cardinfo row  valign-wrapper" *ngFor="let card of cards; index as i;" style="position:relative;">
+                <a href="javascript:void(0)" class="pass-view" style="padding-right: 30px;" (click)="deleteCard($event,card)">
+                  <i class="material-icons">close</i>
+                </a>
+                <div class="col s3">
+                  <img src="assets/img/card_visa.png" alt="">
+                </div>
+                <div class="col s9">
+                  <p>{{card.name}}</p>
+                  <p class="text-medium">
+                    <b>XXXX XXXX XXXX {{card.last4}}</b>
+                  </p>
+                  <p>{{card.exp_month}}/{{card.exp_year}}</p>
+
+
+                </div>
+
+
+              </div>
+
+              <div class="col s12 cardinfo row" *ngIf="!cards.length">
+                <p>No cards found </p>
+              </div>
+              <div *ngIf="cardSuccess" class="cardinfo row  valign-wrapper">
+                card successfully added
+              </div>
+              <form [formGroup]="newcardForm" #formDirective="ngForm">
+                <div class="row">
+                  <!-- <div class="input-field col s12 input-box">
+                                    <input placeholder="Card Number" [textMask]="{mask: mask}" placeholder="xxxx-xxxx-xxxx-xxxx" formControlName="card_number" id="card_number" type="text" class="validate">
+                                    <label for="card_number" class="active">Card Number</label>
+                                    <control-messages [control]="newcardForm.controls.card_number"></control-messages>
+                                  </div> -->
+                  <div class="input-field col s12 relative input-box">
+                    <a href="#" class="pass-view"></a>
+                    <input placeholder="Name on the card" formControlName="name" id="password" type="text" class="validate">
+                    <control-messages [control]="newcardForm.controls.name"></control-messages>
+                    <label for="first_name" class="active">Name on the Card</label>
+                  </div>
+                  <div class="input-field col s12 input-box">
+                    <input [textMask]="{mask: mask}" placeholder="xxxx-xxxx-xxxx-xxxx" formControlName="card_number" id="first_namea" type="text"
+                      class="validate">
+                    <control-messages [control]="newcardForm.controls.card_number"></control-messages>
+                    <label for="first_namea" class="active">Card Number</label>
+                  </div>
+                  <!-- <div class="input-field col s12 relative input-box">
+                                  <a href="#" class="pass-view"></a>
+                                  <input placeholder="Card Type" formControlName="card_type" id="card_type" type="text" class="validate">
+                                  <label for="card_type" class="active">Card Type</label>
+                                  <control-messages [control]="newcardForm.controls.card_type"></control-messages>
+                                </div>                       -->
+                  <div class="input-field col s12 relative input-box">
+                    <a href="#" class="pass-view"> </a>
+                    <input placeholder="MM/YYYY" [textMask]="{mask: exp_date_mask}" formControlName="expiration_date" id="passworda" type="text"
+                      class="validate">
+                    <label for="expiration_date" class="active">Expiration Date</label>
+                    <control-messages [control]="newcardForm.controls.expiration_date"></control-messages>
+                  </div>
+                  <div class="input-field col s12 input-box">
+                    <input [textMask]="{mask: cvc_mask}" placeholder="" formControlName="cvc" id="first_namea" type="text" class="validate">
+                    <control-messages [control]="newcardForm.controls.cvc"></control-messages>
+                    <label for="first_namea" class="active">CVC</label>
+                  </div>
+
+                  <div class="clear-fix"></div>
+                </div>
+                <div class="row">
+                  <div *ngIf="cardError">{{cardError}}</div>
+                  <div class="button-corp top20_margin ">
+                    <button class="btn-large waves-effect waves-light  btn-primary s12" type="submit" (click)="addCard()" [disabled]="!newcardForm.valid">SAVE </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+
+        <div *ngIf="user.user_type == 1" class="content-wrapper">
+          <div class="content-wrapper-inside">
+            <h4 class="section-title">Notification Preferences</h4>
+            <div class="divider"></div>
+            <div class="row top20_margin">
+              <div class="col s8">Every Time a Ticket of My Event is Purchased</div>
+              <div class="col s4 right-align">
+                <div class="switch">
+                  <label>
+
+                    <input type="checkbox" name="ticket_purchase_notification" [(ngModel)]="ticket_purchase_notification" (change)="changeSetting()">
+                    <span class="lever"></span>
+
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="row">
+              <div class="col s8">Every Time a Bid is Placed </div>
+              <div class="col s4 right-align">
+                <div class="switch">
+                  <label>
+
+                    <input type="checkbox" name="bid_placed_notification" [(ngModel)]="bid_placed_notification" (change)="changeSetting()">
+                    <span class="lever"></span>
+
+                  </label>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col s8">Every Time an ovation is Added </div>
+              <div class="col s4 right-align">
+                <div class="switch">
+                  <label>
+
+                    <input type="checkbox" name="testimonial_added_notification" [(ngModel)]="testimonial_added_notification" (change)="changeSetting()">
+                    <span class="lever"></span>
+
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="row">
+                                        <div class="col s8">Every Time a Testimonial is Added </div>
+                                        <div class="col s4 right-align">
+                                                        <div class="switch" name="testimonial_added_notification" [(ngModel)]="testimonial_added_notification" (change)="changeSetting()">
+                                                         <label>
+                                                         
+                                                          <input type="checkbox">
+                                                          <span class="lever"></span>
+                                                         
+                                                         </label>
+                                                         </div>   
+                                        </div>                                     
+                                  </div> -->
+          </div>
+        </div>
+
+      </div>
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+
+<app-user-common></app-user-common>

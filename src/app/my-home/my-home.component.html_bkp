@@ -1,0 +1,190 @@
+ <!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+      <div class="row">
+        <!-- left nave -->
+        <app-left-nave></app-left-nave>
+
+        <div class="col m6 s12" [hidden]="feed_list.length">        
+          
+          <div class="no-record post-wrapper" >
+           <h5>No feeds found!</h5>
+           <p> Please follow Celebrities to view their feeds.</p> 
+          </div>
+         
+        </div>
+
+        
+       
+        <!-- <div class="col m6 s12"  id="test1" infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollUpDistance]="1.5"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScrollDown()"
+        [infiniteScrollDisabled] = 'loadMore' [hidden]="!feed_list.length"> -->
+        <div class="col m6 s12" id="test1">
+        <div id="about" class="nano">
+          <div class="content"> 
+            
+         
+
+            <!-- start box -->
+            
+          <div class="post-wrapper" *ngFor="let feeds of feed_list"> 
+             <!-- for feed_type is 1 ie Meeting -->
+            <div *ngIf="feeds.feed_type==1">
+              
+                <div class="row post-padding">
+                    <div class="col s2">
+                        <img (click)="publicProfile()" src="assets/img/thumb_event.png" alt="" class="circle responsive-img thumb65">
+                       <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <div>
+                          <span class="user-title">{{feeds.feed_data.title | capitalizeFirst}} </span><br>
+                          <span>Meeting @ {{feeds.feed_data.venue}}</span>
+                          <p class="user-description">{{feeds.feed_data.description | capitalizeFirst}}</p>
+                      </div>
+                      <div class="post-eventtime no-bottompadding">
+                          <div class="box"><img src="assets/img/calendar_icon.png" alt="" class=" responsive-img"></div>
+                          <div>{{feeds.feed_data.date}} <br> <b>{{feeds.feed_data.time}}</b></div> 
+                          <div class="tickek-price text-green" >${{feeds.feed_data.ticket_price}} <br> <span>Ticket Price</span></div>
+                      </div>
+                    </div>
+                   
+                  </div>
+                  <div class="row post-padding">
+                      <div class="col s2">
+                        <img src="{{feeds.feed_data.posted_by_image}}" (click)="publicProfile(feeds.feed_data.creator_id)" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                      </div>
+                      <div class="col s7">
+                        <div>
+                            <span class="user-subtitle text-medium-gray">Posted By:</span>
+                            <span class="user-title" [hidden]="feeds.feed_data.creator_id==user_id">{{feeds.feed_data.posted_by}}</span>                          
+                            <span class="user-title" [hidden]="feeds.feed_data.creator_id!=user_id">You</span>
+                            <br>                            
+                            
+                            <p class="user-description"> <span class="text-medium-gray">Posted on:</span>{{feeds.feed_data.created_at}}</p>
+                        </div>
+                      </div>
+                      <div class="col s3">
+                          <div>
+                          <button class="viewbtn" (click)="eventDetails(feeds.feed_data.id)">View Detail</button>
+                          </div>
+                          </div>
+                    </div>
+                    <div class="row post-padding" *ngIf="feeds.feed_data.winner_id!=0">
+                        <div class="col s2 trophyrel">
+                          <img src="{{feeds.feed_data.winner_image}}" alt="" class="circle responsive-img thumb65"> 
+                          <span class="trophypic"><img src="assets/img/trophy.png" alt="" class="responsive-img"></span>
+                       </div>
+                        <div class="col s10">
+                          <div>
+                              <span class="user-subtitle text-medium-gray">Won By:</span>
+                              <span class="user-title">{{feeds.feed_data.winner_name}} </span>                           
+                          </div>
+                        </div>
+                      </div>
+                    <div class="post-footer valign-wrapper">
+                      <div class="col s6">Draw Date: {{feeds.feed_data.draw_date}}</div>
+                      <div class="col s6" [hidden]="feeds.feed_data.creator_id==user_id"><a class="waves-effect waves-light btn right btn-custom btn-dimgreen" (click)="openModalForBuyTickets(feeds.feed_data)">BUY TICKETS</a></div>
+                    </div>
+
+            </div>
+             <!-- for feed_type is 1 ie Bid -->
+            <div *ngIf="feeds.feed_type==2">
+                    <div class="row post-padding no-marginbottom">
+                        <div class="col s2">
+                          <img src="assets/img/thumb_bid.png" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                        </div>
+                        <div class="col s10">
+                          <div>
+                              <span class="user-title">{{feeds.feed_data.title | capitalizeFirst}} </span><br>
+                              <span>Bid End Date: {{feeds.feed_data.bid_end_date}}</span>  
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <img *ngIf="feeds.feed_data.image!=''" src="{{feeds.feed_data.image}}" alt="" class="responsive-img thumb-post">
+                        <p *ngIf="feeds.feed_data.image==''" class="feed-description">{{feeds.feed_data.description | capitalizeFirst}}</p>
+                      </div>
+  
+                      <div class="row post-padding no-bottompadding">
+                          <div class="col s2">
+                            <img src="{{feeds.feed_data.posted_by_image}}" (click)="publicProfile(feeds.feed_data.creator_id)" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                          </div>
+                          <div class="col s7">
+                            <div>
+                                <span class="user-subtitle text-medium-gray">Posted By:</span>
+                                <span class="user-title" [hidden]="feeds.feed_data.creator_id==user_id">{{feeds.feed_data.posted_by}}</span>                          
+                                <span class="user-title" [hidden]="feeds.feed_data.creator_id!=user_id">You</span>                          
+                                <p class="user-description"> <span class="text-medium-gray">Posted on:</span>{{feeds.feed_data.post_date}} </p>
+                            </div>
+                          </div>
+                          <div class="col s3">
+                              <div>
+                              <button class="viewbtn" (click)="bidDetails(feeds.feed_data.id)">View Detail</button>
+                              </div>
+                              </div>
+                        </div>
+  
+                        <div class="row post-padding" *ngIf="feeds.feed_data.latest_bidder_id!=0 && feeds.feed_data.won_bidder_id==0">
+                            <div class="col s2">
+                              <img src="{{feeds.feed_data.latest_bidder_image}}" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                            </div>
+                            <div class="col s10">
+                              <div>
+                                  <span class="user-subtitle text-medium-gray">Bid By:</span>
+                                  <span class="user-title">{{feeds.feed_data.latest_bidder_name}} </span><br>                            
+                                  <p class="user-description"> <span class="text-medium-gray">Bid for this at </span> <b class="text-secondary">   ${{feeds.feed_data.latest_bid_amount}}</b></p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row post-padding" *ngIf="feeds.feed_data.won_bidder_id!=0">
+                           
+                            <div class="col s2 trophyrel">
+                              <img src="{{feeds.feed_data.won_bidder_image}}" alt="" class="circle responsive-img thumb65"> 
+                              <span class="trophypic"><img src="assets/img/trophy.png" alt="" class="responsive-img"></span>
+                           </div>
+                            <div class="col s10">
+                              <div>
+                                  <span class="user-subtitle text-medium-gray">Won By:</span>
+                                  <span class="user-title">{{feeds.feed_data.won_bidder_name}} </span><br>                            
+                                  <p class="user-description"> <span class="text-medium-gray">Won for this at </span> <b class="text-secondary">   ${{feeds.feed_data.won_bid_amount}}</b></p>
+                              </div>
+                            </div>
+                          </div>
+  
+                      <div class="post-footer valign-wrapper" *ngIf="feeds.feed_data.creator_id!=user_id && feeds.feed_data.won_bidder_id==0">
+                        <div class="col s5" *ngIf="feeds.feed_data.minimum_bid_amount!=0 || feeds.feed_data.minimum_bid_amount!=''">Buy Now at <span class="text-secondary text-medium"><b>${{feeds.feed_data.instant_sale_price}}</b></span></div>
+                        <div class="col s7 button-holder">
+                          <a class="waves-effect waves-light btn  btn-custom btn-primary" *ngIf="feeds.feed_data.minimum_bid_amount!=0 || feeds.feed_data.minimum_bid_amount!=''" (click)="buyNow(feeds.feed_data)">BUY NOW</a>
+                          <a class="waves-effect waves-light btn  btn-custom btn-dimgreen" *ngIf="feeds.feed_data.latest_bidder_id==0 && feeds.feed_data.won_bidder_id==0" (click)="openModalForBuyBid(feeds.feed_data)">BID NOW</a>
+                          <a class="waves-effect waves-light btn  btn-custom btn-dimgreen"  *ngIf="(feeds.feed_data.latest_bidder_id!=0 && feeds.feed_data.won_bidder_id==0) && ((feeds.feed_data.instant_sale_price && ((feeds.feed_data.latest_bid_amount+ feeds.feed_data.bid_difference_amount) < feeds.feed_data.instant_sale_price )) || (!feeds.feed_data.instant_sale_price))"  (click)="openModalForBuyBid(feeds.feed_data)">OUT BID NOW</a>
+                        </div>
+                      </div>
+              
+            </div>
+
+          
+             
+          </div>
+           <!-- end box -->
+          </div> 
+        </div> 
+ 
+        </div>
+        <!-- notifications -->
+        <app-notifications></app-notifications>
+      </div>
+      </div>     
+</div> 
+<app-user-common></app-user-common>
+<script>
+  // $(".nano").nanoScroller().bind("scrollend", function(e) { 
+  //     // console.log("current HTMLDivElement", e.currentTarget); 
+  //     alert('haiiii');
+  //   });
+</script>

@@ -1,0 +1,67 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <div class="col m9 s12 testimonial">
+        <div class="input-field col s12 relative inputset">
+          <div class="search-actions">
+            <a href="javascript:void(0)" (click)="searchCelebrity($event)" class="pass-view-btn">
+              <i class="material-icons">search</i>
+            </a>
+            <a href="javascript:void(0)" (click)="closeSearch($event)" class="pass-view-btn">
+              <i class="material-icons">close</i>
+            </a>
+          </div>
+          <!-- <a style="display:inline-block" href="javascript:void(0)"   class="pass-view" (click)="searchCelebrity($event)"> <i   class="material-icons" >search</i> </a>
+                  <a style="display:inline-block" href="javascript:void(0)"  class="pass-view" style="padding-right: 30px;" (click)="closeSearch($event)"><i  class="material-icons">close</i></a> -->
+          <input placeholder="Search" type="search" class="validate" [(ngModel)]="keyword" (keydown.enter)="onKeydown($event)">
+        </div>
+        <div class="cloop">
+          <div id="about" class="nano">
+            <div class="content">
+              <div *ngFor="let list of celebrityList ; index as i;">
+                <div class="row " style="margin: 0px;">
+                  <div class="col m1 s3">
+                    <div class="propic">
+                      <img src="{{list.profile_image}}" alt="" class="circle responsive-img thumb65">
+                      <div class="addstar" *ngIf="list.celebrity_rank=='1'">
+                        <img src="assets/img/3.png" alt="" class="circle responsive-img thumb65">
+                      </div>
+                      <div class="addstar" *ngIf="list.celebrity_rank=='2'">
+                        <img src="assets/img/1.png" alt="" class="circle responsive-img thumb65">
+                      </div>
+                      <div class="addstar" *ngIf="list.celebrity_rank=='3'">
+                        <img src="assets/img/2.png" alt="" class="circle responsive-img thumb65">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col m8  s9">
+                    <h5>{{list.first_name}} {{list.last_name}}</h5>
+                    <h4>{{list.location}}</h4>
+                  </div>
+                  <div class="col m3  s12 icnst">
+                    <span *ngIf="user.user_type != '1'">
+                      <i *ngIf="!list.following" class="material-icons" (click)="followMe(list,true)">person_add</i>
+                    </span>
+                    <span>
+                      <img style="width: 22px;height: 22px;" *ngIf="list.following" src="assets/img/twitter.png" alt="" width="50"
+                        height="50" (click)="followMe(list,false)">
+                    </span>
+                    <button class="waves-effect waves-light outyellow" (click)="publicProfile(list.user_id)">view profile</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row " *ngIf="!celebrityList.length">
+                No celebrities found
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

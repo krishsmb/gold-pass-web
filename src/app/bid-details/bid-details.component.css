@@ -1,0 +1,13 @@
+.text-red {
+    color: #f54129;
+}
+.tickek-price span {
+    font-size: 13px;
+}
+.sale-price{
+    font-size: 14px;
+    font-weight: bold;
+}
+.posted_buy{
+    margin-top: 15px;
+}

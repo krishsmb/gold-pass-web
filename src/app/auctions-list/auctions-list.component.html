@@ -1,0 +1,298 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <!-- <ng4-loading-spinner> </ng4-loading-spinner>  -->
+      <div class="col m6 s12">
+        <div class="row">
+          <div class="dropdownmainbox col s12" *ngIf="url == '/my_auctions'">
+            <a class="dropdown-button adddropdown" href="javascript:void(0);" data-activates="dropdown3" data-beloworigin="true" data-constrainwidth="false">
+              <span class="hide-on-small-only"> {{bidTitle}}</span>
+              <i class="fas fa-ellipsis-v hide-on-small-only right"></i>
+            </a>
+            <ul id="dropdown3" class="dropdown-content addcontent right">
+              <li [ngClass]="{'active':bidType == ''}">
+                <a href="javascript:void(0);" (click)="changebidType('')">All </a>
+              </li>
+              <li [ngClass]="{'active':bidType == 'live'}">
+                <a href="javascript:void(0);" (click)="changebidType('live')">Live </a>
+              </li>
+              <li [ngClass]="{'active':bidType == 'past'}">
+                <a href="javascript:void(0);" (click)="changebidType('past')">Past </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="dropdownmainbox col s12" *ngIf="url == '/all_auctions'">
+            <a class="dropdown-button adddropdown" href="javascript:void(0);" data-activates="dropdown3" data-beloworigin="true" data-constrainwidth="false">
+              <span class="hide-on-small-only"> {{bidTitle}}</span>
+              <i class="fas fa-ellipsis-v hide-on-small-only right"></i>
+            </a>
+            <ul id="dropdown3" class="dropdown-content addcontent right">
+              <li>
+                <a [ngClass]="{'active':bidType == 'NGR'}" href="javascript:void(0);" (click)="changebidType('NGR')">National Gold Retail</a>
+              </li>
+              <li *ngIf="user.user_type !=2" [ngClass]="{'active':bidType == 'goldRetail'}">
+                <a href="javascript:void(0);" (click)="changebidType('goldRetail')">Gold Retail</a>
+              </li>
+              <li [ngClass]="{'active':bidType == 'mybid'}">
+                <a href="javascript:void(0);" (click)="changebidType('mybid')">My Bids</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="dropdownmainbox col s12" *ngIf="url == '/auctions_hosted'">
+            <a class="dropdown-button adddropdown" href="javascript:void(0);" data-activates="dropdown3" data-beloworigin="true" data-constrainwidth="false">
+              <span class="hide-on-small-only"> {{bidTitle}}</span>
+              <i class="fas fa-ellipsis-v hide-on-small-only right"></i>
+            </a>
+            <ul id="dropdown3" class="dropdown-content addcontent right">
+              <li [ngClass]="{'active':bidType == 'GR'}">
+                <a href="javascript:void(0);" (click)="changebidType('GR')">Gold Retail </a>
+              </li>
+              <li [ngClass]="{'active':bidType == 'live'}">
+                <a href="javascript:void(0);" (click)="changebidType('live')">Live </a>
+              </li>
+              <li [ngClass]="{'active':bidType == 'past'}">
+                <a href="javascript:void(0);" (click)="changebidType('past')">Past </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col s12 looptab">
+            <div id="about" class="nano">
+              <div class="content">
+
+                <div class="--post-card" *ngFor="let auction of auctionsList; index as i;">
+                  <div class="--flex-s --post-header">
+                    <div class="--flex-s --avatar-head">
+                      <span class="--avatar-medium" *ngIf="auction.auction == 'Y'">
+                        <img src="assets/img/thumb_bid.png">
+                      </span>
+                      <span class="--avatar-medium" *ngIf="auction.auction == 'N'">
+                        <img src="assets/img/cart.png">
+                      </span>
+                    </div>
+                    <div class="--flex-s --head-details">
+                      <div class="--footer-abs-sec">
+                        <div class="--row-inline">
+                          <div class="viewBidButton">
+                            <button class="viewbtn" (click)="bidDetails(auction.id)">View Detail</button>
+                          </div>
+                          <span class="--name-post truncate">
+                            {{auction.title | capitalizeFirst}}
+                          </span>
+
+                        </div>
+                        <div class="--row-inline">
+                          <span class="truncate" *ngIf="auction.auction == 'Y'" [ngClass]="{'dismissCls':auction.bid_status == 'dismissed'}">
+                            GR Closing Time: {{auction.bid_end_date}},{{auction.bid_end_time}}
+                          </span>
+                          <span class="truncate" *ngIf="(auction.auction == 'N') && (auction.bid_status == 'past')">
+                            Sold Out
+                          </span>
+                          <span class="truncate" *ngIf="(auction.auction == 'N') && (auction.bid_status == 'live')">
+                            On Sale
+                          </span>
+                          <span class="truncate" *ngIf="(auction.auction == 'N') && (auction.bid_status == 'dismissed')">
+                            Dissmissed
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="--flex-s">
+                    <div class="--post-image-wrapper" *ngIf="auction.image!=''">
+                      <img class="--post-image" src="{{auction.image}}">
+                    </div>
+                    <div class="--post-content-wrapper" *ngIf="auction.image==''">
+                      <p>{{auction.description}}</p>
+                    </div>
+                  </div> -->
+
+                  <div class="--flex-s">
+                    <div class="--post-image-wrapper" *ngIf="auction.images.length != 0">
+
+                      <div class="card-preview" attr.data-preset="{{auction.images.length > 5 ? 5 : auction.images.length}}">
+                        <img class="transparent-im" src="assets/img/assets/transparent.png">
+                        <div class="thumbs-wrapper">
+                          <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                            <div class="preview-thumb-inner"></div>
+                            <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[0]" [offset]="offset">
+                            <!-- <img class="--post-image" src="{{feeds.feed_data.image}}"> -->
+                          </div>
+                          <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                            <div class="preview-thumb-inner"></div>
+                            <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[1]" [offset]="offset">
+                          </div>
+
+                          <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                            <div class="preview-thumb-inner"></div>
+                            <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[2]" [offset]="offset">
+                          </div>
+                          <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                            <div class="preview-thumb-inner"></div>
+                            <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[3]" [offset]="offset">
+                          </div>
+                          <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                            <div class="more-media">
+                              <div class="inline-flex txt-25">{{auction.images.length-4}}</div>
+                              <div class="inline-flex txt-3 title-sub">
+                                <span>Photos</span>
+                              </div>
+                            </div>
+                            <div class="preview-thumb-inner"></div>
+                            <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[4]" [offset]="offset">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="--post-content-wrapper" *ngIf="auction.images.length == 0">
+                      <p>{{auction.description}}</p>
+                    </div>
+                  </div>
+
+
+                  <div class="--flex-s --post-footer">
+                    <div class="--flex-s --posted-by">
+                      <span class="--avatar-small">
+                        <img src="{{auction.posted_by_image}}">
+                      </span>
+                      <span class="--user-name-post truncate" *ngIf="auction.creator_id!=user_id">
+                        <span class="--gray">Posted by</span> : {{auction.posted_by}}
+                      </span>
+                      <span class="--user-name-post truncate" *ngIf="auction.creator_id==user_id">
+                        <span class="--gray">Posted by</span> : You
+                      </span>
+                    </div>
+                    <div class="--flex-s" *ngIf="auction.bid_status=='live' && auction.latest_bidder_id!=0 && auction.won_bidder_id==0  ">
+                      <div class="--inner-bid-list">
+                        <ul class="--bid-list">
+                          <li>
+                            <div class="--flex-s --avatar">
+                              <span class="--avatar-small">
+                                <img src="{{auction.latest_bidder_image}}">
+                              </span>
+                            </div>
+                            <div class="--flex-s">
+                              <div class="--footer-abs-sec --no-padding">
+                                <div class="--row-inline">
+                                  <span class="truncate">
+                                    {{auction.latest_bidder_name}}
+                                  </span>
+                                </div>
+                                <div class="--row-inline">
+                                  <span class="truncate">
+                                    <span class="--gray">
+                                      Bid for this at
+                                    </span>
+                                    <span class="--green">
+                                      {{auction.latest_bid_amount | currency}}
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="--flex-s" *ngIf="auction.bid_status =='past'">
+                      <div class="--inner-bid-list">
+                        <ul class="--bid-list">
+                          <li>
+                            <div class="--flex-s --avatar">
+                              <!-- With trophy -->
+                              <span *ngIf="(auction.bid_status == 'past' && auction.won_bidder_id == 0)" class="--avatar-small --has-trophy">
+                                <!-- <span class="--trophy">
+                                                      <img *ngIf="(auction.win_type != 'buy')" src="assets/img/trophy.png">
+                                                </span> -->
+                                <img src="{{auction.won_bidder_image}}">
+                              </span>
+                              <!-- End -->
+                              <!-- Without trophy -->
+                              <span *ngIf="(auction.bid_status == 'past' && auction.won_bidder_id > 0)" class="--avatar-small --has-trophy">
+                                <span class="--trophy">
+                                  <img *ngIf="(auction.win_type != 'buy')" src="assets/img/trophy.png">
+                                </span>
+                                <img src="{{auction.won_bidder_image}}">
+                              </span>
+                              <!-- end -->
+                              <!-- <span class="--avatar-small ">
+                                                <img src="{{auction.won_bidder_image}}">
+                                                </span> -->
+                            </div>
+                            <div class="--flex-s">
+                              <div class="--footer-abs-sec --no-padding">
+                                <div class="--row-inline">
+                                  <span class="truncate" *ngIf="(auction.auction == 'Y') && auction.won_bidder_id!=0">
+                                    {{auction.won_bidder_name}}
+                                  </span>
+                                  <span class="truncate" *ngIf="(auction.auction == 'N') && auction.won_bidder_id!=0">
+                                    {{auction.won_bidder_name}}
+                                  </span>
+                                </div>
+                                <div class="--row-inline" *ngIf="(auction.auction == 'Y') && auction.won_bidder_id!=0">
+                                  <span class="truncate">
+                                    <span class="--gray">
+                                      Bought this for at
+                                    </span>
+                                    <span class="--green">
+                                      {{auction.won_bid_amount | currency}}
+                                    </span>
+                                  </span>
+                                </div>
+                                <div class="--row-inline" *ngIf="(auction.auction == 'N') && auction.won_bidder_id!=0">
+                                  <span class="truncate">
+                                    <span class="--gray">
+                                      Bought this for at
+                                    </span>
+                                    <span class="--green">
+                                      {{auction.won_bid_amount | currency}}
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="--flex-s" *ngIf="(auction.bid_status =='live') && (auction.creator_id != user.user_id)">
+                      <div class="--flex-s --footer-action-sections --footer-section-bidrate">
+                        <div class="--footer-abs-sec">
+                          <div class="--row-inline">
+                            <span class="truncate --bid-rate-amount" *ngIf="auction.minimum_bid_amount!=0 || auction.minimum_bid_amount!=''">Buy Now at
+                              <span class="--green">{{auction.instant_sale_price | currency}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="(auction.minimum_bid_amount !=0 || auction.minimum_bid_amount != '')">
+                        <button class="--btn-buy-now bidNow" (click)="buyNow(auction)">BUY NOW</button>
+                      </div>
+                      <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="(auction.latest_bidder_id == 0 && auction.won_bidder_id == 0)">
+                        <button class="--btn-bid-now bidNow" (click)="openModalForBuyBid(auction)">BID NOW</button>
+                      </div>
+                      <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="(auction.latest_bidder_id != 0 && auction.won_bidder_id == 0) && ((auction.instant_sale_price && ((auction.latest_bid_amount+ auction.bid_difference_amount) < auction.instant_sale_price )) || (!auction.instant_sale_price))">
+                        <button class="--btn-bid-now bidNow" (click)="openModalForBuyBid(auction)">BID NOW</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="post-wrapper" *ngIf="auctionsList.length == 0">
+                  <p>No Auctions Found</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- notifications -->
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

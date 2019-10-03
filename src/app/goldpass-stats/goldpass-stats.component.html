@@ -1,0 +1,135 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <!-- <ng4-loading-spinner> </ng4-loading-spinner>  -->
+      <div class="col m6 s12">
+        <div class="row">
+          <div class="dropdownmainbox col s12">
+            <a class="dropdown-button adddropdown" href="javascript:void(0);" data-activates="dropdown3" data-beloworigin="true" data-constrainwidth="false">
+              <span class="hide-on-small-only"> {{title}}</span>
+              <!-- <i class="fas fa-ellipsis-v hide-on-small-only right"></i> -->
+            </a>
+            <!-- <ul id="dropdown3" class="dropdown-content addcontent right">
+              <li [ngClass]="{'active':status == ''}">
+                <a href="javascript:void(0);" (click)="changeStatus('')">All</a>
+              </li>
+              <li [ngClass]="{'active':status == 'open'}">
+                <a href="javascript:void(0);" (click)="changeStatus('open')">Open</a>
+              </li>
+              <li [ngClass]="{'active':status == 'past'}">
+                <a ref="javascript:void(0);" (click)="changeStatus('past')" >Pending</a>
+              </li>
+            </ul> -->
+          </div>
+          <div class="col s12 looptab">
+            <div id="about" class="nano">
+              <div class="content">
+                <div class="post-wrapper" *ngFor="let feed of feedList; index as i;">
+                  <!-- TGS -->
+                  <div class="row post-padding" *ngIf="feed.feed_type == 4 && feed.stats_data.tgs_status !='dismissed'">
+                    <div class="col s2">
+                      <img src="assets/img/tgs_event.png" alt="" class="circle responsive-img thumb65">
+                    </div>
+                    <div class="col s8">
+                      <div>
+                        <span class="user-title">{{feed.stats_data.title | capitalizeFirst}}</span><br>
+                        <span>{{feed.stats_data.venue | titlecase}}</span><br>
+                      </div>
+                    </div>
+                    <div class="col s2">
+                        <button class="viewButton" (click)="tgsDetails(feed.event_id)">View Detail</button>
+                    </div>
+
+                    <br>
+                    <br>
+                    <div class="row post-padding">
+                      <div class="col s12">
+                        {{feed.stats_data.description}}
+                      </div>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="row post-padding">
+                        <div class="col s6">
+                            <h2 class="text-add">{{feed.stats_data.ticket_sold}}<span>TICKET(s) SOLD</span></h2>
+                          </div>
+                          <div class="col s6">
+                              <h2 class="text-add"><i class="fas fa-calendar-alt"></i><span>{{feed.stats_data.date}}</span></h2>
+                          </div>
+                    </div>
+
+                    <!-- Copy content -->
+                    <div class="post-footer row">
+                      <div class="row post-padding b-padding">
+                          <div class="col s6">
+                            <h2 class="text-add">{{feed.stats_data.view_count}}<span>EVENT VIEWS</span></h2>
+                          </div>
+                          <div class="col s6">
+                              <h2 class="text-add">{{feed.stats_data.total_revenue}}<span>Sales</span></h2>
+                          </div>
+                        </div>
+                    </div>
+                    
+                  </div>
+
+                  <!-- Event -->
+                  <div class="row post-padding" *ngIf="feed.feed_type == 1 && feed.stats_data.event_status !='dismissed'">
+                      <div class="col s2">
+                        <img src="assets/img/thumb_event.png" alt="" class="circle responsive-img thumb65">
+                      </div>
+                      <div class="col s8">
+                        <div>
+                          <span class="user-title">{{feed.stats_data.title | capitalizeFirst}}</span><br>
+                          <span>{{feed.stats_data.venue | titlecase}}</span><br>
+                        </div>
+                      </div>
+                      <div class="col s2">
+                          <button class="viewButton" (click)="eventDetails(feed.event_id)">View Detail</button>
+                      </div>
+                      <br><br>
+                      <div class="row post-padding">
+                        <div class="col s12">
+                          {{feed.stats_data.description}}
+                        </div>
+                      </div>
+                      <br><br>
+                      <div class="row post-padding">
+                          <div class="col s6">
+                              <h2 class="text-add">{{feed.stats_data.ticket_sold}}<span>TICKET(S) SOLD</span></h2>
+                            </div>
+                            <div class="col s6">
+                                <h2 class="text-add"><i class="fas fa-calendar-alt"></i><span>{{feed.stats_data.date}}</span></h2>
+                            </div>
+                      </div>
+                      <div class="post-footer row">
+                        <div class="row post-padding b-padding">
+                            <div class="col s6">
+                              <h2 class="text-add">{{feed.stats_data.view_count}}<span>EVENT VIEWS</span></h2>
+                            </div>
+                            <div class="col s6">
+                                <h2 class="text-add">{{feed.stats_data.total_revenue}}<span>REVENUE EARNED</span></h2>
+                            </div>
+                          </div>
+                      </div>
+                      
+                    </div>
+                </div>
+                <div class="post-wrapper" *ngIf="feedList.length == 0">
+                  <p>No Gold Pass Stats Found</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- notifications -->
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

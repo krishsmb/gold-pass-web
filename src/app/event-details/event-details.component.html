@@ -1,0 +1,202 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <div class="col m6 s12">
+        <!-- <div class="row post-padding submenu">
+               <a href="">My GP Events</a><a href="#"><i class="fas fa-caret-right"></i></a><a href="">My GP Events</a>
+               </div> -->
+        <div class="post-wrapper">
+          <div class="row post-padding">
+            <div class="col s2">
+              <img [hidden]="event_data.creator_id!=user_id" src="assets/img/thumb_event.png" alt="" class="circle responsive-img thumb65">
+              <!-- notice the "circle" class -->
+              <img [hidden]="event_data.creator_id==user_id" src="{{event_data.posted_by_image}}" (click)="publicProfile(event_data.creator_id)"
+                alt="" class="circle responsive-img thumb65">
+            </div>
+            <div class="col s10">
+              <div>
+                <span class="user-title">{{event_data.title}} </span>
+                <br>
+                <span [hidden]="event_data.creator_id==user_id">Posted by {{event_data.posted_by}}</span>
+                <span [hidden]="event_data.creator_id!=user_id">Posted by You</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div class="addpading">
+                  <p class="user-description">{{event_data.description}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12">
+              <div class="row loppdiv">
+                <div class="col s2">
+                  <span class="addicon">
+                    <img src="assets/img/venue.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Venue</h4>
+                  </span>
+                </div>
+                <div class="col s7 right">
+                  <h4 class="user-title right">{{event_data.venue}}</h4>
+                </div>
+              </div>
+              <div class="row loppdiv">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/calendarTime.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Date</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{event_data.date}} , {{event_data.time}} </h4>
+                </div>
+              </div>
+              <div class="row loppdiv">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/ticketprice.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Ticket Price</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">
+                    <b class="text-secondary"> {{event_data.ticket_price | currency}}</b>
+                  </h4>
+                </div>
+              </div>
+              <div class="row loppdiv" [hidden]="event_data.creator_id==user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/purchase.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Ticket(s) Purchased</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{event_data.my_ticket_count}}</h4>
+                </div>
+              </div>
+              <div class="row loppdiv" [hidden]="event_data.creator_id!=user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/ticketSold.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Ticket(s) Sold</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{event_data.ticket_sold}}</h4>
+                </div>
+              </div>
+              <div class="row loppdiv" [hidden]="event_data.creator_id!=user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/revenue.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Revenue Earned</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{event_data.total_revenue | currency}}</h4>
+                </div>
+              </div>
+              <div class="row loppdiv" *ngIf="event_data.raffle == 'Y'">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/calendarTime.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Draw Date </h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{event_data.draw_date}} </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row post-padding">
+            <div class="col s6">
+            </div>
+            <div class="col s6" [hidden]="event_data.creator_id!=user_id || event_data.event_status == 'dismissed'">
+              <a class="waves-effect waves-light btn  btn-custom btn-primary right" (click)="openConfirmationModal()">Cancel
+                Event</a>
+            </div>
+            <div class="col s6" [hidden]="event_data.creator_id==user_id" *ngIf="event_data.event_status=='open'">
+              <a class="waves-effect waves-light btn  btn-custom btn-primary right" (click)="openModalForBuyTickets(event_data)">BUY
+                TICKETS</a>
+            </div>
+          </div>
+        </div>
+        <!-- Review post Section -->
+        <div class="post-wrapper" *ngIf="event_data.event_status == 'past' && event_data.my_ticket_count > 0"  style="padding: 15px;">
+          <div class="row">
+            <div class="col s12">
+              <span class="user-title">Rate & Review</span><br>
+              <rating 
+                [(ngModel)]="testimonial.rating"
+                [max]="5"
+                fullIcon="★"
+                emptyIcon="☆"
+                [required]="true"
+                [readonly]="testimonial.readonly"
+                [float]="true"
+                [titles]="['1', '2', '3', '4', '5']"></rating>
+            </div>
+          </div>
+          <div class="" *ngIf="event_data.rating == 0 && event_data.rating == ''">
+            <div>
+              <textarea [(ngModel)]="testimonial.review" placeholder="type review.." style="padding: 10px; height: 100px;border: 1px solid #e3e3e3;resize: none;"></textarea>
+            </div>
+            <div class="no-bottompadding" style="overflow: hidden;">
+              <button (click)="submitOvation(event_data.id)" class="Sharebtn btn-primary" style="float: right;"><span> Submit</span></button>
+            </div>
+          </div>
+          <div class="row post-padding postpad" *ngIf="event_data.rating != 0 || event_data.rating != ''">
+            <div>
+               <p class="user-description">{{testimonial.review}}</p>
+            </div>
+            <div class="post-eventtime no-bottompadding">
+               <!-- <div>Posted on:  {{testimonial.created_at}}</div> -->
+               <!-- <button class="Sharebtn btn-primary" ><i class="fas fa-share-alt"></i><span> Share</span></button> -->
+            </div>
+         </div>
+        </div>
+      </div>
+
+      <!-- Confirmation modal -->
+      <div id="confirmation_modal" class="modal notification_modal">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s8">
+              <!-- <h4>Post Event</h4> -->
+            </div>
+            <div class="col s4 right-align">
+              <a href="javascript:void(0)" (click)="closeConfirmation()">
+                <i class="material-icons">close</i>
+              </a>
+            </div>
+          </div>
+          <div class="row no-marginbottom">
+            <div class="input-field col s12">
+              <p class="center">{{confirmation_message}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <button (click)="cancelMyEvent($event)" data-dismiss="modal" class="btn waves-effect waves-light col s12 btn-primary-square"
+                type="submit" name="action">Cancel Event</button>
+              <!-- <button (click)="closeConfirmation()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">Cancel</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- End Confirmation modal -->
+
+      <!-- notifications -->
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

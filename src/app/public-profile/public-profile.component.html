@@ -1,0 +1,619 @@
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <!-- <app-left-nave></app-left-nave> -->
+      <div class="col m3 profile-wrapper" style="background: #fff;
+            padding: 15px; ">
+        <!-- <div class="editpic">
+               <img src="{{celebrity_info.profile_image}}" alt="" class="circle">
+               </div> -->
+        <div class="user_img">
+          <div class="editpic">
+            <img src="{{celebrity_info.profile_image}}" alt="" class="circle">
+          </div>
+          <div class="user_star" *ngIf="celebrity_info.celebrity_rank =='1' && celebrity_info.user_type == '1'">
+            <img src="assets/img/3.png" alt="" class="circle responsive-img thumb65">
+          </div>
+          <div class="user_star" *ngIf="celebrity_info.celebrity_rank=='2' && celebrity_info.user_type == '1'">
+            <img src="assets/img/1.png" alt="" class="circle responsive-img thumb65">
+          </div>
+          <div class="user_star" *ngIf="celebrity_info.celebrity_rank=='3' && celebrity_info.user_type == '1'">
+            <img src="assets/img/2.png" alt="" class="circle responsive-img thumb65">
+          </div>
+        </div>
+        <div class="center profile-name">
+          <h5>{{celebrity_info.first_name}} {{celebrity_info.last_name}}
+            <br>
+            <span>{{celebrity_info.location}}</span>
+          </h5>
+        </div>
+        <div class="follow-count">
+          <div class="center follow_unfollow" *ngIf="celebrity_info.user_type==2" (click)="followingLists(celebrity_info.id)"> {{celebrity_info.following_count}}
+            <br>
+            <span>FOLLOWING</span>
+          </div>
+          <div class="center follow_unfollow" *ngIf="celebrity_info.user_type==1" (click)="followersLists(celebrity_info.id)">{{celebrity_info.followers_count}}
+            <br>
+            <span>FOLLOWERS</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="hosted-count" *ngIf="celebrity_info.user_type==1">
+          <div class="center"> Gold TGS Hosted
+            <br>
+            <span>{{celebrity_info.tgs_hosted_count}}</span>
+          </div>
+          <div class="center"> Gold Events Hosted
+            <br>
+            <span>{{celebrity_info.events_hosted}}</span>
+          </div>
+        </div>
+        <div class="hosted-count" *ngIf="celebrity_info.user_type==2">
+          <div class="center"> Gold Events
+            <br> Attended
+            <br>
+            <span>{{celebrity_info.events_attented}}</span>
+          </div>
+          <div class="center"> Gold TGS
+            <br> Attended
+            <br>
+            <span>{{celebrity_info.tgs_attented_count}}</span>
+          </div>
+        </div>
+        <div class="center-align" *ngIf="celebrity_info.user_type == 1 && user.user_type != 1">
+          <a href="javascript:void(0);" *ngIf="celebrity_id != user_id" class="btn btn-following" (click)="followUnFollow(celebrity_info.following)">{{(celebrity_info.following)?"UNFOLLOW":"FOLLOW"}}</a>
+        </div>
+
+        <ul class="profile-menu" *ngIf="celebrity_info.user_type==1">
+          <li>
+            <a href="javascript:void(0);" (click)="changeType('open','meeting',1)" [ngClass]="{'active':(meetingType == 'open' && meetingSec == true )}">
+              <span class="icon_event_host"></span>Open Events </a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" (click)="changeType('open','tgs',1)" [ngClass]="{'active':(meetingType == 'live' && bidSec == true )}">
+              <span class="icon_post_event"></span>Open TGS </a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" (click)="changeType('past','meeting',1)" [ngClass]="{'active':(meetingType == 'past' && meetingSec == true )}">
+              <span class="icon_gpevent"></span>Past Events </a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" (click)="changeType('past','tgs',1)" [ngClass]="{'active':(meetingType == 'past' && bidSec == true )}">
+              <span class="icon_mybid"></span>Past TGS</a>
+          </li>
+        </ul>
+        <ul class="profile-menu" *ngIf="celebrity_info.user_type == 2">
+          <li>
+            <a href="javascript:void(0);" (click)="changeType('past','meeting',2)" [ngClass]="{'active':(meetingType == 'past' && meetingSec == true )}">
+              <span class="icon_event_host"></span> Events Attended</a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" (click)="changeType('past','tgs',2)" [ngClass]="{'active':(meetingType == 'past' && bidSec == true )}">
+              <span class="icon_post_event"></span>TGS Attended</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col m6 s12">
+        <div class="post-wrapper">
+          <div class="row post-padding">
+            <div class="col s12" *ngIf="view=='follow'">
+              <h4 class="section-title no-margintop">{{follow_type}}</h4>
+              <!-- <div class="divider"></div>
+                     <p>{{celebrity_info.about}}</p> -->
+            </div>
+            <div class="col s12" *ngIf="view=='gp_lists'">
+              <div *ngIf="celebrity_info.user_type==1">
+                <h4 class="section-title no-margintop">About</h4>
+                <div class="divider"></div>
+                <p>{{celebrity_info.about}}</p>
+              </div>
+              <div *ngIf="celebrity_info.user_type==2">
+                <h4 class="section-title no-margintop">About</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="view=='follow'">
+          <div>
+            <div id="about" class="nano">
+              <div class="content">
+                <div class="cloop">
+                  <div *ngFor="let list of data_list ; index as i;">
+                    <div class="row " style="margin: 0px;">
+                      <div class="col m2 s3">
+                        <div class="propic follow_unfollow" (click)="publicProfile(list.user_id)">
+                          <img src="{{list.profile_image}}" alt="" class="circle responsive-img thumb65">
+                          <div class="addstar" *ngIf="list.celebrity_rank=='1'">
+                            <img src="assets/img/3.png" alt="" class="circle responsive-img thumb65">
+                          </div>
+                          <div class="addstar" *ngIf="list.celebrity_rank=='2'">
+                            <img src="assets/img/1.png" alt="" class="circle responsive-img thumb65">
+                          </div>
+                          <div class="addstar" *ngIf="list.celebrity_rank=='3'">
+                            <img src="assets/img/2.png" alt="" class="circle responsive-img thumb65">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col m8  s9 follow_unfollow" (click)="publicProfile(list.user_id)">
+                        <h5>{{list.first_name}} {{list.last_name}}</h5>
+                        <h4>{{list.location}}</h4>
+                      </div>
+                      <div class="col m2  s12">
+                        <span *ngIf="list.user_type==1 && list.user_id != user_id">
+                          <i *ngIf="!list.is_follow" class="material-icons follow_unfollow" (click)="followMe(list,true)">person_add</i>
+                        </span>
+
+                        <span *ngIf="list.user_type==1 && list.user_id != user_id">
+                          <img class="follow_unfollow" style="width: 22px;height: 22px;" *ngIf="list.is_follow" src="assets/img/twitter.png"
+                            alt="" width="50" height="50" (click)="followMe(list,false)">
+                        </span>
+                        <!-- <button class="waves-effect waves-light outyellow" (click)="publicProfile(list.user_id)">view profile</button> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-wrapper" *ngIf="data_list.length == 0">
+                    {{(follow_type == 'Following')? "Not Following Any Celebrities" : "No Followers" }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <div *ngIf="view=='gp_lists'">
+          <div *ngIf="meetingSec">
+            <div id="about" class="nano">
+              <div class="content">
+                <div class="post-wrapper" *ngFor="let event of eventList; index as i;">
+                  <div class="row post-padding">
+                    <div class="col s2">
+                      <img src="assets/img/thumb_event.png" alt="" class="circle responsive-img thumb65">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <div>
+                        <span class="user-title">{{event.title | capitalizeFirst}}</span>
+                        <br>
+
+                        <!-- <span class="user-subtitle text-medium-gray">Meeting @ Frank’s Cafe</span><br> -->
+                        <span>{{event.venue}}</span>
+                        <br>
+                        <!-- <span class="user-subtitle text-medium-gray">Meeting Proceeding to -<span class="nicebalck"> Scholarship</span></span> -->
+                        <!-- <p class="user-description">{{event.description | capitalizeFirst}}</p> -->
+                      </div>
+
+                      <!-- <div class="post-eventtime no-bottompadding">
+                                  <div>{{event.date}} <br> <b>{{event.time}}</b></div>
+                                  <div class="tickek-price text-green" >{{event.ticket_price | currency}} <br> <span>Ticket Price</span></div>
+                               </div> -->
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row post-padding">
+                      <div class="col s2 subimg">
+                        <img class="like_hreff" src="{{event.posted_by_image}}" (click)="publicProfile(event.creator_id)" alt="" class="circle responsive-img thumb65">
+                        <!-- notice the "circle" class -->
+                      </div>
+                      <div class="col s7">
+                        <!-- check posted buy you or not -->
+                        <div>
+                          <span class="user-subtitle text-medium-gray">Posted By:</span>
+                          <span class="user-title" [hidden]="event.creator_id==user_id">{{event.posted_by}}</span>
+                          <span class="user-title" [hidden]="event.creator_id!=user_id">You</span>
+                          <!-- <br>                            
+                                     <p class="user-description"> <span class="text-medium-gray">Posted on:</span>{{event.post_date}}</p> -->
+                        </div>
+                        <!-- check posted buy you or not -->
+                        <div *ngIf="event.event_status == 'open'  && event.raffle != 'N'" [ngClass]="{'dismissCls':event.event_status == 'dismissed'}">
+                          Draw Date - {{event.draw_date}}
+                        </div>
+                      </div>
+
+                      <div class="col s3" style="position:relative">
+                        <div>
+                          <button class="viewbtn" (click)="eventDetails(event.id)">View Detail</button>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="post-footer valign-wrapper footerthreeblock">
+
+                      <div class="col s12">
+                        <div class="inthree">
+                          <div class="post-eventtime no-bottompadding">
+                            <!-- <div class="box"><img src="assets/img/calendar_icon.png" alt="" class=" responsive-img"></div>
+                                      <div>{{event.date}} <br> <b>{{event.time}}</b></div>  -->
+
+                            <div class="tickek-price nicebalck calendarr left">
+                              <div class="box">
+                                <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                              </div>
+                              <br> {{event.date}}
+                              <span class="nicebalck"></span>
+                            </div>
+                            <!-- <div class="col s12 m4" *ngIf="event.creator_id != user_id ">
+                              <div class="tickek-price text-green left">{{event.ticket_price | currency}}
+                                <br>
+                                <span>Ticket Price</span>
+                              </div>
+                            </div> -->
+                            <div class="col s12 m4" *ngIf="event.creator_id == user_id ">
+                              <div class="tickek-price text-green left">{{event.total_revenue | currency}}
+                                <br>
+                                <span>REVENUE EARNED</span>
+                              </div>
+                            </div>
+
+
+                            <div *ngIf="event.event_status == 'past'">
+
+                              <div class="col s12 m4  offset-m4 trophyrel">
+                                <img class="like_hreff" src="{{event.winner_image}}" (click)="publicProfile(event.winner_id)" alt="" class="circle responsive-img thumb65 left">
+                                <span class="trophypic trophypicz left">
+                                  <img src="assets/img/trophy.png" alt="" class="responsive-img">
+                                </span>
+                              </div>
+
+                              <div class="col s12 m4">
+                                <div>
+                                  <span class="user-subtitle text-medium-gray left"></span>
+                                  <span class="user-title user-title-n left">{{event.winner_name}} </span>
+                                  <br>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col s12 m4" *ngIf="(event.event_status == 'open') && (event.creator_id != user_id)">
+                              <div>
+                                <div class="col s12">
+                                  <a class="waves-effect waves-light btn right btn-custom btn-dimgreen" style="font-size: 13px;"
+                                    *ngIf="
+                                                event.creator_id != user_id " (click)="openModalForBuyTickets(event)">BUY TICKETS</a>
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <div class="col s12 m4 " *ngIf="event.creator_id==user_id  && event.event_status != 'confirmed' && !event.winner_id">
+                              <div>
+                                <div class="col s12">
+                                  <div class="tickek-price text-green left" *ngIf="event.creator_id == user_id ">
+                                    {{event.ticket_sold}}
+                                    <br>
+                                    <span>TICKET(S) SOLD</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col s12 m4" *ngIf="event.event_status == 'confirmed' && event.raffle == 'Y'">
+                              <div>
+
+                                <div class="col s12 m4 offset-m4 trophyrel ">
+                                  <img class="like_hreff" src="{{event.winner_image}}" (click)="publicProfile(event.winner_id)" alt="" class="circle responsive-img thumb65 left">
+                                  <span class="trophypic trophypicz left">
+                                    <img src="assets/img/trophy.png" alt="" class="responsive-img">
+                                  </span>
+                                </div>
+
+                                <div class="col s12 m12">
+                                  <div>
+                                    <span class="user-title user-title-n left">{{event.winner_name}} </span>
+
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="post-wrapper" *ngIf="eventList.length == 0">
+                  No Events found
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div *ngIf="bidSec">
+            <div id="about" class="nano">
+              <div class="content">
+                <div class="--post-card" *ngFor="let auction of auctionsList; index as i;">
+                  <div class="--flex-s --post-header">
+                    <div class="--flex-s --avatar-head">
+                      <span class="--avatar-medium" *ngIf="auction.auction == 'Y'">
+                        <img src="assets/img/thumb_bid.png">
+                      </span>
+                      <span class="--avatar-medium" *ngIf="auction.auction == 'N'">
+                        <img src="assets/img/cart.png">
+                      </span>
+                    </div>
+                    <div class="--flex-s --head-details">
+                      <div class="--footer-abs-sec">
+                        <div class="--row-inline">
+                          <div class="viewBidButton">
+                            <button class="viewbtn" (click)="bidDetails(auction.id)">View Detail</button>
+                          </div>
+                          <span class="--name-post truncate">
+                            {{auction.title | capitalizeFirst}}
+                          </span>
+                        </div>
+                        <div class="--row-inline">
+                          <span class="truncate" *ngIf="auction.auction == 'Y'" [ngClass]="{'dismissCls':auction.bid_status == 'dismissed'}">
+                            GR Closing Time: {{auction.bid_end_date}},{{auction.bid_end_time}}
+                          </span>
+                          <span class="truncate" *ngIf="(auction.auction == 'N') && (auction.bid_status == 'past')">
+                            Sold Out
+                          </span>
+                          <span class="truncate" *ngIf="(auction.auction == 'N') && (auction.bid_status == 'live')">
+                            On Sale
+                          </span>
+                          <span class="truncate" *ngIf="(auction.auction == 'N') && (auction.bid_status == 'dismissed')">
+                            Dissmissed
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                  
+                  <div class="--flex-s">
+                      <div class="--post-image-wrapper" *ngIf="auction.images.length != 0">
+                        
+                        <div class="card-preview" attr.data-preset="{{auction.images.length > 5 ? 5 : auction.images.length}}">
+                          <img class="transparent-im" src="assets/img/assets/transparent.png">
+                          <div class="thumbs-wrapper">
+                            <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                              <div class="preview-thumb-inner"></div>
+                              <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[0]" [offset]="offset">
+                            </div>
+                            <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                              <div class="preview-thumb-inner"></div>
+                              <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[1]" [offset]="offset">
+                            </div>
+    
+                            <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                              <div class="preview-thumb-inner"></div>
+                              <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[2]" [offset]="offset">
+                            </div>
+                            <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                              <div class="preview-thumb-inner"></div>
+                              <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[3]" [offset]="offset">
+                            </div>
+                            <div class="preview-thumbs" (click)="bidDetails(auction.id)">
+                              <div class="more-media">
+                                <div class="inline-flex txt-25">{{auction.images.length}}</div>
+                                <div class="inline-flex txt-3 title-sub">
+                                  <span>Photos</span>
+                                </div>
+                              </div>
+                              <div class="preview-thumb-inner"></div>
+                              <img [defaultImage]="defaultImage" [lazyLoad]="auction.image_directory + auction.images[4]" [offset]="offset">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="--post-content-wrapper" *ngIf="feeds.feed_data.image==''">
+                        <p>{{auction.description}}</p>
+                      </div>
+                    </div>
+                    
+                  <div class="--flex-s --post-footer">
+                    <div class="--flex-s --posted-by">
+                      <span class="--avatar-small">
+                        <img src="{{auction.posted_by_image}}">
+                      </span>
+                      <span class="--user-name-post truncate" *ngIf="auction.creator_id!=user_id">
+                        <span class="--gray">Posted by</span> : {{auction.posted_by}}
+                      </span>
+                      <span class="--user-name-post truncate" *ngIf="auction.creator_id==user_id">
+                        <span class="--gray">Posted by</span> : You
+                      </span>
+                    </div>
+                    <div class="--flex-s" *ngIf="auction.bid_status=='live' && auction.latest_bidder_id!=0 && auction.won_bidder_id==0  ">
+                      <div class="--inner-bid-list">
+                        <ul class="--bid-list">
+                          <li>
+                            <div class="--flex-s --avatar">
+                              <span class="--avatar-small">
+                                <img src="{{auction.latest_bidder_image}}">
+                              </span>
+                            </div>
+                            <div class="--flex-s">
+                              <div class="--footer-abs-sec --no-padding">
+                                <div class="--row-inline">
+                                  <span class="truncate">
+                                    {{auction.latest_bidder_name}}
+                                  </span>
+                                </div>
+                                <div class="--row-inline">
+                                  <span class="truncate">
+                                    <span class="--gray">
+                                      Bid for this at
+                                    </span>
+                                    <span class="--green">
+                                      {{auction.latest_bid_amount | currency}}
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="--flex-s" *ngIf="auction.bid_status =='past'">
+                      <div class="--inner-bid-list">
+                        <ul class="--bid-list">
+                          <li>
+                            <div class="--flex-s --avatar">
+                              <span class="--avatar-small --has-trophy">
+                                <span class="--trophy">
+                                  <img src="assets/img/trophy.png">
+                                </span>
+                                <img src="{{auction.won_bidder_image}}">
+                              </span>
+                              
+                            </div>
+                            <div class="--flex-s">
+                              <div class="--footer-abs-sec --no-padding">
+                                <div class="--row-inline">
+                                  <span class="truncate" *ngIf="(auction.auction == 'Y') && auction.won_bidder_id!=0">
+                                    {{auction.won_bidder_name}}
+                                  </span>
+                                  <span class="truncate" *ngIf="(auction.auction == 'N') && auction.won_bidder_id!=0">
+                                    {{auction.won_bidder_name}}
+                                  </span>
+                                </div>
+                                <div class="--row-inline" *ngIf="(auction.auction == 'Y') && auction.won_bidder_id!=0">
+                                  <span class="truncate">
+                                    <span class="--gray">
+                                      Bought this for at
+                                    </span>
+                                    <span class="--green">
+                                      {{auction.won_bid_amount | currency}}
+                                    </span>
+                                  </span>
+                                </div>
+                                <div class="--row-inline" *ngIf="(auction.auction == 'N') && auction.won_bidder_id!=0">
+                                  <span class="truncate">
+                                    <span class="--gray">
+                                      Bought this for at
+                                    </span>
+                                    <span class="--green">
+                                      {{auction.won_bid_amount | currency}}
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="--flex-s" *ngIf="(auction.bid_status =='live') && (auction.creator_id != user_id)">
+                      <div class="--flex-s --footer-action-sections --footer-section-bidrate">
+                        <div class="--footer-abs-sec">
+                          <div class="--row-inline">
+                            <span class="truncate --bid-rate-amount" *ngIf="auction.minimum_bid_amount!=0 || auction.minimum_bid_amount!=''">Buy Now at
+                              <span class="--green">{{auction.instant_sale_price | currency}}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="--flex-s --footer-action-sections --btn-sec">
+                        <button class="--btn-buy-now" (click)="openModalForBuyTickets(auction)">BUY NOW</button>
+                      </div>
+                      
+                      <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="auction.latest_bidder_id==0 && auction.won_bidder_id==0 && auction.auction !='N'">
+                        <button class="--btn-bid-now" (click)="openModalForBuyBid(auction)">BID NOW</button>
+                      </div>
+                      <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="( auction.auction !='N' && auction.latest_bidder_id!=0 && auction.won_bidder_id==0) && ((auction.instant_sale_price && ((auction.latest_bid_amount+ auction.bid_difference_amount) < auction.instant_sale_price )) || (!auction.instant_sale_price))">
+                        <button class="--btn-bid-now" (click)="openModalForBuyBid(auction)">BID NOW</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="post-wrapper" *ngIf="auctionsList.length == 0">
+                  No Retails found
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div *ngIf="bidSec">
+            <div class="col s12 looptab">
+              <div id="about" class="nano">
+                <div class="content">
+                  <div class="post-wrapper" *ngFor="let tgs of tgsList; index as i;">
+                    <div class="row post-padding">
+                      <div class="col s2">
+                        <img src="assets/img/tgs_event.png" alt="" class="circle responsive-img thumb65">
+                      </div>
+                      <div class="col s10">
+                        <div>
+                          <span class="user-title">{{tgs.title | capitalizeFirst}}</span><br>
+                          <span>{{tgs.tgs_status | titlecase}}</span><br>
+                        </div>
+                      </div>
+  
+                      <br>
+                      <br>
+                      <div class="row post-padding">
+                        <div class="col s12">
+                          {{tgs.description}}
+                        </div>
+                      </div>
+                      <br>
+                      <br>
+  
+                      <div class="row post-padding">
+                        <div class="col s2 subimg">
+                          <img src="{{tgs.posted_by_image}}" (click)="publicProfile(tgs.creator_id)" alt="" class="circle responsive-img thumb65">
+                        </div>
+                        <div class="col s7">
+                          <!-- check posted buy you or not -->
+                          <div>
+                            <span class="user-subtitle text-medium-gray">Posted By:</span>
+                            <span class="user-title" [hidden]="tgs.creator_id != user_id">You</span>
+                            <span class="user-title" [hidden]="tgs.creator_id == user_id">{{tgs.posted_by}}</span>
+                          </div>
+                          
+                        </div>
+  
+                        <div class="col s3" style="position:relative">
+                          <div>
+                            <button class="viewbtn" (click)="tgsDetails(tgs.id)">View Detail</button>
+                          </div>
+                        </div>
+  
+                      </div>
+  
+                      <!-- Copy content -->
+                      <div class="post-footer valign-wrapper footerthreeblock">
+  
+                        <div class="col s12">
+                          <div class="inthree">
+                            <div class="post-eventtime no-bottompadding">
+                              <div class="tickek-price nicebalck calendarr left">
+                                <div class="box">
+                                  <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                                </div>
+                               <br>{{tgs.date}}
+                                <span class="nicebalck"></span>
+                              </div>
+                              <div class="col s12 m7" >
+                                <div class="box">
+                                  <img src="assets/img/location_icon.png" alt="" class="responsive-img map-icon">
+                                  <br>{{tgs.venue}}
+                                </div>
+                                
+                                <span class="nicebalck"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+  
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <div class="post-wrapper" *ngIf="tgsList.length == 0">
+                    <p>No TGS Found</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

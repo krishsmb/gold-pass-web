@@ -1,0 +1,156 @@
+<div class="container">
+  <!--  FullScreen Content -->
+  <div id="myNav" class="overlay" style="display: block;">
+    <!-- Button to close the overlay navigation -->
+    <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeCorporate()">&times;</a>         -->
+    <a routerLink="/home" class="closebtn">&times;</a>
+    <!-- Overlay content -->
+    <div class="full-wrapper">
+      <div class="child-wrapper col s12 m6 l6 corporate hide-on-small-only" style="height:860px;">
+        <div class="corporate-content">
+          <img src="assets/img/corporate_logo.png" alt="">
+          <h3>Welcome!!</h3>
+          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
+            form, by injected humour, or randomised words which don't look even slightly believable. If you are going to
+            use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle .</p>
+        </div>
+
+      </div>
+      <div class="child-wrapper s12 m6 l6">
+        <div class="corporate-content" id="sign-in">
+          <h3>Corporate
+            <br>
+            <span>Login/ Sign Up</span>
+          </h3>
+          <div class="signup-switch row">
+            <div class="col s6">
+              <a href="javascript:void(0)" data-show="#login" class="active">Login</a>
+            </div>
+            <div class="col s6">
+              <a href="javascript:void(0)" data-show="#signup">Sign Up</a>
+            </div>
+          </div>
+
+
+          <div class="row login-tab active" id="login">
+            <div class="input-field col s12 input-box">
+              <input placeholder="Placeholder" id="usname" type="text" class="validate">
+              <label for="usname" class="active">Username</label>
+            </div>
+            <div class="input-field col s12 relative input-box">
+              <a href="#" class="pass-view">
+                <i class="fas fa-eye-slash"></i>
+              </a>
+              <input placeholder="Placeholder" id="pwd" type="password" class="validate">
+              <label for="pwd" class="active">Password</label>
+            </div>
+            <div class="clear-fix"></div>
+            <div class="forgotpass   button-corp">
+              <p>
+                <a href="#">
+                  <b>Forgot Password?</b>
+                </a>
+              </p>
+            </div>
+            <div class="col s12  button-corp">
+              <button class="btn-large waves-effect waves-light  btn-yellow s12" type="submit" name="action">LOGIN </button>
+            </div>
+          </div>
+
+          <form [formGroup]="userForm" (submit)="saveUser()">
+            <div class="row login-tab" id="signup">
+              <div class="text-center">
+                <div *ngIf="success_message" class="Success"> {{success_message}} </div>
+                <div *ngIf="error_message" class="notErrors"> {{error_message}} </div>
+              </div>
+              <div class="input-field col s12 input-box">
+                <input placeholder="Placeholder" formControlName="company_name" id="company_name" type="text" class="validate">
+                <label for="company_name" class="active">Company Name</label>
+                <control-messages [control]="userForm.controls.company_name"></control-messages>
+              </div>
+              <div class="input-field col s12 input-box">
+                <input placeholder="Placeholder" formControlName="company_email" id="company_email" type="text" class="validate">
+                <label for="company_email" class="active">Company Email</label>
+                <control-messages [control]="userForm.controls.company_email"></control-messages>
+              </div>
+              <div class="input-field col s12 input-box">
+                <input placeholder="Placeholder" formControlName="user_name" id="user_name" type="text" class="validate">
+                <label for="user_name" class="active">Username</label>
+                <control-messages [control]="userForm.controls.user_name"></control-messages>
+              </div>
+              <div class="input-field col s12 relative input-box">
+                <a href="#" class="pass-view">
+                  <i class="fas fa-eye-slash"></i>
+                </a>
+                <input placeholder="Placeholder" formControlName="password" id="password" type="password" class="validate">
+                <label for="password" class="active">Password</label>
+                <control-messages [control]="userForm.controls.password"></control-messages>
+              </div>
+              <div class="input-field col s12 relative input-box">
+                <a href="#" class="pass-view">
+                  <i class="fas fa-eye-slash"></i>
+                </a>
+                <input placeholder="Placeholder" formControlName="confirm_password" id="confirm_password" type="password" class="validate">
+                <label for="confirm_password" class="active">Confirm Password</label>
+                <control-messages [control]="userForm.controls.confirm_password"></control-messages>
+              </div>
+              <div class="clear-fix"></div>
+              <div class="col s12  button-corp">
+                <button class="btn-large waves-effect waves-light  btn-yellow s12" type="submit" name="action" [disabled]="!userForm.valid">SIGN UP </button>
+              </div>
+
+
+
+            </div>
+          </form>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <ng4-loading-spinner> </ng4-loading-spinner>
+  <!-- <ng4-loading-spinner [threshold]="1000" [template]="template" [loadingText]="'Please wait...'" [zIndex]="999" ></ng4-loading-spinner> -->
+
+  <div id="modalNotification" class="modal notification_modal">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col s8">
+          <!-- <h4>Post Event</h4> -->
+        </div>
+        <div class="col s4 right-align">
+          <a href="javascript:void(0)" (click)="closeNotification()">
+            <i class="material-icons">close</i>
+          </a>
+        </div>
+      </div>
+
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <p class="center">{{notification_message}}</p>
+        </div>
+      </div>
+
+
+      <div class="row">
+
+        <div class="input-field col s12">
+          <button (click)="closeNotification()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">OK</button>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

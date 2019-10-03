@@ -1,0 +1,219 @@
+.pass-view{ position: absolute; right: 10px; top: 45px; color: map-get($colors , "gray" ); z-index: 20;
+    &:hover{
+        color: map-get($colors, "black" );
+    }}
+
+%inputstyle{
+    border: 1px solid #e3e3e3 !important; 
+    padding-top: 35px !important;
+    margin-top: -1px;   
+}
+.input-select{
+    @extend %inputstyle;
+    label{
+        top: 0px;
+        font-weight: 600; 
+        font-size: 16px !important; 
+        padding: 0px;   
+    }
+    .select-wrapper{        
+        
+        input{            
+           border-bottom: none !important;
+           margin-bottom: none !important;
+           
+        
+        &.select-dropdown{           
+            margin: 0 !important;         
+         }
+         
+        }
+        
+    }
+    label{
+        font-size: $font-normal !important;
+    }
+}
+input:not(.browser-default){
+    margin-bottom: none !important;
+}
+
+
+.input-box{
+    @extend %inputstyle;
+    input{
+      margin: 0px !important;
+      border-bottom: none!important;
+      &:focus, &:visited{
+          border-bottom: none !important;
+          box-shadow: none!important;   
+      }
+   
+     }
+     label{
+       top: 32px;
+       font-weight: 600; 
+       font-size: 16px; 
+       padding: 0px;
+       .active { color: map-get($colors , "darkgray" ) !important;}
+     }
+ }
+ 
+ .signup-switch{
+     background-color: map-get($colors , "primary");
+     border-radius: 65px;
+     height: 60px;
+     padding: 12px 0px;
+     margin: 40px; 
+     @media #{$small-and-down} {
+         margin: 40px 0; 
+     }
+        
+     a{
+         font-size: 18px;
+         font-weight: 600;
+         line-height: 26px;
+         color: map-get($colors ,"darkgray" );
+         text-align: center;
+         background:none;
+         border-radius: 26px;
+         display: block;       
+         padding: 6px 25px;      
+         
+     }
+     &:hover{
+         color: map-get($colors ,"black" );
+     
+     }
+     .active{
+     background: map-get($colors , "white" );
+     -webkit-animation-name: bounce;
+     animation-name: bounce;
+     -webkit-transform-origin: center bottom;
+     transform-origin: center bottom;  
+     }
+ }
+ .input-login  {
+    input {
+    border: 1px solid #808080 !important;
+    background: #242424!important;
+    border-radius: 4px!important;
+    padding:0 16px !important;
+    box-shadow: 0 1px 0 0 #000;
+    box-sizing:border-box!important;
+    height: 60px !important;
+    display:block !important;
+    margin: 0px!important;   
+    &:focus, &:visited{
+        border-bottom: 1px solid #808080 !important;
+    } 
+    }
+    
+  }
+  .forgotpass{ 
+      height: 50px;
+      a{
+        color: map-get($colors , "medium-gray" );
+        &:hover, &:focus{
+            color: map-get($colors , "gray" );
+        }
+      }
+}
+.btn-yellow{
+    background:rgba(map-get($colors , "primary" ), .75);
+    color: map-get($colors , "dark" );
+    font-weight: 600;
+    font-size: 22px;
+    text-transform: none !important;
+    box-shadow: none !important;
+    min-width: 215px;
+    &:hover, &:visited, &:focus {
+        background:rgba(map-get($colors , "primary" ), 1); 
+    }
+}
+%round-border{
+    border-radius: 100px;
+}
+%btnstyle{
+    background:rgba(map-get($colors , "primary" ), .75);
+    color: map-get($colors , "dark" );
+    font-weight: 600;    
+    text-transform: none !important;
+    box-shadow: none !important;   
+    &:hover, &:visited, &:focus {
+        background:rgba(map-get($colors , "primary" ), 1); 
+    }
+}
+
+%btnwhite{
+    background:rgba(map-get($colors , "white" ), 1);
+    color: map-get($colors , "dark" );
+    border: 1px solid map-get($colors, "gray" );
+    font-weight: 600;    
+    text-transform: none !important;
+    box-shadow: none !important;   
+    &:hover, &:visited, &:focus {
+        background:rgba(map-get($colors , "white" ), 1); 
+    }
+}
+.btn-primary-rounded{
+   @extend %btnstyle;
+   @extend %round-border;
+}
+
+.btn-primary-square{
+    @extend %btnstyle;
+   min-height: 48px !important;
+ }
+.btn-following{
+    @extend %round-border;
+    @extend %btnwhite;
+   
+}
+.filled-in{  
+ &:not(:checked)+label:after{
+    border-color: map-get($colors , "gray" ) !important;    
+    }  
+&:checked+label:after{
+    border-color: map-get($colors , "primary" ) !important;
+    background-color: map-get($colors , "primary" ) !important;
+}
+}
+.switch
+{
+    label{
+        input{
+            background-color: map-get($colors ,"primary" );           
+            &:checked+.lever{
+                background-color:rgba(map-get($colors ,"primary"), .4)  !important;  
+                &::after{
+                    background-color: map-get($colors ,"primary" ) !important;   
+                }         
+                        }
+        }
+        
+    }
+}
+
+.picker__date-display{
+    background-color: map-get($colors , "primary" );
+    color: #000;
+}
+.clockpicker-span-hours{
+
+}
+input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label{
+    color: map-get($colors , "primary" );
+}
+.modal {    
+    max-height: 85%;
+     
+    
+}
+textarea.materialize-textarea{
+    border-bottom:none !important;
+    &:hover, &focus, &.active,&:not([readonly]){
+        border-bottom: none !important;
+    }
+}
+

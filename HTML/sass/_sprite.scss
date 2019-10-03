@@ -1,0 +1,91 @@
+//======== mixin and functions =========//
+//(initializtion below)
+
+@function divideEscape0($a,$b){
+  @if ($b ==0){@return 0}
+  @return $a/$b;
+}
+@function getImagePositionFromSprite($iconName,$sprite-name,$columns,$rows){
+  $index: index($sprite-name,$iconName);
+  $row: ceil($index/$columns);
+  $column: $index % $columns;
+  @return percentage(divideEscape0(1,($columns - 1))*($column - 1)) percentage(divideEscape0(1,($rows - 1))*($row - 1));
+}
+
+@mixin backgroundImageBySprite($sprite,$name,$size){
+  background-image: url(map_get($sprite,url));
+  background-position: getImagePositionFromSprite(
+          $name,
+          map_get($sprite,names),
+          map_get($sprite,columns),
+          map_get($sprite,rows)
+  );
+  height: $size;
+  width: $size;
+  background-size: auto $size * (map_get($sprite,rows));
+}
+
+//end of mixin//
+//===================================//
+
+
+
+//===================================//
+//initializtion// 
+
+//1. create a sprite of square images
+$spriteImageExample:'../img/sprite_profile.png'; 
+//is should be pixel-perfect!!
+
+
+//2. define sass map with the keys specified:
+$mySprite:(
+    url:$spriteImageExample, 
+    names: (
+      'home', 'gpevent', 'corporateevent','postevent','auction','search','allauction','bids', 'hostevent', 'testimonial','myprofile','settings'
+    ),  //names of all of the icons in sprite
+    columns: 6,   //sprite structure
+    rows: 2
+);
+ 
+
+
+//you can create a mixin for more convenience:
+@mixin menu-icon($name,$size){
+  @include backgroundImageBySprite($mySprite,$name,$size)
+}
+
+ .icon_myhome{
+  @include menu-icon('home',28px)    
+}
+.icon_corporate_event{
+  @include menu-icon('corporateevent',28px)     
+}
+.icon_post_event{
+    @include menu-icon('postevent',28px)     
+  }
+.icon_start_auction{
+    @include menu-icon('auction',28px)     
+  }
+.icon_search{
+    @include menu-icon('search',28px)     
+  }
+.icon_allauction{
+    @include menu-icon('allauction',28px)     
+  }
+.icon_mybid{
+    @include menu-icon('bids',28px)     
+  }
+.icon_event_host{
+    @include menu-icon('hostevent',28px)     
+  }
+.icon_testimonial{
+    @include menu-icon('testimonial',28px)     
+}
+.icon_myprofile{
+    @include menu-icon('myprofile',28px)     
+}
+.icon_settings{
+    @include menu-icon('settings',28px)     
+}
+

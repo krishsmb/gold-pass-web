@@ -1,0 +1,353 @@
+@import "materialize", "unslider", "variables", "sprite", "form" ;
+*{margin: 0;}
+body{
+    font-family: 'Oxygen', sans-serif;
+    background-color: map-get($colors ,"light");
+}
+.yellownav{
+    background: map-get($colors ,"primary" ) !important;
+    height: 76px;
+    ul{
+    li{
+         
+      a{    
+       color: map-get($colors ,"darkgray" );
+       font-weight: 500;
+       line-height: 76px; 
+       &:hover, &:focus{
+       background-color: none !important; 
+       color: #000000;   
+        } 
+        &.whitelogo{
+            height: 55px;
+            width: 55px;
+           padding: 0px !important;
+           margin:8px 16px !important;
+        }           
+      } 
+    }
+    } 
+}
+.userthumb{
+    margin: 0px 16px 0 0;
+    height: 75px;
+    color: map-get($colors ,"darkgray" );
+    img{ float: left; margin-right: 12px; margin-top: 8px; width: 55px; height: 55px;}  
+    span{ 
+        padding: 0px;
+        margin: 0px;
+    }
+    i{
+     padding-left: 
+     5px;
+    }
+ }
+ .userinfo{
+     li{
+       padding: 0px;
+       margin: 0px;  
+     }
+     a{
+         line-height: normal !important;
+         i { font-size: 17px; color: #ff000; margin-right: 0px !important;}    
+     }
+ }           
+.profile-wrapper{
+    background-color: map-get($colors , "white" );
+    padding: 20px 16px !important;
+    @media #{$small-and-down} {
+        display: none;
+      }
+     
+    
+    
+}
+.profile-name{
+    
+    h5 { font-size: $font-medium;
+        font-weight: 600;
+        color: map-get($colors ,"darkgray") !important;
+        span{
+         font-size: $font-normal; color: map-get($colors , "medium-gray" );   
+        }
+    }
+}
+.profile-footer{
+     border-top: 1px solid map-get($colors , "gray" );
+     padding: 0;
+     margin-top: 16px;
+     a{
+         color: map-get($colors , "darkgray" );
+         float: left;
+         padding: 0px 25px;
+         text-align: center;
+     }
+}
+.follow-count{
+    margin: 20px 0px;
+    font-size: $font-medium;
+    color: map-get($colors , "darkgray" );
+    line-height: 22px;
+    display: flex;
+    justify-content: space-around;
+    
+    span{
+        font-size: $font-normal;
+        color: map-get($colors , "primary" );   
+    }
+
+
+}
+.hosted-count{
+    margin: 20px 0px;
+    font-size: $font-normal;
+    color: map-get($colors , "gray" );
+    line-height: 22px;
+    display: flex;
+    justify-content: space-around;
+    
+    span{
+        font-size: $font-medium;
+        color: map-get($colors , "darkgray" );
+        padding: 12px 0;   
+    }
+
+
+}
+.profile-menu{
+  li{
+    span{ display: inline-block; float: left; margin-right: 6px;}   
+    height: 28px !important;
+    line-height: 28px !important;
+    margin-top: 15px;
+  }
+  a{
+      color: map-get($colors , "darkgray" );
+      line-height: 28px !important;
+      &:hover, &:focus,&.active{
+        color:darken(map-get($colors , "primary" ), .2);  
+      }
+  }  
+}
+.post-wrapper{
+    background-color:map-get($colors , "white" ); 
+    margin-bottom: 16px;
+    .row{
+        margin-bottom: 0px;
+        }
+   
+}
+.post-padding{
+    padding:$padding;  
+    
+}
+.post-footer{
+    border-top: 1px solid map-get($colors , "gray" );   
+    padding: 15px;
+}
+.user-title{
+    font-size: 16px;
+    font-weight: 600;    
+}
+.user-description{
+    color: map-get($colors , "darkgray" );
+    margin-top: 6px;
+}
+.post-eventtime{
+    padding: 16px 0px;
+    display: flex;
+    align-content: stretch;
+    width: 100%;
+    div{        
+       flex: auto;
+    }
+}
+.tickek-price{
+    font-size: $font-medium;    
+    line-height: 22px;
+    span{
+        color: map-get($colors ,"medium-gray" );
+        text-transform: uppercase;
+        font-size: $font-normal;
+        font-weight: 600;
+        }
+}
+.text-green{
+  color: map-get($colors , "secondary" );
+} 
+.btn-custom{
+    box-shadow: none;
+    font-weight: 600;
+    height: $btn-height;
+    line-height: $btn-height;
+    padding: 0 22px !important;    
+    &:hover, &:focus
+    {
+    box-shadow: none;    
+    }
+    }
+ .button-holder{
+     display: flex;
+    //  justify-content: space-between;
+    justify-content: flex-end;
+    
+ }
+
+.btn-dimgreen{background-color: map-get($colors , "dimgreen"); margin: 0px 6px;
+    &:hover, &:focus{
+        background-color:lighten(map-get($colors , "dimgreen"), 10); 
+    }
+}
+.btn-primary{background-color: map-get($colors , "primary");
+&:hover, &:focus{
+    background-color:lighten(map-get($colors , "primary"), 10); 
+}
+}
+.notification-wrapper{
+    background-color: map-get($colors , "white" );
+}
+.section-title{
+font-size: $font-medium;
+margin-bottom: 20px;
+margin-top: 20px;
+}
+.notify-row{
+    font-size:$font-small;
+    border-bottom: 1px solid map-get($colors ,"light" );
+    padding-bottom: 16px;
+    a{
+     font-size: $font-normal;
+     color: map-get($colors ,"darkgray" );
+     font-weight: 600;
+     &:hover{
+         color: lighten(map-get($colors ,"darkgray"), 20);
+     }
+     
+    }
+    .poted{
+        color: map-get($colors , "medium-gray" ) ; 
+        font-style: italic; 
+       } 
+}
+.collapse-hide{
+    @media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait) {
+        display: none !important;
+    }
+ 
+}
+.hideonipad{
+    @media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait) {
+        width: 98% !important;
+    }
+    @media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:landscape) {
+        width: 85% !important;
+        }
+    }
+
+.top20_margin{margin-top: 20px !important;}
+.toppad{ padding-top: 10px!important;}
+.thumb65{ max-width: 65px; max-height: 65px;}
+.thumb-post{ width: 100%;}
+.no-bottompadding{padding-bottom: 0px !important;}
+.no-marginbottom{ margin-bottom: 0px!important;}
+.no-margintop{ margin-top: 0px!important;}
+.text-medium{ font-size: $font-medium!important;}
+.text-extra{ font-size: $font-extra!important;}
+#sidenav-overlay{z-index: 996 !important;}
+
+.collapse-wrapper{
+    box-shadow: none;
+}
+.collapsible-body{
+    background-color: map-get($colors ,"white");
+}
+.collapsible-header{
+    background-color: map-get($colors ,"darkgray");
+    color: map-get($colors , "white" );
+}
+.content-wrapper{
+ background-color: map-get($colors , "white" );   
+}
+.content-wrapper-inside{
+    padding: 16px;  
+   }
+.divider{
+    background-color:map-get($colors , "gary" );
+    height: 1px;
+    margin: 16px 0px;
+}
+.cardinfo{
+     background-color: map-get($colors , "light" );
+     border-radius: $dadius;
+     padding: 20px;
+    }
+.upload-wrapper{
+    background-color: map-get($colors , "darkgray");
+   
+    width: 100%;  
+    flex-direction: column;
+    
+    img{
+        margin: 50px auto 25px auto !important;
+    }
+    a{
+    color: map-get($colors, "darkgray" ) !important;
+    margin-bottom: 50px;
+    }
+    }
+.clockpicker-display-column{
+    span{
+        color: map-get($colors , "white" );
+    }
+}
+.clockpicker-canvas-bg{
+    fill: map-get($colors , "primary");
+}
+.clockpicker-canvas{
+   line {
+     stroke:  map-get($colors , "primary"); 
+   }
+}
+.clockpicker-canvas-bearing{
+    fill: map-get($colors , "primary");
+}
+.picker__close, .picker__today, .picker__clear{
+    color: map-get($colors , "primary" );
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+    background-color:  map-get($colors , "primary" );
+}
+.default-txtbox{
+    border: 1px  solid map-get($colors , "light" );
+    height: 48px;
+}
+.editpic{
+   
+    height: 150px;
+    width: 150px;
+    position: relative;
+    margin: 20px auto;
+    img{
+        border: 4px solid map-get($colors , "gray" );
+    }
+}
+a
+{
+    &.btn-edut{
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 60px;
+    background-color: map-get($colors , "gray" );
+    color: map-get($colors , "darkgray" );
+    display: block;
+    position: absolute;
+    top: 90px;
+    left: 100px;
+    &:hover, &:focus{
+        background-color:lighten(map-get($colors , "black" ), 90) ;
+    }
+    
+}
+
+}

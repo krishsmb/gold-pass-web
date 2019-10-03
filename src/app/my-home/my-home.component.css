@@ -1,0 +1,17 @@
+.feed-description{
+    color: #4f4f4f;
+    margin-top: 6px;
+    padding: 0px 15px;  
+}
+.no-record{
+    text-align: center;
+    padding: 10px;
+}
+
+.no-record h5{
+    color: #fabf18;
+}
+.like_hreff{
+    cursor: pointer;
+}
+

@@ -1,0 +1,194 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <div class="col m6 s12">
+
+
+        <!-- <div class="row post-padding submenu">
+                              <a href="">Auctions</a>
+                              <a href="#"><i class="fas fa-caret-right"></i></a><a href="">My GP Events</a>
+                            </div> -->
+
+
+        <div class="post-wrapper">
+          <div class="row post-padding">
+
+
+
+            <div [hidden]="bid_data.images.length <= 0">
+              <!-- display: inline-block;
+                width: 100%;
+                height: 200px; -->
+              <!-- <img src="{{bid_data.image}}" alt="" class="responsive-img thumb-post"> -->
+              <!-- <div style="width: 100%; height: 220px">
+                  <slideshow [imageUrls]="imageSources"></slideshow>
+              </div> -->
+              <slideshow [minHeight]="'220px'" [autoPlay]="true" [showArrows]="false" [imageUrls]="bid_data.images" [lazyLoad]="imageSources?.length > 1"
+                [autoPlayWaitForLazyLoad]="true" [dotColor]='"#151414"' [showDots]="true">
+              </slideshow>
+
+
+            </div>
+            <div class="row post-padding">
+              <h4 class="user-title">{{bid_data.title}} </h4>
+              <p class="user-description">{{bid_data.description}}</p>
+            </div>
+
+            <hr>
+            <div class="col s2" [hidden]="bid_data.auction == 'N'">
+              <img [hidden]="bid_data.creator_id==user_id" src="{{bid_data.posted_by_image}}" alt="" class="circle responsive-img thumb65">
+              <img [hidden]="bid_data.creator_id!=user_id" src="assets/img/thumb_bid.png" alt="" class="circle responsive-img thumb65">
+            </div>
+            <div class="col s2" [hidden]="bid_data.auction == 'Y'">
+              <img [hidden]="bid_data.creator_id==user_id" src="{{bid_data.posted_by_image}}" alt="" class="circle responsive-img thumb65">
+              <img [hidden]="bid_data.creator_id!=user_id" src="assets/img/cart.png" alt="" class="circle responsive-img thumb65">
+            </div>
+            <div class="col s10">
+              <div class="col s8 posted_buy">
+                <span [hidden]="bid_data.creator_id==user_id">Posted by {{bid_data.posted_by}}</span>
+                <span [hidden]="bid_data.creator_id!=user_id">Posted by You</span>
+              </div>
+              <div class="col s4">
+                <span class="sale-price" *ngIf="bid_data.won_bidder_id!=0">{{bid_data.won_bid_amount | currency}} </span>
+                <br>
+                <span class="sale-price" *ngIf="bid_data.won_bidder_id==0">{{bid_data.instant_sale_price | currency}} </span>
+                <br>
+                <span>Sale Amount</span>
+              </div>
+
+            </div>
+            <hr>
+            <div class="col s10">
+              <span class="truncate" *ngIf="bid_data.auction == 'Y'" [ngClass]="{'dismissCls':bid_data.bid_status == 'dismissed'}">
+                GR Closing Time: {{bid_data.bid_end_date}},{{bid_data.bid_end_time}}
+              </span>
+            </div>
+          </div>
+          <div [hidden]="bid_data.won_bidder_id!=0" *ngIf="bid_data.auction=='Y'">
+            <hr>
+            <div class="col s12">
+              <div class="inthree">
+                <div class="post-eventtime no-bottompadding">
+                  <div class="tickek-price text-green">{{bid_data.minimum_bid_amount | currency}}
+                    <br>
+                    <span>Min Bid Amount</span>
+                  </div>
+                  <div class="tickek-price nicebalck" *ngIf="bid_data.my_bid_amount != 0">{{bid_data.bid_count}}
+                    <br>
+                    <span>Bids Placed</span>
+                  </div>
+                  <div class="tickek-price nicebalck calendarr">
+                    <div class="box">
+                      <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                    </div>
+                    {{bid_data.bid_end_date}}
+                    <br>
+                    <span class="nicebalck">{{bid_data.bid_end_time}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- latest bidder session -->
+          <div *ngIf="bid_data.latest_bidder_id!=0 && bid_data.won_bidder_id==0">
+            <hr>
+            <div class="col s12">
+              <div class="col s2">
+                <img src="{{bid_data.latest_bidder_image}}" alt="" class="circle responsive-img thumb65">
+              </div>
+              <div class="col s6">
+                <div>
+                  <span>Current Highest Bid</span>
+                  <br>
+                  <span>{{bid_data.latest_bidder_name}}</span>
+                </div>
+              </div>
+              <div class="col s4">
+                <div>
+                  <span class="tickek-price text-red">{{bid_data.latest_bid_amount | currency}}</span>
+                  <br>
+                  <span>HIGHEST BID</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="bid_data.won_bidder_id!=0">
+            <hr>
+            <div class="col s12">
+              <div class="col s2 trophyrel">
+                <img src="{{bid_data.won_bidder_image}}" alt="" class="circle responsive-img thumb65">
+                <span class="trophypic" *ngIf="bid_data.auction=='Y' && bid_data.win_type != 'buy'">
+                  <img src="assets/img/trophy.png" alt="" class="responsive-img">
+                </span>
+
+              </div>
+              <div class="col s10">
+                <div>
+                  <ng-container *ngIf="bid_data.auction == 'N'; else yes">
+                    <span>Item Buyer</span>
+                    <br>
+                  </ng-container>
+                  <ng-template #yes>
+                    <span>Auction Buyer</span>
+                    <br>
+                  </ng-template>
+                  <span *ngIf="bid_data.won_bidder_id!=user_id">{{bid_data.won_bidder_name}}</span>
+                  <span *ngIf="bid_data.won_bidder_id==user_id">
+                    <b>You</b>
+                  </span>
+                  <br>
+                  <span>{{bid_data.won_bid_date}}</span>
+                </div>
+              </div>
+
+            </div>
+            <hr>
+            <div class="col s12" *ngIf="bid_data.auction=='Y'">
+              <div class="inthree">
+                <div class="post-eventtime no-bottompadding">
+                  <div class="col s6 tickek-price nicebalck">{{bid_data.bid_count}}
+                    <br>
+                    <span>Bids Placed</span>
+                  </div>
+                  <div class="col s6 tickek-price nicebalck ">{{bid_data.won_bid_amount | currency}}
+                    <br>
+                    <span>Purchased Amount</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <hr>
+          <div class="row post-padding" [hidden]="bid_data.won_bidder_id!=0">
+            <div class="col s6">
+              <a class="waves-effect waves-light btn  btn-custom btn-dimgreen" *ngIf="bid_data.auction=='N' && bid_data.creator_id != user_id  && bid_data.bid_status != 'past'"
+                (click)="buyNow(bid_data)">BUY NOW</a>
+            </div>
+            <div class="col s6">
+              <a class="waves-effect waves-light btn  btn-custom btn-primary right" *ngIf="bid_data.latest_bidder_id == 0 && bid_data.creator_id != user_id && bid_data.won_bidder_id==0 && bid_data.auction=='Y'"
+                (click)="openModalForBuyBid(bid_data)">BID NOW</a>
+              <a class="waves-effect waves-light btn  btn-custom btn-primary right" *ngIf="bid_data.auction=='Y' && bid_data.creator_id != user_id && (bid_data.latest_bidder_id!=0 && bid_data.won_bidder_id==0) && ((bid_data.instant_sale_price && ((bid_data.latest_bid_amount+ bid_data.bid_difference_amount) < bid_data.instant_sale_price )) || (!bid_data.instant_sale_price))"
+                (click)="openModalForBuyBid(bid_data)">BID NOW</a>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <!-- notifications -->
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

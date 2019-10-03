@@ -1,0 +1,116 @@
+ <!-- header-->
+ 
+ <app-user-header></app-user-header>
+ <div class="top20_margin">
+   <div class="container hideonipad">
+       <div class="row">
+         <!-- left nave -->
+         <app-left-nave></app-left-nave>
+         <!-- <ng4-loading-spinner> </ng4-loading-spinner>  -->
+
+         <div class="col m6 s12">
+            <div class="row">
+                <div class="dropdownmainbox col s12"> 
+                    <a class="dropdown-button adddropdown" href="javascript:void(0);" data-activates="dropdown3" data-beloworigin="true" data-constrainwidth="false"> <span class="hide-on-small-only"> {{eventTitle}}</span><i class="fas fa-ellipsis-v hide-on-small-only right"></i></a> 
+                    <ul id="dropdown3" class="dropdown-content addcontent right"> 
+                      <li [ngClass]="{'active':eventType == 'all'}"><a href="javascript:void(0);" (click)="changeEventType('all')">All Events</a></li> 
+                      <li [ngClass]="{'active':eventType == 'open'}"><a href="javascript:void(0);" (click)="changeEventType('open')">Open Events</a></li> 
+                      <li [ngClass]="{'active':eventType == 'confirmed'}"><a ref="javascript:void(0);" (click)="changeEventType('confirmed')">Confirmed Events</a></li> 
+                      <li [ngClass]="{'active':eventType == 'past'}"><a href="javascript:void(0);" (click)="changeEventType('past')">Past Events</a></li> 
+                    </ul> 
+                </div>
+                <div class="col s12 looptab">
+                <!-- <div id="test1" class="col s12 looptab"  infiniteScroll
+                [infiniteScrollDistance]="2"
+                [infiniteScrollUpDistance]="1.5"
+                [infiniteScrollThrottle]="50"
+                (scrolled)="onScrollDown()"
+                [infiniteScrollDisabled] = 'loadMore' > -->
+                  <div class="post-wrapper"  *ngFor="let event of eventList; index as i;"  >
+                      <div class="row post-padding" >
+                        <div class="col s2">
+                            <img src="{{event.posted_by_image}}" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                        </div>
+                        <div class="col s10">
+                            <div>
+                              <span class="user-title">{{event.title}}<span class="menuimg"><img src="assets/img/menu_icon.png" alt="" class=" responsive-img"></span></span><br>
+                              <!-- <span class="user-subtitle text-medium-gray">Meeting @ Frank’s Cafe</span><br> -->
+                              <span class="user-subtitle text-medium-gray">{{event.venue}}</span><br>
+                              <!-- <span class="user-subtitle text-medium-gray">Meeting Proceeding to -<span class="nicebalck"> Scholarship</span></span> -->
+                            </div>
+                        </div>
+                        <div class="inthree">
+                            <div class="post-eventtime no-bottompadding">
+                              <div class="tickek-price nicebalck">{{event.ticket_sold}} <br> <span>Ticket(s) Sold</span></div>
+                              <div class="tickek-price nicebalck">{{event.total_revenue | currency}} <br> <span>Revenue Earned</span></div>
+                              <div class="tickek-price nicebalck calendarr">
+                                  <div class="box"><img src="assets/img/calendar_icon.png" alt="" class=" responsive-img"></div>
+                                  {{event.date}} <br> <span class="nicebalck">{{event.time}}</span>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row post-padding">
+                            <div class="col s12">
+                              <p> <b> Draw Date - {{event.draw_date}}</b></p>
+                              <p> {{event.description}} </p>
+                            </div>
+                        </div>
+                        <div class="row post-padding" *ngIf ="event.event_status == 'open'">
+                            <div class="col s12 m7">
+                              <p>Ticket Price <span class="tickek-price text-green"><b> {{event.ticket_price | currency}}</b>  </span></p>
+                              
+                            </div>
+                            <div class="col s12 m5">
+                              <button class="waves-effect waves-light btn  btn-custom btn-primary" (click)="openModalForBuyTickets(event)">Buy Tickets</button>
+                            </div>
+                        </div>
+                        <div class="row post-padding  aligncenter" *ngIf ="event.event_status == 'confirmed'">
+                            <div class="col s2 trophyrel">
+                               <img src="{{event.winner_image}}" alt="" class="circle responsive-img thumb65"> 
+                               <span class="trophypic"><img src="assets/img/trophy.png" alt="" class="responsive-img"></span>
+                            </div>
+                            <div class="col s12 m6">
+                               <div>
+                                  <span class="user-subtitle text-medium-gray">Won by:  </span>
+                                  <span class="user-title">{{event.winner_name}} </span><br>                            
+                               </div>
+                            </div>
+                            <div class="col s12 m6">
+                               <button class="waves-effect waves-light btn  btn-custom btn-primary byebtn btn-primary">ADD TO CALENDAR</button>
+                            </div>
+                        </div>
+
+                        <div class="row post-padding  aligncenter" *ngIf ="event.event_status == 'past'">
+                            <div class="col s2 trophyrel">
+                               <img src="{{event.winner_image}}" alt="" class="circle responsive-img thumb65"> 
+                               <span class="trophypic"><img src="assets/img/trophy.png" alt="" class="responsive-img"></span>
+                            </div>
+                            <div class="col s12 m12">
+                               <div>
+                                  <span class="user-subtitle text-medium-gray">Won by:  </span>
+                                  <span class="user-title">{{event.winner_name}} </span><br>                            
+                               </div>
+                            </div>
+                        </div>
+
+
+                      </div>
+                      
+                  </div>
+                  
+                  
+                  <div class="post-wrapper" *ngIf="eventList.length == 0">
+                     <p>No Events Found</p>
+                  </div>
+               </div>
+               
+               
+            </div>
+         </div>
+         <!-- notifications -->
+         <app-notifications></app-notifications>
+       </div>
+       </div>     
+ </div> 
+ <app-user-common></app-user-common>
+ 

@@ -1,0 +1,759 @@
+<!-- START MODAL Post Event -->
+<!-- <p>
+   <style>
+       input:checked+.dd{
+           opacity: ;
+       }
+       .dd:hover{ 
+           background: #f00 ;
+           z-index: 1652;
+       }
+   </style>
+       <input class="with-gap"  type="checkbox" id="testd"  />
+       <label for="testd" style="margin-top: 10px;"  class="dd" >Enable raffling and choose the draw date.</label>
+     </p> -->
+<!-- <p>
+   <input class="with-gap"  id="test1"  type="checkbox" >
+   <label  for="test1" class="dd" style="margin-top: 10px;"> Mark the checkbox and the enter the amount to put the item on instant sale.</label>
+   </p> -->
+
+<!-- QuickMee Upload -->
+
+<div id="modal1" class="modal modal-md modal-custom" style="z-index: 1003;display: none; transform: scaleX(1); top: 10%;">
+  <div class="modal-innerzz">
+    <div class="quickme-modal-header">
+      <div class="quickme-modal-title">Upload photos</div>
+      <div class="quickme-modal-close">
+        <a href="javascript:void(0)" (click)="closeModalEvent()">
+          <i class="material-icons color-dark">clear</i>
+        </a>
+      </div>
+    </div>
+    <div class="scroll-wrapper modal-content image-upload-area upload-quicke-image scrollable-modal-content" style="position: relative;">
+      <div class="modal-content image-upload-area upload-quicke-image scrollable-modal-content" data-jquery-scrollbar="" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 136px;">
+        <div class="thumbs-wrapper  ng-scope" drag-to-reorder="upload_images" style="overflow-y: scroll">
+            <div class="thumbs-card" *ngFor="let image of base64Images">
+                <span class="remove-upload" (click)="removeImage(image)">
+                    <span class="material-icons">clear</span>
+                </span>
+              <img src="{{image}}" width="100%" alt="No preview"/>
+            </div>
+          <div class="thumbs-card file-card">
+            <label class="upload-label upp-load" id="quickee-is">
+              <input custom-on-change="uploadFile" (change)="fileChangeEvent($event)" type="file" class="" id="file" accept="image/*">
+              <!-- (change)="fileChangeEvent($event)" -->
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="eventForm" (submit)="postEvent()">
+      <div class="details-wrapper">
+        <div class="row-inline quicke-options-details">
+          <div class="option-title"> Description </div>
+        </div>
+        <div class="row-inline quicke-options-details">
+          <div class="inline-flex dir-row section-cols">
+            <div class="inline-flex section-cols section-quic-title">
+              <input type="text" formControlName="description" id="description" class="browser-default ng-pristine ng-valid ng-empty ng-touched"
+                placeholder="Description">
+              <br>
+              <control-messages [control]="eventForm.controls.description"></control-messages>
+            </div>
+          </div>
+        </div>
+        <div class="row-inline quicke-options-details">
+          <div class="inline-flex dir-row section-cols">
+            <div class="inline-flex section-cols section-quic-title">
+              <input type="text" formControlName="instant_sale_price" id="instant_sale_price" class="browser-default ng-pristine ng-valid ng-empty ng-touched"
+                placeholder="$ Actual amount" (keyup)="valuecheck($event)">
+              <control-messages [control]="eventForm.controls.instant_sale_price"></control-messages>
+              <span style="color:red">{{error_message}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row-inline quicke-options-details">
+          <div class="inline-flex dir-row section-cols">
+            <div class="inline-flex section-cols section-quic-title">
+              <p>
+                <input class="with-gap ng-valid ng-dirty ng-touched" name="group3" type="checkbox" formControlName="auctionCheck" id="test5"
+                  (click)="checkAuction($event)" />
+                <label for="test5" style="margin-top: 10px;"> Check the checkbox to put this item for auction.</label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row-inline quicke-options-details">
+          <div class="inline-flex dir-row section-cols">
+            <div class="inline-flex section-cols section-quic-title">
+              <label class="inlabel">Auction End Date</label>
+              <input type="text" (click)="getCalender()" formControlName="date" id="date" class="datepicker browser-default col s12 default-txtbox"
+                placeholder="Auction End Date">
+              <control-messages [control]="eventForm.controls.date"></control-messages>
+            </div>
+            <div class="inline-flex section-cols section-quic-title">
+              <label class="inlabel">Auction End Time</label>
+              <input type="text" (click)="getClock()" formControlName="time" id="bid_time" class="datepicker browser-default col s12 default-txtbox"
+                placeholder="Auction End Time">
+              <control-messages [control]="eventForm.controls.time"></control-messages>
+            </div>
+          </div>
+        </div>
+        <div class="row-inline quicke-options-details">
+          <div class="inline-flex dir-row section-cols">
+            <div class="inline-flex section-cols section-quic-title">
+              <label class="inlabel">Minium Auction Amount</label>
+              <input type="text" formControlName="min_price" id="min_price" class="browser-default col s12 default-txtbox" placeholder="Minium Auction Amount ($)">
+              <control-messages [control]="eventForm.controls.min_price"></control-messages>
+            </div>
+          </div>
+        </div>
+        <div class="center row-inline upload-submit">
+          <button class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action" [disabled]="!eventForm.valid">POST</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- End Quick meee -->
+
+
+
+<!-- <div id="modal1" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <h4>START A GOLD RETAIL</h4>
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closeModalEvent()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col sm12 upload-wrapper valign-wrapper pd0">
+        
+        <img *ngIf="!bid_image" src="assets/img/upload_img.png" alt="" class="center-align">
+        <img *ngIf="bid_image" [src]="bid_image" class="center-align img_actual" />
+
+        <div class="file-field input-field">
+          <div class="btn btn-primary-rounded">
+            <span>Upload Photo</span>
+            <input type="file" (change)="fileChangeEvent($event)" multiple>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="eventForm" (submit)="postEvent()">
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Description</label>
+          <input type="text" formControlName="description" id="description" class="browser-default col s12 default-txtbox" placeholder="Description">
+          <control-messages [control]="eventForm.controls.description"></control-messages>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input type="text" formControlName="instant_sale_price" id="instant_sale_price" class="browser-default col s12 default-txtbox"
+            placeholder="$ Actual amount" (keyup)="valuecheck($event)">
+          <control-messages [control]="eventForm.controls.instant_sale_price"></control-messages>
+          <span style="color:red">{{error_message}}</span>
+        </div>
+        <div [hidden]="!price_error">Sale Amount</div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="col 12">
+          <p>
+            <input class="with-gap" name="group3" type="checkbox" formControlName="auctionCheck" id="test5" (click)="checkAuction($event)"
+            />
+            <label for="test5" style="margin-top: 10px;"> Check the checkbox to put this item for auction.</label>
+          </p>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s6">
+          <label class="inlabel">Auction End Date</label>
+          <input type="text" (click)="getCalender()" formControlName="date" id="date" class="datepicker browser-default col s12 default-txtbox"
+            placeholder="Auction End Date">
+          <control-messages [control]="eventForm.controls.date"></control-messages>
+        </div>
+        <div class="input-field col s6">
+          <label class="inlabel">Auction End Time</label>
+          <input type="text" (click)="getClock()" formControlName="time" id="bid_time" class="datepicker browser-default col s12 default-txtbox"
+            placeholder="Auction End Time">
+          <control-messages [control]="eventForm.controls.time"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s6">
+          <label class="inlabel">Minium Auction Amount</label>
+          <input type="text" formControlName="min_price" id="min_price" class="browser-default col s12 default-txtbox" placeholder="Minium Auction Amount ($)">
+          <control-messages [control]="eventForm.controls.min_price"></control-messages>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <button class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action" [disabled]="!eventForm.valid">POST</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->
+<!--END MODAL -->
+
+<!-- START MODAL Post Event -->
+<div id="modal2" class="modal"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <h4>POST A GOLD PASS EVENT</h4>
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closeModalMeeting()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <form [formGroup]="meetingForm" (submit)="postMeeting()">
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Description</label>
+          <input type="text" formControlName="description" id="description" class="browser-default col s12 default-txtbox" placeholder="Description">
+          <control-messages [control]="meetingForm.controls.description"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s6">
+          <label class="inlabel">Date</label>
+          <input type="text" (click)="getMeetingDateCalender()" formControlName="date" id="meeting_date" class="datepicker browser-default col s12 default-txtbox"
+            placeholder="Event Date">
+          <control-messages [control]="meetingForm.controls.date"></control-messages>
+        </div>
+        <div class="input-field col s6">
+          <label class="inlabel">Time</label>
+          <input type="text" (click)="getMeetingTimeClock()" formControlName="time" id="meeting_time" class="timepicker browser-default col s12 default-txtbox"
+            placeholder="Event Time">
+          <control-messages [control]="meetingForm.controls.time"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Venue</label>
+          <!-- <ng4geo-autocomplete (componentCallback)="autoCompleteCallback1($event)" class="browser-default col s12 default-txtbox"></ng4geo-autocomplete>  -->
+          <!-- <input type="text" id="singleInput" class="browser-default col s12 default-txtbox" (ngModelChange)="changeVenue($event)" (focus)="changeSelectText($event)"
+            formControlName="venue" placeholder="Venue" data-activates="singleDropdown" data-beloworigin="true" autocomplete="off">
+          <ul id="singleDropdown" class="dropdown-content ac-dropdown"></ul> -->
+         <!-- <select id="singleInput" class="form-control" id="kd">
+          
+         </select> -->
+
+         <select id="venue" formControlName="venue" >
+           <option value="">Select Venue</option>
+            <option *ngFor="let venue of venueList" [value]="venue.location"> {{venue.location}} </option>
+          </select>
+          <control-messages [control]="meetingForm.controls.venue"></control-messages>
+          <span style="color:red">{{venue_error}}</span>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s6">
+          <label class="inlabel">Duration (In Hours)</label>
+          <p class="range-field">
+            <input formControlName="duration" id="duration" type="range" id="test5" min="1" max="48" />
+          </p>
+        </div>
+        <div class="input-field col s6">
+          <label class="inlabel">Ticket Price</label>
+          <input type="text" formControlName="ticket_price" id="ticket_price" class="browser-default col s12 default-txtbox" placeholder="Ticket Price">
+          <control-messages [control]="meetingForm.controls.ticket_price"></control-messages>
+        </div>
+      </div>
+      <div class="clear-fix"></div>
+      <!-- <div class="row no-marginbottom">
+              <div class="input-field col s6 dd">
+                  <p>
+                      <input  class="with-gap" id="testd" type="checkbox">
+                      <label  for="testd" style="margin-top: 10px;">Enable raffling and choose the draw date.</label>
+                  </p>  
+              </div> 
+              <div class="input-field col s6">
+                  <label  class="inlabel">Draw Date</label>
+                  <input type="text" (click)="getDrwDateCalender()" formControlName="draw_date" id="draw_date" class="datepicker browser-default col s12 default-txtbox" placeholder="Draw Date">     
+                  <control-messages [control]="meetingForm.controls.draw_date"></control-messages>   
+              </div>          
+              </div>  -->
+      <div class="row no-marginbottom" *ngIf="raffle_enabled=='Y'">
+        <div class="col s6">
+          <p style="margin-top: 30px;">
+            <input class="with-gap" formControlName="raffleCheck" id="testd" type="checkbox" (click)="checkRaffle($event)">
+            <label for="testd" style="margin-top: 10px;">Enable raffling and choose the draw date.</label>
+          </p>
+        </div>
+        <div class="input-field col s6">
+          <label class="inlabel">Draw Date</label>
+          <input type="text" (click)="getDrwDateCalender()" formControlName="draw_date" id="draw_date" class="datepicker browser-default col s12 default-txtbox"
+            placeholder="Draw Date">
+          <control-messages [control]="meetingForm.controls.draw_date"></control-messages>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <button class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action" [disabled]="!meetingForm.valid">POST</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--END MODAL -->
+
+
+<!-- START MODAL TGS  -->
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <h4>POST A GOLD TGS</h4>
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closeModalTgs()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <form [formGroup]="tgsForm" (submit)="postTgs()">
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Description</label>
+          <input type="text" formControlName="tgs_description" id="tgs_description" class="browser-default col s12 default-txtbox" placeholder="Description">
+          <control-messages [control]="tgsForm.controls.tgs_description"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s6">
+          <label class="inlabel">Date</label>
+          <input type="text" (click)="getTgsDateCalender()" formControlName="tgs_date" id="tgs_date" class="datepicker browser-default col s12 default-txtbox"
+            placeholder="Event Date">
+          <control-messages [control]="tgsForm.controls.tgs_date"></control-messages>
+        </div>
+        <div class="input-field col s6">
+          <label class="inlabel">Time</label>
+          <input type="text" (click)="getTgsTimeClock()" formControlName="tgs_time" id="tgs_time" class="timepicker browser-default col s12 default-txtbox"
+            placeholder="Event Time">
+          <control-messages [control]="tgsForm.controls.tgs_time"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Venue</label>
+          <!-- <ng4geo-autocomplete (componentCallback)="autoCompleteCallback1($event)" class="browser-default col s12 default-txtbox"></ng4geo-autocomplete>  -->
+          <!-- <input type="text" id="singleInputTgs" class="browser-default col s12 default-txtbox" (ngModelChange)="changeVenueTgs($event)"
+            formControlName="tgs_venue" placeholder="Venue" data-activates="singleDropdownTgs" data-beloworigin="true" autocomplete="off">
+          <ul id="singleDropdownTgs" class="dropdown-content ac-dropdown"></ul> -->
+          <select id="tgs_venue" formControlName="tgs_venue" >
+              <option value="">Select Venue</option>
+            <option *ngFor="let venue of venueList" [value]="venue.location"> {{venue.location}} </option>
+          </select>
+          <control-messages [control]="tgsForm.controls.tgs_venue"></control-messages>
+          <span style="color:red">{{venue_error}}</span>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Duration (In Hours)</label>
+          <p class="range-field">
+            <input formControlName="tgs_duration" id="tgs_duration" type="range" id="test5" min="1" max="48" />
+          </p>
+        </div>
+      </div>
+      <!--  -->
+      <div class="row no-marginbottom">
+        <div class="col s12">
+            <label class="inlabel">Choose Packages</label>
+            <div class="check-add">
+                <p *ngFor="let chkbox of packagechk">
+                  <input (change)="chkbox.value = !chkbox.value" [checked]="chkbox.value" formControlName="{{chkbox.id}}" type="checkbox" class="filled-in" id="{{chkbox.id}}" />
+                  <label for="{{chkbox.id}}">{{chkbox.label}}</label>
+                </p>
+            </div>
+        </div>
+        
+      </div>
+
+      <div class="row no-marginbottom" [hidden]="!packagechk[2].value">
+        <div class="input-field col s12">
+          <label class="inlabel">Add your gift items</label>
+          <input type="text" formControlName="gift_message" id="gift_message" class="browser-default col s12 default-txtbox" placeholder="Add your gift items">
+          <control-messages [control]="tgsForm.controls.gift_message"></control-messages>
+        </div>
+      </div>
+           
+      <div class="clear-fix"></div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <button class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action" [disabled]="!tgsForm.valid">POST</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- END MODAL TGS -->
+
+<!-- START MODAL Common Notifications -->
+<div id="modalNotification" class="modal notification_modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <!-- <h4>Post Event</h4> -->
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closeNotification()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <div class="row no-marginbottom">
+      <div class="input-field col s12">
+        <p class="center">{{notification_message}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <button (click)="closeNotification()" class="btn waves-effect waves-light col s12 btn-primary-square" name="action">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL -->
+
+
+<div id="modalBidPicture" class="modal bid_image_modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <!-- <h4>Upload Picture</h4> -->
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closeBidPictureModal()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <!-- <image-cropper
+           
+             [imageChangedEvent]="imageChangedEvent"
+             [maintainAspectRatio]="true"
+             [aspectRatio]="4 / 3"
+             [resizeToWidth]="0"
+             format="png"
+             (imageCropped)="imageCropped($event)"
+             (imageLoaded)="imageLoaded()"
+             (loadImageFailed)="loadImageFailed()"
+             style="max-height: 33vh"
+             [style.display]="cropperReady ? null : 'none'"
+            ></image-cropper> -->
+    <div class="row no-marginbottom" style="text-align: center; ">
+      <image-cropper style="display: inline-block;" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="3/1"
+        format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()"
+        height="350" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <button (click)="saveBidPictureModal()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /************ for celebrity_paymen************/ -->
+<div id="celebrity_payment" class="modal notification_modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <!-- <h4>Post Event</h4> -->
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closePaymentNotification()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <div class="row no-marginbottom">
+      <div class="input-field col s12">
+        <p class="center">Please Create a Payment Profile to receive the revenue earned.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <button (click)="closePaymentNotification()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit"
+          name="action">NOT NOW</button>
+      </div>
+      <div class="input-field col s6">
+        <button (click)="createCelebrityPayment()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit"
+          name="action">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- *********celebrity_payment_profile*********** -->
+<div id="celebrity_payment1" class="modal notification_modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <!-- <h4>Post Event</h4> -->
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closePaymentNotification1()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <div class="row no-marginbottom">
+      <div class="input-field col s12">
+        <p class="center">Please Create a Payment Profile to receive the Auction Amount.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <button (click)="closePaymentNotification1()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit"
+          name="action">NOT NOW</button>
+      </div>
+      <div class="input-field col s6">
+        <button (click)="createCelebrityPayment1()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit"
+          name="action">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- *********celebrity_payment_profile*********** -->
+<div id="celebrity_payment_profile" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <h4>Create Payment Profile</h4>
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closeCelebrityPayment()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <form [formGroup]="paymentForm" (submit)="createStripeAccount()">
+      <div class="text-center">
+        <!-- <div *ngIf="success_message" class="Success"> {{success_message}} </div> -->
+        <!-- <div  class="notErrors"> {{error_message}} </div> -->
+        <div class="isa_error" *ngIf="error_message">
+          <i class="fa fa-times-circle"></i>
+          {{error_message}}
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Account Number</label>
+          <input type="text" [textMask]="{mask: account_no_mask}" formControlName="account_number" id="account_number" class="browser-default col s12 default-txtbox"
+            placeholder="XXXX-XXXX-XXXX">
+          <control-messages [control]="paymentForm.controls.account_number"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Routing Number</label>
+          <input type="text" [textMask]="{mask: routing_no_mask}" formControlName="routing_number" id="routing_number" class="browser-default col s12 default-txtbox"
+            placeholder="XXXXXXXXX">
+          <control-messages [control]="paymentForm.controls.routing_number"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s6">
+          <label class="inlabel">SSN (Last 4 number)</label>
+          <input type="text" [textMask]="{mask: ssn_no_mask}" formControlName="ssn_number" id="ssn_number" class="browser-default col s12 default-txtbox"
+            placeholder="XXXX">
+          <control-messages [control]="paymentForm.controls.ssn_number"></control-messages>
+        </div>
+        <div class="input-field col s6">
+          <label class="inlabel">Account Holder Name</label>
+          <input type="text" formControlName="first_name" id="first_name" class="browser-default col s12 default-txtbox" placeholder="Account Holder Name">
+          <control-messages [control]="paymentForm.controls.first_name"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Date of Birth</label>
+          <input type="text" [textMask]="{mask: dob_mask}" formControlName="dob" id="dob" class="browser-default col s12 default-txtbox"
+            placeholder="DD-MM-YYYY">
+          <control-messages [control]="paymentForm.controls.dob"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Address</label>
+          <input type="text" formControlName="address" id="address" class="browser-default col s12 default-txtbox" placeholder="Address">
+          <control-messages [control]="paymentForm.controls.address"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s6">
+          <label class="inlabel">City</label>
+          <input type="text" formControlName="city" id="city" class="browser-default col s12 default-txtbox" placeholder="City">
+          <control-messages [control]="paymentForm.controls.city"></control-messages>
+        </div>
+        <div class="input-field col s6">
+          <label class="inlabel">State</label>
+          <input type="text" formControlName="state" id="state" class="datepicker browser-default col s12 default-txtbox" placeholder="State">
+          <control-messages [control]="paymentForm.controls.state"></control-messages>
+        </div>
+      </div>
+      <div class="row no-marginbottom">
+        <div class="input-field col s12">
+          <label class="inlabel">Zip</label>
+          <input type="text" [textMask]="{mask: zip_mask}" formControlName="zip" id="zip" class="datepicker browser-default col s12 default-txtbox"
+            placeholder="XXXXX">
+          <control-messages [control]="paymentForm.controls.zip"></control-messages>
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class="input-field col s6">
+                 <input type="text" formControlName="instant_sale_price" id="instant_sale_price"   class="browser-default col s12 default-txtbox" placeholder="$ amount">     
+                 <control-messages [control]="meetingForm.controls.instant_sale_price"></control-messages>   
+                 </div> -->
+        <div class="input-field col s6">
+          <button class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action" [disabled]="!paymentForm.valid">ADD ACCOUNT</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--modal for buy tickets -->
+<div id="buyTickets" class="modal notification_modal">
+  <div class="modal-content">
+    <div class="row">
+      <!-- <img src="assets/img/loader.gif" alt="" > -->
+      <div class="col s8">
+        <h4 _ngcontent-c5=""> Saved Cards</h4>
+      </div>
+      <div class="col s4 right-align" (click)="closeBuyticketsModal()">
+        <a href="javascript:void(0)">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <div class="cardinfo row  valign-wrapper" *ngFor="let card of cardList; index as i;">
+      <div class="col s2">
+        <img src="assets/img/card_visa.png" alt="">
+      </div>
+      <div class="col s8">
+        <p>{{card.name | uppercase}}</p>
+        <p class="text-medium">
+          <b>XXXX XXXX XXXX {{card.last4}}</b>
+        </p>
+        <p>{{card.exp_month}}/{{card.exp_year}}</p>
+      </div>
+      <div class="col s2 right-align">
+        <div class="switch">
+          <label>
+            <input type="checkbox" [(ngModel)]="card.checked" (change)="selectMe(card)">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="cardList.length == 0" class="cardinfo row  valign-wrapper">
+      No cards found
+    </div>
+    <div *ngIf="cardSuccess" class="cardinfo row  valign-wrapper">
+      card successfully added
+    </div>
+    <div>
+      <form [formGroup]="cardDetails">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header  mycheader">
+              <h4> Add New Card</h4>
+            </div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="input-field col s12 relative input-box">
+                  <a href="#" class="pass-view"></a>
+                  <input placeholder="Name on the card" formControlName="name" id="password" type="text" class="validate">
+                  <control-messages [control]="cardDetails.controls.name"></control-messages>
+                  <label for="first_name" class="active">Name on the Card</label>
+                </div>
+                <div class="input-field col s12 input-box">
+                  <input [textMask]="{mask: mask}" placeholder="xxxx-xxxx-xxxx-xxxx" formControlName="card_num" id="first_namea" type="text"
+                    class="validate">
+                  <control-messages [control]="cardDetails.controls.card_num"></control-messages>
+                  <label for="first_namea" class="active">Card Number</label>
+                </div>
+                <div class="input-field col s12 relative input-box">
+                  <a href="#" class="pass-view"> </a>
+                  <input placeholder="MM/YYYY" [textMask]="{mask: exp_date_mask}" formControlName="exp_date" id="passworda" type="text" class="validate">
+                  <control-messages [control]="cardDetails.controls.exp_date"></control-messages>
+                  <span *ngIf="dateError" style="color:red">{{dateError}}</span>
+                  <label for="first_namea" class="active">Expiration Date</label>
+                </div>
+                <div class="input-field col s12 input-box">
+                  <input [textMask]="{mask: cvc_mask}" placeholder="" formControlName="cvc" id="first_namea" type="text" class="validate">
+                  <control-messages [control]="cardDetails.controls.cvc"></control-messages>
+                  <label for="first_namea" class="active">CVC</label>
+                </div>
+                <div class="clear-fix"></div>
+              </div>
+              <div class="row" *ngIf="cardError">
+                {{cardError}}
+              </div>
+              <div class="row">
+                <div class="button-corp top20_margin ">
+                  <button class="btn-large waves-effect waves-light  btn-primary s12" (click)="creatPayment()" [disabled]="!cardDetails.valid">SAVE </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL  FOR BID -->
+<div id="bidModal" class="modal addheight">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s10 offset-s1">
+        <h4 class="center-align">Place a Bid</h4>
+      </div>
+      <div class="col s1 right-align">
+        <a href="javascript:void(0)" (click)="closeBuyBid()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <div class="center-align">
+      <h6>Select an amount and place your bid</h6>
+    </div>
+    <div class="center-align">
+      <b>{{curBidAmount | currency}}</b>
+    </div>
+
+
+    <div class="row no-marginbottom center-align">
+      <div class=" col s12">
+        <!-- {{bidList}} -->
+        <div class="col s2 offset-s5">
+          <select class="browser-default" style="display:block !important ;" [(ngModel)]="curBidAmount" [ngModelOptions]="{standalone: true}"
+            onchange="$(this).trigger('click');" (click)="bidUpdate($event)">
+            <option class='option' *ngFor="let bid of bidList" [value]="bid"> {{bid | currency}} </option>
+          </select>
+        </div>
+        <!--   <a class="dropdown-trigger_bid btn" href="javascript:void(0);" data-activates="dropdownx" data-beloworigin="true" data-constrainwidth="false"> <span class="hide-on-small-only">{{curBidAmount | currency}}</span></a> 
+                <ul id='dropdownx' class='dropdown-content' style="margin-left: -7px;">
+                    <li *ngFor="let bid of bidList; index as i;" > <a href="javascript:void(0);" (click)="passValue(bid)">{{bid | currency}}</a></li>
+                 </ul> -->
+      </div>
+    </div>
+    <div class="input-field col s6 center-align">
+      <button class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" (click)="placeBid()">PLACE BID</button>
+    </div>
+  </div>
+</div>
+<!--- END MODAL FOR BID -->
+<ng4-loading-spinner> </ng4-loading-spinner>
+<!-- <ng4-loading-spinner [threshold]="1000" [template]="template" [loadingText]="'Please wait...'" [zIndex]="999" ></ng4-loading-spinner> -->

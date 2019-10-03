@@ -1,0 +1,100 @@
+<app-publicheader></app-publicheader>
+<section class="homebanner abouthomebanner">
+  <div class="container fexhome">
+     <div class="txt_banner center">
+        <h1>Contact</h1>
+     </div>
+  </div>
+</section>
+<div class="container">
+<div class="row addabout">
+  <div class="col l7 m7 s12 ">
+     <!-- <h3 class="section-head">Contact Us</h3>
+     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+
+
+     
+     <i class="material-icons yellowicon">location_on</i> 
+     <br>
+     <span class="contact-subhed">Address</span>
+     <p>There are many variations of passages of Lorem Ipsum available,vable.</p>
+      -->
+     <i class="material-icons yellowicon">email</i>  
+     <!-- <br> -->
+     <span class="contact-subhed">email</span>
+     <p>contact@domain.com</p>
+     <!-- <i class="material-icons yellowicon">phone</i>
+     <br>
+     <span class="contact-subhed">phone</span>
+     <p>+91 800 000 00 75</p> -->
+  </div>
+  <div class="col l5 m5 s12 ">
+     <h3 class="section-head">Contact Us</h3>
+     <form [formGroup]="contactForm" (submit)="sendContact()">         
+        
+     <div class="row ">  
+         <div class="input-field col s12 input-box">
+            <input placeholder="Name" formControlName="cn_name" id="cn_name" type="text" class="validate">
+            <label for="cn_name" class="active">Name</label>
+            <control-messages [control]="contactForm.controls.cn_name"></control-messages>   
+            
+           </div>                                        
+         <div class="input-field col s12 input-box">
+            <input placeholder="Email" formControlName="cn_email" id="cn_email" type="text" class="validate">
+            <label for="cn_email" class="active">Email</label>
+            <control-messages [control]="contactForm.controls.cn_email"></control-messages>   
+            
+           </div>
+                           
+           <div class="input-field col s12 relative input-box">
+               <a href="#" class="pass-view">  </a>
+               <input placeholder="1-xxx-xxx-xxxx"  [textMask]="{mask: mb_mask}" formControlName="cn_number" id="cn_number" type="text" class="validate">
+               <label for="cn_number" class="active">Contact Number</label>
+               <control-messages [control]="contactForm.controls.cn_number"></control-messages>   
+               
+             </div>  
+             <div class="input-field col s12 relative input-box">
+                 <textarea formControlName="cn_message" placeholder="Message" id="textarea1" class="materialize-textarea"></textarea>
+                 <label for="first_namea" class="active">Message</label>
+                 <control-messages [control]="contactForm.controls.cn_message"></control-messages>   
+                 
+               </div>
+                                                                                                                 
+             <div class="clear-fix"></div>                                                      
+ </div>
+    <button class="btn waves-effect waves-light btn-large btn-yellow col l12 s12" [disabled]="!contactForm.valid" type="submit" name="action">send</button>
+</form>
+  </div>
+  </div>
+</div>
+
+  <!-- START MODAL Common Notifications -->
+
+  <div id="contactNotification" class="modal notification_modal">
+      <div class="modal-content">
+      <div class="row">
+      <div class="col s8">
+        <!-- <h4>Post Event</h4> -->
+      </div>
+      <div class="col s4 right-align"><a href="javascript:void(0)" (click)="closeContactNotification()"><i class="material-icons">close</i></a></div>
+      </div>  
+      
+        <div class="row no-marginbottom">
+            <div class="input-field col s12">
+               <p class="center">{{notification_message}}</p>
+              </div>            
+          </div>      
+          
+        
+          <div class="row">
+  
+            <div class="input-field col s12">           
+                <button (click)="closeContactNotification()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">OK</button>
+            </div>
+          </div>
+     
+           
+      </div>   
+      </div>
+    <!--END MODAL -->
+<app-publicfooter></app-publicfooter>

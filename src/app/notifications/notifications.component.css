@@ -1,0 +1,28 @@
+.more_notification{
+    text-align: center;
+}
+
+.closeButton{
+    position: relative;
+
+}
+.closes{
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    color: #b8b8b8;
+    cursor: pointer;
+    padding-left: 3px;
+    background: #fff;
+}
+
+.noti{
+    font-size: 14px;
+    color: #4f4f4f;
+    font-weight: 600;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}

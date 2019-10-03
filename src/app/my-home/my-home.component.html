@@ -1,0 +1,470 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <div class="col m6 s12" [hidden]="feed_list.length">
+        <div class="no-record post-wrapper">
+          <h5>No feeds found!</h5>
+          <p> Please follow Celebrities to view their feeds.</p>
+        </div>
+      </div>
+      <!-- <div class="col m6 s12"  id="test1" infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollUpDistance]="1.5"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScrollDown()"
+        [infiniteScrollDisabled] = 'loadMore' [hidden]="!feed_list.length"> -->
+      <div class="col m6 s12" id="test1" [hidden]="!feed_list.length">
+        <div id="about" class="nano">
+          <div class="content">
+            <!-- start box -->
+            <div class="post-wrapper --post-card" *ngFor="let feeds of feed_list">
+              <!-- for feed_type is 1 ie Meeting -->
+              <div *ngIf="feeds.feed_type==1">
+                <div class="row post-padding">
+                  <div class="col s2">
+                    <img src="assets/img/thumb_event.png" alt="" class="circle responsive-img thumb65">
+                    <!-- notice the "circle" class -->
+                  </div>
+                  <div class="col s10">
+                    <div>
+                      <span class="user-title">{{feeds.feed_data.title | capitalizeFirst}}</span>
+                      <br>
+                      <!-- <span class="user-subtitle text-medium-gray">Meeting @ Frank’s Cafe</span><br> -->
+                      <span>{{feeds.feed_data.venue}}</span>
+                      <br>
+                      <!-- <span class="user-subtitle text-medium-gray">Meeting Proceeding to -<span class="nicebalck"> Scholarship</span></span> -->
+                      <!-- <p class="user-description">{{feeds.feed_data.description | capitalizeFirst}}</p> -->
+                    </div>
+                    <!-- <div class="post-eventtime no-bottompadding">
+                          <div>{{event.date}} <br> <b>{{event.time}}</b></div>
+                          <div class="tickek-price text-green" >{{event.ticket_price | currency}} <br> <span>Ticket Price</span></div>
+                       </div> -->
+                  </div>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <div class="row post-padding">
+                    <div class="col s2 subimg">
+                      <img class="like_hreff" src="{{feeds.feed_data.posted_by_image}}" (click)="publicProfile(feeds.feed_data.creator_id)" alt=""
+                        class="circle responsive-img thumb65">
+                      <!-- notice the "circle" class -->
+
+
+                    </div>
+                    <div class="col s7">
+                      <!-- check posted buy you or not -->
+                      <div>
+                        <span class="user-subtitle text-medium-gray">Posted By:</span>
+                        <span class="user-title" [hidden]="feeds.feed_data.creator_id==user_id">{{feeds.feed_data.posted_by}}</span>
+                        <span class="user-title" [hidden]="feeds.feed_data.creator_id!=user_id">You</span>
+                        <!-- <br>                            
+                             <p class="user-description"> <span class="text-medium-gray">Posted on:</span>{{event.post_date}}</p> -->
+                      </div>
+                      <!-- check posted buy you or not -->
+                      <div *ngIf="feeds.feed_data.event_status == 'open' && feeds.feed_data.raffle != 'N'" [ngClass]="{'dismissCls':feeds.feed_data.event_status == 'dismissed'}">
+                        Draw Date - {{feeds.feed_data.draw_date}}
+                      </div>
+                      <div *ngIf="feeds.feed_data.event_status == 'dismissed'" [ngClass]="{'dismissCls':feeds.feed_data.event_status == 'dismissed'}">
+                        Event Cancelled
+                      </div>
+                    </div>
+                    <div class="col s3" style="position:relative">
+                      <div>
+                        <button class="viewbtn" (click)="eventDetails(feeds.feed_data.id)">View Detail</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-footer valign-wrapper footerthreeblock">
+                    <div class="col s12">
+                      <div class="inthree">
+                        <div class="post-eventtime no-bottompadding">
+                          <!-- <div class="box"><img src="assets/img/calendar_icon.png" alt="" class=" responsive-img"></div>
+                              <div>{{event.date}} <br> <b>{{event.time}}</b></div>  -->
+                          <div class="tickek-price nicebalck calendarr left">
+                            <div class="box">
+                              <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                            </div>
+                            <br> {{feeds.feed_data.date}}
+                            <span class="nicebalck"></span>
+                          </div>
+                          <!-- <div class="col s12 m4" *ngIf="feeds.feed_data.creator_id != user_id ">
+                            <div class="tickek-price text-green left">{{feeds.feed_data.ticket_price | currency}}
+                              <br>
+                              <span>Ticket Price</span>
+                            </div>
+                          </div> -->
+                          <div class="col s12 m4" *ngIf="feeds.feed_data.creator_id == user_id ">
+                            <div class="tickek-price text-green left">{{feeds.feed_data.total_revenue | currency}}
+                              <br>
+                              <span>REVENUE EARNED</span>
+                            </div>
+                          </div>
+                          <div *ngIf="feeds.feed_data.event_status == 'past'">
+                            <div class="col s12 m4  offset-m4 trophyrel">
+                              <img class="like_hreff" src="{{feeds.feed_data.winner_image}}" (click)="publicProfile(feeds.feed_data.winner_id)" alt=""
+                                class="circle responsive-img thumb65 left">
+                              <span class="trophypic trophypicz left">
+                                <img src="assets/img/trophy.png" alt="" class="responsive-img">
+                              </span>
+                            </div>
+                            <div class="col s12 m4">
+                              <div>
+                                <span class="user-subtitle text-medium-gray left"></span>
+                                <span class="user-title user-title-n left">{{feeds.feed_data.winner_name}} </span>
+                                <br>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col s12 m4" *ngIf="(feeds.feed_data.event_status == 'open') && (feeds.feed_data.creator_id != user_id)">
+                            <div>
+                              <div class="col s12">
+                                <a class="waves-effect waves-light btn right btn-custom btn-dimgreen" *ngIf="feeds.feed_data.creator_id != user_id " (click)="openModalForBuyTickets(feeds.feed_data)">BUY TICKETS</a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col s12 m4 " *ngIf="feeds.feed_data.creator_id==user_id  && feeds.feed_data.event_status != 'confirmed' && !feeds.feed_data.winner_id">
+                            <div>
+                              <div class="col s12">
+                                <div class="tickek-price text-green left" *ngIf="feeds.feed_data.creator_id == user_id ">
+                                  {{feeds.feed_data.ticket_sold}}
+                                  <br>
+                                  <span>TICKET(S) SOLD</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col s12 m4" *ngIf="feeds.feed_data.event_status == 'confirmed' && feeds.feed_data.raffle == 'Y'">
+                            <div>
+                              <div class="col s12 m4 offset-m4 trophyrel ">
+                                <img class="like_hreff" src="{{feeds.feed_data.winner_image}}" (click)="publicProfile(feeds.feed_data.winner_id)" alt=""
+                                  class="circle responsive-img thumb65 left">
+                                <span class="trophypic trophypicz left">
+                                  <img src="assets/img/trophy.png" alt="" class="responsive-img">
+                                </span>
+                              </div>
+                              <div class="col s12 m12">
+                                <div>
+                                  <span class="user-title user-title-n left">{{feeds.feed_data.winner_name}} </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- for feed_type is 1 ie Bid -->
+              <div *ngIf="feeds.feed_type==2">
+
+                <div class="--flex-s --post-header">
+                  <div class="--flex-s --avatar-head">
+                    <span class="--avatar-medium" *ngIf="feeds.feed_data.auction == 'Y'">
+                      <img src="assets/img/thumb_bid.png">
+                    </span>
+                    <span class="--avatar-medium" *ngIf="feeds.feed_data.auction == 'N'">
+                      <img src="assets/img/cart.png">
+                    </span>
+                  </div>
+                  <div class="--flex-s --head-details">
+                    <div class="--footer-abs-sec">
+                      <div class="--row-inline">
+                        <div class="viewBidButton">
+                          <button class="viewbtn" (click)="bidDetails(feeds.feed_data.id)">View Detail</button>
+                        </div>
+                        <span class="--name-post truncate">
+                          {{feeds.feed_data.title | capitalizeFirst}}
+                        </span>
+                      </div>
+                      <div class="--row-inline">
+                        <!-- <span class="truncate" *ngIf="feeds.feed_data.auction == 'Y'" [ngClass]="{'dismissCls':feeds.feed_data.bid_status == 'dismissed'}">
+                                GR Closing Time: {{feeds.feed_data.bid_end_date}},{{feeds.feed_data.bid_end_time}}
+                                </span> -->
+                        <span class="truncate" *ngIf="(feeds.feed_data.auction == 'Y') && (feeds.feed_data.bid_status == 'past')">
+                          Sold Out
+                        </span>
+                        <span class="truncate" *ngIf="(feeds.feed_data.auction == 'Y') && (feeds.feed_data.bid_status == 'live')">
+                          On Auction
+                        </span>
+                        <span class="truncate" *ngIf="(feeds.feed_data.auction == 'Y') && (feeds.feed_data.bid_status == 'dismissed')">
+                          Dissmissed
+                        </span>
+                        <span class="truncate" *ngIf="(feeds.feed_data.auction == 'N') && (feeds.feed_data.bid_status == 'past')">
+                          Sold Out
+                        </span>
+                        <span class="truncate" *ngIf="(feeds.feed_data.auction == 'N') && (feeds.feed_data.bid_status == 'live')">
+                          On Sale
+                        </span>
+                        <span class="truncate" *ngIf="(feeds.feed_data.auction == 'N') && (feeds.feed_data.bid_status == 'dismissed')">
+                          Dissmissed
+                        </span>
+                      </div>
+
+                    </div>
+                    <!-- <div class="col s3">
+                              <div>
+                                 <button class="viewbtn" (click)="bidDetails(feeds.feed_data.id)">View Detail</button>
+                              </div>
+                           </div> -->
+
+                  </div>
+                </div>
+                <div class="--flex-s">
+                  <div class="--post-image-wrapper" *ngIf="feeds.feed_data.images.length != 0">
+                    
+                    <div class="card-preview" attr.data-preset="{{feeds.feed_data.images.length > 5 ? 5 : feeds.feed_data.images.length}}">
+                      <img class="transparent-im" src="assets/img/assets/transparent.png">
+                      <div class="thumbs-wrapper">
+                        <!-- <div class="preview-thumbs is-video-preview">
+                          <span class="play-videos-icon">
+                            <span class="material-icons">play_arrow</span>
+                          </span>
+                          <div class="preview-thumb-inner"></div>
+                          <img src="assets/img/temp/9.jpg">
+                          
+                        </div> -->
+                        <div class="preview-thumbs" (click)="bidDetails(feeds.feed_data.id)">
+                          <div class="preview-thumb-inner"></div>
+                          <img [defaultImage]="defaultImage" [lazyLoad]="feeds.feed_data.image_directory + feeds.feed_data.images[0]" [offset]="offset">
+                          <!-- <img class="--post-image" src="{{feeds.feed_data.image}}"> -->
+                        </div>
+                        <div class="preview-thumbs" (click)="bidDetails(feeds.feed_data.id)">
+                          <div class="preview-thumb-inner"></div>
+                          <img [defaultImage]="defaultImage" [lazyLoad]="feeds.feed_data.image_directory + feeds.feed_data.images[1]" [offset]="offset">
+                        </div>
+
+                        <div class="preview-thumbs" (click)="bidDetails(feeds.feed_data.id)">
+                          <div class="preview-thumb-inner"></div>
+                          <img [defaultImage]="defaultImage" [lazyLoad]="feeds.feed_data.image_directory + feeds.feed_data.images[2]" [offset]="offset">
+                        </div>
+                        <div class="preview-thumbs" (click)="bidDetails(feeds.feed_data.id)">
+                          <div class="preview-thumb-inner"></div>
+                          <img [defaultImage]="defaultImage" [lazyLoad]="feeds.feed_data.image_directory + feeds.feed_data.images[3]" [offset]="offset">
+                        </div>
+                        <div class="preview-thumbs" (click)="bidDetails(feeds.feed_data.id)">
+                          <div class="more-media">
+                            <div class="inline-flex txt-25">{{feeds.feed_data.images.length}}</div>
+                            <div class="inline-flex txt-3 title-sub">
+                              <span>Photos</span>
+                            </div>
+                          </div>
+                          <div class="preview-thumb-inner"></div>
+                          <img [defaultImage]="defaultImage" [lazyLoad]="feeds.feed_data.image_directory + feeds.feed_data.images[4]" [offset]="offset">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="--post-content-wrapper" *ngIf="feeds.feed_data.image==''">
+                    <p>{{feeds.feed_data.description}}</p>
+                  </div>
+
+                </div>
+                <div class="--flex-s --post-footer">
+                  <div class="--flex-s --posted-by">
+                    <span class="--avatar-small">
+                      <img class="like_hreff" src="{{feeds.feed_data.posted_by_image}}" (click)="publicProfile(feeds.feed_data.creator_id)">
+                    </span>
+                    <span class="--user-name-post truncate" *ngIf="feeds.feed_data.creator_id!=user_id">
+                      <span class="--gray">Posted by</span> : {{feeds.feed_data.posted_by}}
+                    </span>
+                    <span class="--user-name-post truncate" *ngIf="feeds.feed_data.creator_id==user_id">
+                      <span class="--gray">Posted by</span> : You
+                    </span>
+                  </div>
+                  <div class="--flex-s" *ngIf="feeds.feed_data.bid_status=='live' && feeds.feed_data.latest_bidder_id!=0 && feeds.feed_data.won_bidder_id==0  ">
+                    <div class="--inner-bid-list">
+                      <ul class="--bid-list">
+                        <li>
+                          <div class="--flex-s --avatar">
+                            <span class="--avatar-small">
+                              <img class="like_hreff" src="{{feeds.feed_data.latest_bidder_image}}" (click)="publicProfile(feeds.feed_data.latest_bidder_id)">
+                            </span>
+                          </div>
+                          <div class="--flex-s">
+                            <div class="--footer-abs-sec --no-padding">
+                              <div class="--row-inline">
+                                <span class="truncate">
+                                  {{feeds.feed_data.latest_bidder_name}} has placed an inquiry
+                                </span>
+                              </div>
+                              <!-- <div class="--row-inline" >
+                                            <span class="truncate">
+                                            <span class="--gray">
+                                            Bid for this at
+                                            </span>
+                                            <span class="--green">
+                                            {{feeds.feed_data.latest_bid_amount | currency}}
+                                            </span>
+                                            </span>
+                                         </div> -->
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="--flex-s" *ngIf="feeds.feed_data.bid_status =='past' && feeds.feed_data.won_bidder_id > 0">
+                    <div class="--inner-bid-list">
+                      <ul class="--bid-list">
+                        <li>
+                          <div class="--flex-s --avatar">
+                            <span class="--avatar-small --has-trophy">
+                              <span class="--trophy" *ngIf="feeds.feed_data.auction != 'N' && feeds.feed_data.win_type != 'buy'">
+                                <img src="assets/img/trophy.png">
+                              </span>
+                              <img class="like_hreff" src="{{feeds.feed_data.won_bidder_image}}" (click)="publicProfile(feeds.feed_data.won_bidder_id)">
+                            </span>
+                            <!-- <span class="--avatar-small ">
+                                         <img src="{{auction.won_bidder_image}}">
+                                         </span> -->
+                          </div>
+
+                          <div class="--flex-s">
+                            <div class="--footer-abs-sec --no-padding">
+                              <div class="--row-inline">
+                                <span class="truncate" *ngIf="(feeds.feed_data.auction == 'Y') && feeds.feed_data.won_bidder_id!=0">
+                                  {{feeds.feed_data.won_bidder_name}} purchased an item on gold retail.
+                                </span>
+                                <span class="truncate" *ngIf="(feeds.feed_data.auction == 'N') && feeds.feed_data.won_bidder_id!=0">
+                                  {{feeds.feed_data.won_bidder_name}} purchased an item on gold retail.
+                                </span>
+                              </div>
+                              <!-- modalBidPicture -->
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="--flex-s" *ngIf="(feeds.feed_data.bid_status =='live') && (feeds.feed_data.creator_id != user.user_id)">
+                    <div class="--flex-s --footer-action-sections --footer-section-bidrate">
+                      <div class="--footer-abs-sec">
+                        <div class="--row-inline">
+                          <span class="truncate --bid-rate-amount" *ngIf="feeds.feed_data.minimum_bid_amount!=0 || feeds.feed_data.minimum_bid_amount!=''">Buy Now at
+                            <span class="--green">{{feeds.feed_data.instant_sale_price | currency}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="(feeds.feed_data.minimum_bid_amount!=0 || feeds.feed_data.minimum_bid_amount!='')">
+                      <button class="--btn-buy-now" (click)="buyNow(feeds.feed_data)">BUY NOW</button>
+                    </div>
+                    <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="feeds.feed_data.auction == 'N'">
+                      <button class="--btn-buy-now" (click)="buyNow(feeds.feed_data)">BUY NOW</button>
+                    </div>
+                    <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="(feeds.feed_data.latest_bidder_id==0 && feeds.feed_data.won_bidder_id==0) && feeds.feed_data.auction != 'N'">
+                      <button class="--btn-bid-now" (click)="openModalForBuyBid(feeds.feed_data)">BID NOW</button>
+                    </div>
+                    <div class="--flex-s --footer-action-sections --btn-sec" *ngIf="(feeds.feed_data.latest_bidder_id!=0 && feeds.feed_data.won_bidder_id==0) && ((feeds.feed_data.instant_sale_price && ((feeds.feed_data.latest_bid_amount+ feeds.feed_data.bid_difference_amount) < feeds.feed_data.instant_sale_price )) || (!feeds.feed_data.instant_sale_price)) && feeds.feed_data != 'N'">
+                      <button class="--btn-bid-now" (click)="openModalForBuyBid(feeds.feed_data)">BID NOW</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="feeds.feed_type == 4">
+                <div class="row post-padding">
+                  <div class="col s2">
+                    <img src="assets/img/tgs_event.png" alt="" class="circle responsive-img thumb65">
+                  </div>
+                  <div class="col s10">
+                    <div>
+                      <span class="user-title">{{feeds.feed_data.title | capitalizeFirst}}</span><br>
+                      <span>{{feeds.feed_data.tgs_status | titlecase}}</span><br>
+                    </div>
+                  </div>
+
+                  <br>
+                  <br>
+                  <div class="row post-padding">
+                    <div class="col s12">
+                      {{feeds.feed_data.description}}
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="row post-padding">
+                    <div class="col s2 subimg">
+                      <img src="{{feeds.feed_data.posted_by_image}}" (click)="publicProfile(feeds.feed_data.creator_id)" alt="" class="circle responsive-img thumb65">
+                    </div>
+                    <div class="col s7">
+                      <!-- check posted buy you or not -->
+                      <div>
+                        <span class="user-subtitle text-medium-gray">Posted By:</span>
+                        <span class="user-title" [hidden]="feeds.feed_data.creator_id != user_id">You</span>
+                        <span class="user-title" [hidden]="feeds.feed_data.creator_id == user_id">{{feeds.feed_data.posted_by}}</span>
+                      </div>
+                      
+                    </div>
+
+                    <div class="col s3" style="position:relative">
+                      <div>
+                        <button class="viewbtn" (click)="tgsDetails(feeds.feed_data.id)">View Detail</button>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Copy content -->
+                  <div class="post-footer valign-wrapper footerthreeblock">
+
+                    <div class="col s12">
+                      <div class="inthree">
+                        <div class="post-eventtime no-bottompadding">
+                          <!-- <div class="tickek-price nicebalck calendarr left">
+                            <div class="box" style="top: 5px;">
+                              <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                            </div>
+                            <span> {{feeds.feed_data.date}}</span>
+                            <span class="nicebalck"></span>
+                          </div> -->
+
+                          <div class="tickek-price nicebalck calendarr left">
+                            <div class="box">
+                              <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                            </div>
+                            <br> {{feeds.feed_data.date}}
+                            <span class="nicebalck"></span>
+                          </div>
+
+                          <div class="col s12 m7">
+                            <div class="box">
+                              <img src="assets/img/location_icon.png" alt="" class="responsive-img map-icon"> 
+                              <br> {{feeds.feed_data.venue}}
+                            </div>
+                            <span class="nicebalck"></span>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <!-- end box -->
+          </div>
+        </div>
+      </div>
+      <!-- notifications -->
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>
+<script>
+  // $(".nano").nanoScroller().bind("scrollend", function(e) { 
+  //     // console.log("current HTMLDivElement", e.currentTarget); 
+  //     alert('haiiii');
+  //   });
+
+</script>

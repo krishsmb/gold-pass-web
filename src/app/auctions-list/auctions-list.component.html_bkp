@@ -1,0 +1,124 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+   <div class="container hideonipad">
+      <div class="row">
+         <!-- left nave -->
+         <app-left-nave></app-left-nave>
+         <!-- <ng4-loading-spinner> </ng4-loading-spinner>  -->
+         <div class="col m6 s12">
+            <div class="row">
+               <div class="dropdownmainbox col s12">
+                  <a class="dropdown-button adddropdown" href="javascript:void(0);" data-activates="dropdown3" data-beloworigin="true" data-constrainwidth="false"> <span class="hide-on-small-only"> {{bidTitle}}</span><i class="fas fa-ellipsis-v hide-on-small-only right"></i></a> 
+                  <ul id="dropdown3" class="dropdown-content addcontent right">
+                     <li [ngClass]="{'active':bidType == ''}"><a href="javascript:void(0);" (click)="changebidType('')">All Auctions</a></li>
+                     <li [ngClass]="{'active':bidType == 'live'}"><a href="javascript:void(0);" (click)="changebidType('live')">Live Auctions</a></li>
+                     <li [ngClass]="{'active':bidType == 'past'}"><a href="javascript:void(0);" (click)="changebidType('past')">Past Auctions</a></li>
+                  </ul>
+               </div>
+               <div class="col s12 looptab">
+                  <div id="about" class="nano">
+                     <div class="content">
+                        <!-- <div id="test1" class="col s12 looptab"  infiniteScroll
+                           [infiniteScrollDistance]="2"
+                           [infiniteScrollUpDistance]="1.5"
+                           [infiniteScrollThrottle]="50"
+                           (scrolled)="onScrollDown()"
+                           [infiniteScrollDisabled] = 'loadMore' > -->
+                        <div class="post-wrapper" *ngFor="let auction of auctionsList; index as i;"  >
+                           <div class="row post-padding no-marginbottom">
+                              <div class="col s2" *ngIf="auction.auction == 'Y'">
+                                 <img src="assets/img/thumb_bid.png" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                              </div>
+                              <div class="col s2" *ngIf="auction.auction == 'N'">
+                                <img src="assets/img/cart.png" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                             </div>
+                              <div class="col s10">
+                                 <div>
+                                    <span class="user-title">{{auction.title | capitalizeFirst}} </span><br>
+                                    <span *ngIf="auction.auction == 'Y'">GR Closing Time: {{auction.bid_end_date}},{{auction.bid_end_time}}</span>  
+                                    <span *ngIf="(auction.auction == 'N') && (auction.bid_status == 'past')">Sold Out</span>  
+                                    <span *ngIf="(auction.auction == 'N') && (auction.bid_status == 'live')">On Sale</span>
+                                    <span *ngIf="(auction.auction == 'N') && (auction.bid_status == 'dismissed')">Dissmissed</span>  
+                                 </div>
+                              </div>
+                              <div>
+                                <img *ngIf="auction.image!=''" src="{{auction.image}}" alt="" class="responsive-img thumb-post">
+                                    <p *ngIf="auction.image==''" class="feed-description">{{auction.description | capitalizeFirst}}</p>
+                              </div>
+                              <!-- <div class="" class="feed-description">
+                                  {{auction.description}}
+                              </div> -->
+                           </div>
+
+                           <div *ngIf="auction.image"><img src="{{auction.image}}" alt="" class="responsive-img thumb-post"></div>
+                
+                           <div class="post-footer valign-wrapper" >
+                              
+                              <div class="col m2">
+                                    <img src="{{auction.posted_by_image}}" alt="" class="circle responsive-img thumb65"> 
+                                    <!-- notice the "circle" class -->
+                                 </div>
+                                 <div class="col s10 ">
+                                    <div>
+                                       <span class="user-subtitle text-medium-gray">Posted By:</span>
+                                       <span class="user-title" [hidden]="auction.creator_id==user_id">{{auction.posted_by}}</span>                          
+                                       <span class="user-title" [hidden]="auction.creator_id!=user_id">You</span>                                                 
+                                       <!-- <p class="user-description"> <span class="text-medium-gray">Posted on:</span>{{auction.post_date}}</p> -->
+                                    </div>
+                                 </div>
+
+                                 <div *ngIf="auction.bid_status =='past'">
+                                        <div class="col s2">
+                                           <img src="{{auction.won_bidder_image}}" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                                        </div>
+                                        <div class="col s10">
+                                           <div>
+                                              
+                                              <span class="user-title">{{auction.won_bidder_name}} </span><br>                            
+                                              <p class="user-description"> <span class="text-medium-gray">Bought this for at </span> <b class="text-secondary">   ${{auction.won_bid_amount}}</b></p>
+                                           </div>
+                                        </div>
+                                    </div>
+                                 
+                              <div >
+                                 
+
+                                
+                              </div>
+
+                              
+                              <div *ngIf="auction.bid_status=='live'">
+                                 <div class="col s2">
+                                    <img src="{{auction.latest_bidder_image}}" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                                 </div>
+                                 <div class="col s10" >
+                                    <div>
+                                       <span class="user-subtitle text-medium-gray" *ngIf="auction.latest_bidder_id!=0 && auction.won_bidder_id==0">Bid By:</span>
+                                       <span class="user-title">{{auction.latest_bidder_name}}</span><br>                            
+                                       <p class="user-description" *ngIf="auction.latest_bidder_id!=0 && auction.won_bidder_id==0"> <span class="text-medium-gray"  >Bid for this at </span> <b class="text-secondary">   $ {{auction.latest_bid_amount}}</b></p>
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                              <div class="col s7 button-holder" *ngIf="(auction.bid_status =='live') && (auction.creator_id != user.user_id)">
+                                 <a class="waves-effect waves-light btn  btn-custom btn-primary" *ngIf="(auction.minimum_bid_amount!=0 || auction.minimum_bid_amount!='')" (click)="buyNow(auction)">BUY NOW</a>
+                                 <a class="waves-effect waves-light btn  btn-custom btn-dimgreen" *ngIf="auction.latest_bidder_id==0 && auction.won_bidder_id==0"  (click)="openModalForBuyBid(auction)">BID NOW</a>
+                                 <a class="waves-effect waves-light btn  btn-custom btn-dimgreen" *ngIf="(auction.latest_bidder_id!=0 && auction.won_bidder_id==0) && ((auction.instant_sale_price && ((auction.latest_bid_amount+ auction.bid_difference_amount) < auction.instant_sale_price )) || (!auction.instant_sale_price))"  (click)="openModalForBuyBid(auction)">OUT BID NOW</a>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="post-wrapper" *ngIf="auctionsList.length == 0">
+                           <p>No Auctions Found</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- notifications -->
+         <app-notifications></app-notifications>
+      </div>
+   </div>
+</div>
+<app-user-common></app-user-common>

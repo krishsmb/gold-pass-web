@@ -1,0 +1,212 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <div class="col m6 s12">
+        <!-- <div class="row post-padding submenu">
+               <a href="">My GP Events</a><a href="#"><i class="fas fa-caret-right"></i></a><a href="">My GP Events</a>
+               </div> -->
+        <div class="post-wrapper">
+          <div class="row post-padding">
+            <div class="col s2">
+              <img [hidden]="tgs_data.creator_id != user_id" src="assets/img/tgs_event.png" alt="" class="circle responsive-img thumb65">
+              <!-- notice the "circle" class -->
+              <img [hidden]="tgs_data.creator_id == user_id" src="{{tgs_data.posted_by_image}}" (click)="publicProfile(tgs_data.creator_id)"
+                alt="" class="circle responsive-img thumb65">
+            </div>
+            <div class="col s10">
+              <div>
+                <span class="user-title">{{tgs_data.title}} </span>
+                <br>
+                <span [hidden]="tgs_data.creator_id == user_id">Posted by {{tgs_data.posted_by}}</span>
+                <span [hidden]="tgs_data.creator_id != user_id">Posted by You</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div class="addpading">
+                  <p class="user-description">{{tgs_data.description}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12">
+              <div class="row loppdiv">
+                <div class="col s2">
+                  <span class="addicon">
+                    <img src="assets/img/venue.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Venue</h4>
+                  </span>
+                </div>
+                <div class="col s7 right">
+                  <h4 class="user-title right">{{tgs_data.venue}}</h4>
+                </div>
+              </div>
+              <div class="row loppdiv">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/calendarTime.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Date</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{tgs_data.date}} , {{tgs_data.time}} </h4>
+                </div>
+              </div>
+              <div class="row loppdiv" *ngIf="tgs_data.creator_id != user_id && tgs_data.my_ticket_count > 0">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/ticketprice.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Ticket Price</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">
+                    <b class="text-secondary"> {{tgs_data.my_ticket_price | currency}}</b>
+                  </h4>
+                </div>
+              </div>
+              <div class="row loppdiv" [hidden]="tgs_data.creator_id == user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/purchase.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Ticket(s) Purchased</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{tgs_data.my_ticket_count}}</h4>
+                </div>
+              </div>
+              <div class="row loppdiv" [hidden]="tgs_data.creator_id != user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/ticketSold.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Ticket(s) Sold</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{tgs_data.ticket_sold}}</h4>
+                </div>
+              </div>
+              <!-- <div class="row loppdiv" *ngIf="tgs_data.creator_id == user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/revenue.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Revenue Earned</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{event_data.total_revenue | currency}}</h4>
+                </div>
+              </div> -->
+              <div class="row loppdiv" *ngIf="tgs_data.creator_id == user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/revenue.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Sales</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{tgs_data.total_revenue | currency}}</h4>
+                </div>
+              </div>
+
+              <div class="row loppdiv" *ngIf="tgs_data.creator_id == user_id">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/view.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">EVENT VIEWS</h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{tgs_data.view_count}}</h4>
+                </div>
+              </div>
+
+              <!-- <div class="row loppdiv" *ngIf="event_data.raffle == 'Y'">
+                <div class="col s5">
+                  <span class="addicon">
+                    <img src="assets/img/calendarTime.png" alt="">
+                    <h4 class="user-subtitle text-medium-gray">Draw Date </h4>
+                  </span>
+                </div>
+                <div class="col s7">
+                  <h4 class="user-title right">{{event_data.draw_date}} </h4>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="row post-padding">
+            <div class="col s6">
+            </div>
+            <div class="col s6" [hidden]="tgs_data.creator_id != user_id || tgs_data.tgs_status == 'dismissed'">
+              <a class="waves-effect waves-light btn  btn-custom btn-primary right" (click)="openConfirmationModal()">Cancel TGS</a>
+            </div>
+            <div class="col s6" [hidden]="tgs_data.creator_id == user_id" *ngIf="tgs_data.tgs_status=='open' && tgs_data.my_ticket_count == 0">
+              <a class="waves-effect waves-light btn  btn-custom btn-primary right" (click)="openModalForSelectTgsPackages(tgs_data)">BUY TICKETS</a>
+            </div>
+            <div class="col s6" [hidden]="tgs_data.creator_id == user_id" *ngIf="tgs_data.tgs_status=='open' && tgs_data.my_ticket_count > 0">
+              <a href="javascript:void(0);" class="waves-effect waves-light btn  btn-custom btn-warning right">PURCHASED</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation modal -->
+      <div id="confirmation_modal" class="modal notification_modal">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s8">
+              <!-- <h4>Post Event</h4> -->
+            </div>
+            <div class="col s4 right-align">
+              <a href="javascript:void(0)" (click)="closeConfirmation()">
+                <i class="material-icons">close</i>
+              </a>
+            </div>
+          </div>
+          <div class="row no-marginbottom">
+            <div class="input-field col s12">
+              <p class="center">{{confirmation_message}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <button (click)="cancelMyTgs($event)" data-dismiss="modal" class="btn waves-effect waves-light col s12 btn-primary-square"
+                type="submit" name="action">Cancel TGS</button>
+              <!-- <button (click)="closeConfirmation()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">Cancel</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Confirmation modal -->
+
+      <!-- Select Package -->
+      <div id="packageTypeModal" class="modal notification_modal">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s8">
+              <h5>Select TGS Package</h5>
+            </div>
+            <div class="col s4 right-align">
+              <a href="javascript:void(0)" (click)="closeModalForSelectTgsPackages()">
+                <i class="material-icons">close</i>
+              </a>
+            </div>
+          </div>
+          <div class="row no-marginbottom circle-three">
+            <button *ngIf="tgs_data.black_price != undefined" class="gold" (click)="openModalForBuyTickets(tgs_data,tgs_data.black_price,'B')">Black<span>{{tgs_data.black_price | currency}}</span></button>
+            <button *ngIf="tgs_data.silver_price != undefined" class="gold" (click)="openModalForBuyTickets(tgs_data,tgs_data.silver_price,'S')">Silver<span>{{tgs_data.silver_price | currency}}</span></button>
+            <button *ngIf="tgs_data.gold_price != undefined" class="gold" (click)="openModalForBuyTickets(tgs_data,tgs_data.gold_price,'G')">Gold <span>{{tgs_data.gold_price | currency}}</span></button>
+          </div>
+        </div>
+      </div>
+      <!-- End Select package -->
+      <!-- notifications -->
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

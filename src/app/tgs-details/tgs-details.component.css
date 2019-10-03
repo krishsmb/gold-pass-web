@@ -1,0 +1,51 @@
+.button {
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+  }
+  .circle-three{
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gold {
+      border-radius: 50%;
+      background-color: #333;
+      color: #fff;
+      width: 150px;
+      height: 150px;
+      font-size:14px;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      color: #fabf18 ;
+      text-transform: uppercase;
+    }
+    .gold span{
+        font-size: 24px;
+        color: #fabf18 ;
+        display:block;
+        
+    }
+    @media screen and (min-width: 481px) and (max-width: 1200px) { 
+        .notification_modal {
+            width: 66% !important;
+        }
+    }
+    
+    @media screen and (max-width: 767px) {
+        .circle-three {
+            flex-direction: column;
+        }
+        .notification_modal {
+            width: 80% !important;
+        }
+        
+      }

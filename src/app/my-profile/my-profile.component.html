@@ -1,0 +1,321 @@
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <!-- <div class="col m3 profile-wrapper" style="background: #fff;
+         padding: 15px; ">
+            <div class="editpic"><img src="{{profile_info.profile_image}}" alt="" class="circle">
+                <div class="user_star" *ngIf="profile_info.celebrity_rank=='1'">
+                    <img src="assets/img/3.png" alt="" class="circle responsive-img thumb65">
+                 </div>
+                 <div class="user_star" *ngIf="profile_info.celebrity_rank=='2'">
+                    <img src="assets/img/1.png" alt="" class="circle responsive-img thumb65">
+                 </div>
+                 <div class="user_star" *ngIf="profile_info.celebrity_rank=='3'">
+                    <img src="assets/img/2.png" alt="" class="circle responsive-img thumb65">
+                 </div>
+                </div>
+                
+                 
+            <div class="center profile-name">
+               <h5>{{profile_info.first_name}} {{profile_info.last_name}}<br> <span>{{profile_info.location}}</span></h5>
+            </div>
+            <div class="follow-count">
+               <div class="center" style="cursor:pointer"> {{profile_info.following_count}} <br><span (click)="getFollowingList()">FOLLOWING</span></div>
+               <div class="center" [hidden]="profile_info.user_type==2" style="cursor:pointer"> {{profile_info.followers_count}} <br><span (click)="getFollowersList()">FOLLOWERS</span></div>
+            </div>
+            <div class="divider"></div>
+            <div class="hosted-count"> -->
+      <!-- Auctions Hosted -->
+      <!-- <div class="center" [hidden]="profile_info.user_type==2"> Gold Retail<br><span>{{profile_info.auctions_hosted}}</span></div>
+               <div class="center" [hidden]="profile_info.user_type==2"> Gold Events Hosted<br><span>{{profile_info.events_hosted}}</span></div>
+               <div class="center" [hidden]="profile_info.user_type==1"> Bids Won<br><span>{{profile_info.auctions_win}}</span></div>
+               <div class="center" [hidden]="profile_info.user_type==1"> Meetings Attended <br><span>{{profile_info.events_attented}}</span></div>
+            </div> -->
+      <!-- <div class="center-align"><a href="#" class="btn btn-following">FOLLOWING</a></div> -->
+      <!-- <hr> -->
+      <!-- <ul class="profile-menu">
+               <li><a href="javascript:void(0);"(click)="changeType('open','meeting')" [ngClass]="{'active':(meetingType == 'open' && meetingSec == true )}"  ><span class="icon_event_host"></span>Events attended </a></li>
+               <li><a href="javascript:void(0);" (click)="changeType('live','bid')" [ngClass]="{'active':(meetingType == 'live' && bidSec == true )}"><span class="icon_post_event"></span>Testimonials </a></li>
+               <li><a href="javascript:void(0);" (click)="changeType('past','meeting')" [ngClass]="{'active':(meetingType == 'past' && meetingSec == true )}"><span class="icon_gpevent"></span>Auctions Won </a></li>
+            </ul> -->
+      <!-- </div> -->
+      <div class="col m6 s12">
+        <div class="row">
+          <div class="col s12">
+            <ul class="tabs goldtabs">
+              <li class="tab col s4">
+                <a class="active" href="#test1">Gold Events Attended</a>
+              </li>
+              <li class="tab col s4">
+                <a href="#test2">Gold Ovation</a>
+              </li>
+              <li class="tab col s4">
+                <a href="#test3">TGS History</a>
+              </li>
+            </ul>
+          </div>
+          <div id="test1" class="col s12 testimonial">
+            <div class="post-wrapper" *ngFor="let events of events_attented_list">
+              <div class="row post-padding">
+                <div class="col s2">
+                  <img src="assets/img/thumb_event.png" alt="" class="circle responsive-img thumb65">
+                  <!-- notice the "circle" class -->
+                </div>
+                <div class="col s10">
+                  <div>
+                    <span class="user-title">{{events.title | capitalizeFirst}}</span>
+                    <br>
+
+                    <!-- <span class="user-subtitle text-medium-gray">Meeting @ Frank’s Cafe</span><br> -->
+                    <span>{{events.venue}}</span>
+                    <br>
+                    <!-- <span class="user-subtitle text-medium-gray">Meeting Proceeding to -<span class="nicebalck"> Scholarship</span></span> -->
+                    <!-- <p class="user-description">{{event.description | capitalizeFirst}}</p> -->
+                  </div>
+                  <!-- <div class="post-eventtime no-bottompadding">
+                              <div>{{event.date}} <br> <b>{{event.time}}</b></div>
+                              <div class="tickek-price text-green" >{{event.ticket_price | currency}} <br> <span>Ticket Price</span></div>
+                           </div> -->
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="row post-padding">
+                  <div class="col s2 subimg">
+                    <img src="{{profile_info.profile_image}}" (click)="publicProfile(events.creator_id)" alt="" class="circle responsive-img thumb65">
+                    <!-- notice the "circle" class -->
+                  </div>
+                  <div class="col s7">
+                    <!-- check posted buy you or not -->
+                    <div>
+                      <span class="user-subtitle text-medium-gray">Posted By:</span>
+                      <span class="user-title">You</span>
+                      <!-- <br>                            
+                                 <p class="user-description"> <span class="text-medium-gray">Posted on:</span>{{event.post_date}}</p> -->
+                    </div>
+                    <!-- check posted buy you or not -->
+                    <div *ngIf="events.event_status == 'open'  && events.raffle != 'N'" [ngClass]="{'dismissCls':eventType == 'dismissed'}">
+                      Draw Date - {{events.draw_date}}
+                    </div>
+                  </div>
+                  <div class="col s3">
+                    <div>
+                      <button class="viewbtn" (click)="eventDetails(events.id)">View Detail</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="post-footer valign-wrapper footerthreeblock">
+                  <div class="col s12">
+                    <div class="inthree">
+                      <div class="post-eventtime no-bottompadding">
+                        <!-- <div class="box"><img src="assets/img/calendar_icon.png" alt="" class=" responsive-img"></div>
+                                    <div>{{event.date}} <br> <b>{{event.time}}</b></div>  -->
+                        <div class="tickek-price nicebalck calendarr left">
+                          <div class="box">
+                            <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                          </div>
+                          <br> {{events.date}}
+                          <span class="nicebalck"></span>
+                        </div>
+                        <div class="col s12 m4" *ngIf="events.creator_id != user_id ">
+                          <div class="tickek-price text-green left">{{events.ticket_price | currency}}
+                            <br>
+                            <span>Ticket Price</span>
+                          </div>
+                        </div>
+                        <div class="col s12 m4" *ngIf="events.creator_id == user_id ">
+                          <div class="tickek-price text-green left">{{events.total_revenue | currency}}
+                            <br>
+                            <span>REVENUE EARNED</span>
+                          </div>
+                        </div>
+                        <div *ngIf="events.event_status == 'past'">
+                          <div class="col s12 m4  offset-m4 trophyrel">
+                            <img class="like_hreff" src="{{events.winner_image}}" (click)="publicProfile(events.winner_id)" alt="" class="circle responsive-img thumb65 left">
+                            <span class="trophypic trophypicz left">
+                              <img src="assets/img/trophy.png" alt="" class="responsive-img">
+                            </span>
+                          </div>
+                          <div class="col s12 m4">
+                            <div>
+                              <span class="user-subtitle text-medium-gray left"></span>
+                              <span class="user-title user-title-n left">{{events.winner_name}} </span>
+                              <br>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col s12 m4" *ngIf="(events.event_status == 'open') && (events.creator_id != user_id)">
+                          <div>
+                            <div class="col s12">
+                              <a class="waves-effect waves-light btn right btn-custom btn-dimgreen" *ngIf="
+                                        events.creator_id != user_id " (click)="openModalForBuyTickets(events)">BUY TICKETS</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col s12 m4 " *ngIf="events.creator_id==user_id  && events.event_status != 'confirmed' && !events.winner_id">
+                          <div>
+                            <div class="col s12">
+                              <div class="tickek-price text-green left" *ngIf="events.creator_id == user_id ">
+                                {{events.ticket_sold}}
+                                <br>
+                                <span>TICKET(S) SOLD</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col s12 m4" *ngIf="events.event_status == 'confirmed' && events.raffle == 'Y'">
+                          <div>
+                            <div class="col s12 m4 offset-m4 trophyrel ">
+                              <img class="like_hreff" src="{{events.winner_image}}" (click)="publicProfile(events.winner_id)" alt="" class="circle responsive-img thumb65 left">
+                              <span class="trophypic trophypicz left">
+                                <img src="assets/img/trophy.png" alt="" class="responsive-img">
+                              </span>
+                            </div>
+                            <div class="col s12 m12">
+                              <div>
+                                <span class="user-title user-title-n left">{{events.winner_name}} </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="post-wrapper" *ngIf="events_attented_list.length == 0">
+              <p>No Gold Events Attended.</p>
+            </div>
+          </div>
+          <div id="test2" class="col s12 testimonial">
+            <div class="post-wrapper" *ngFor="let testimonial of testimonials">
+              <div class="row post-padding">
+                <div class="col s2">
+                  <img src="{{testimonial.creator_image}}" alt="" class="circle responsive-img thumb65" [hidden]="profile_info.user_type==1">
+                  <!-- notice the "circle" class -->
+                  <img src="{{testimonial.winner_image}}" alt="" class="circle responsive-img thumb65" [hidden]="profile_info.user_type==2">
+                </div>
+                <div class="col s10">
+                  <span class="user-title" [hidden]="profile_info.user_type==1">{{testimonial.creator_name}} </span>
+                  <br>
+                  <span class="user-title" [hidden]="profile_info.user_type==2">{{testimonial.winner_name}} </span>
+                  <br>
+                  <!-- <ul class="starset">
+                             <li><i class="fas fa-star active"></i></li>
+                             <li><i class="fas fa-star"></i></li>
+                             <li><i class="fas fa-star"></i></li>
+                             <li><i class="fas fa-star"></i></li>
+                             <li><i class="fas fa-star"></i></li>
+                          </ul> -->
+                  <rating [(ngModel)]="testimonial.rating"></rating>
+                </div>
+              </div>
+              <div class="row post-padding postpad">
+                <div>
+                  <p class="user-description">{{testimonial.review | capitalizeFirst}} </p>
+                </div>
+                <div class="post-eventtime no-bottompadding">
+                  <div>Posted on: {{testimonial.created_at}}</div>
+                  <!-- <button class="Sharebtn btn-primary" [hidden]="profile_info.user_type==2"><i class="fas fa-share-alt"></i><span> Share</span></button> -->
+                </div>
+              </div>
+            </div>
+            <div class="post-wrapper" *ngIf="testimonials.length == 0">
+              <p>No Gold Ovations Found</p>
+            </div>
+          </div>
+          <div id="test3" class="col s12 testimonial">
+            <!-- <div class="--post-card" *ngFor="let auction of auctions_win_list; index as i;">
+              
+            </div> -->
+
+            <div class="post-wrapper" *ngFor="let tgs of tgs_list; index as i;">
+              <div class="row post-padding">
+                <div class="col s2">
+                  <img src="assets/img/tgs_event.png" alt="" class="circle responsive-img thumb65">
+                </div>
+                <div class="col s10">
+                  <div>
+                    <span class="user-title">{{tgs.title | capitalizeFirst}}</span><br>
+                    <span>{{tgs.tgs_status | titlecase}}</span><br>
+                  </div>
+                </div>
+
+                <br>
+                <br>
+                <div class="row post-padding">
+                  <div class="col s12">
+                    {{tgs.description}}
+                  </div>
+                </div>
+                <br>
+                <br>
+
+                <div class="row post-padding">
+                  <div class="col s2 subimg">
+                    <img src="{{tgs.posted_by_image}}" (click)="publicProfile(tgs.creator_id)" alt="" class="circle responsive-img thumb65">
+                  </div>
+                  <div class="col s7">
+                    <!-- check posted buy you or not -->
+                    <div>
+                      <span class="user-subtitle text-medium-gray">Posted By:</span>
+                      <span class="user-title" [hidden]="tgs.creator_id != user_id">You</span>
+                      <span class="user-title" [hidden]="tgs.creator_id == user_id">{{tgs.posted_by}}</span>
+                    </div>
+                    
+                  </div>
+
+                  <div class="col s3" style="position:relative">
+                    <div>
+                      <button class="viewbtn" (click)="tgsDetails(tgs.id)">View Detail</button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Copy content -->
+                <div class="post-footer valign-wrapper footerthreeblock">
+
+                  <div class="col s12">
+                    <div class="inthree">
+                      <div class="post-eventtime no-bottompadding">
+                        <div class="tickek-price nicebalck calendarr left">
+                          <div class="box">
+                            <img src="assets/img/calendar_icon.png" alt="" class=" responsive-img">
+                          </div>
+                          <br>{{tgs.date}}
+                          <span class="nicebalck"></span>
+                        </div>
+                        <div class="col s12 m7" >
+                          <div class="box">
+                            <img src="assets/img/location_icon.png" alt="" class="responsive-img  map-icon">
+                            <br>{{tgs.venue}}
+                          </div>
+                          
+                          <span class="nicebalck"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                
+              </div>
+            </div>
+            <div class="post-wrapper" *ngIf="tgs_list.length == 0">
+              <p>No TGS Found</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

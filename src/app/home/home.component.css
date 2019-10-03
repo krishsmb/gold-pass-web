@@ -1,0 +1,49 @@
+.error-msg[_ngcontent-c2] {
+    color: #fab125;
+}
+.full-screen-video {
+    width: 100%;
+    max-height: 65vh;
+    min-height: 65vh;
+    -o-object-fit: cover;
+    object-fit: cover;
+    vertical-align: top;
+}
+.full-video {
+    width: 100%;
+    min-height: 65vh;
+    overflow: hidden;
+    position: relative;
+}
+.button-play {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 5;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    border-radius: 50%;
+    margin: auto;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.material-icons {
+    font-size: 50px;
+}
+.video_mouse_out {
+    display: none !important;
+}
+.section_pd120 {
+    padding: 60px 0px 60px;
+}
+
+.full-video:hover .video_mouse_out{
+    display: flex !important;
+}

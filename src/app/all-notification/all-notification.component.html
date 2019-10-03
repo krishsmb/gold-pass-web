@@ -1,0 +1,372 @@
+<!-- header-->
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+
+
+
+
+
+      <!-- notifications -->
+
+
+      <div class="col m9 s12">
+
+        <div class="is-p">
+          <div class="is-f">
+            <div id="about" class="nano">
+              <div class="content">
+
+                <h4 class="section-title">Notifications</h4>
+
+
+                <div class="row notify-row" *ngFor="let notification of notification_list">
+                  <div class="notification_check" *ngIf="notification.notification_type==1">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==2">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.bid_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==3">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.notification_time}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==4">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==5">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+
+
+
+                  <div class="notification_check" *ngIf="notification.notification_type==6">
+                    <div class="col s2">
+                      <img src="{{notification.winner_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.winner_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.winner_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted"> Posted by
+                        <a href="#">You</a> on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==7">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==8">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==9">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span *ngIf="notification.auction=='Y'">
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link"> Posted a new GP Auction </span>
+                      </span>
+                      <span *ngIf="notification.auction=='N'">
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">Posted a new item for sale</span>
+                      </span>
+
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==10">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==11">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==12">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)" class="event_link"> {{notification.creator_name}}</a> {{notification.notification_title}}</span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==12">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==13">
+                    <div class="col s2">
+                      <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.participant_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.participant_id)"> {{notification.participant_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==14">
+                    <div class="col s2">
+                      <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.participant_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.participant_id)"> {{notification.participant_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)">
+                          <span (click)="auctionDetails(notification.bid_id)"> has placed a bid of {{notification.amount | currency}} for your live auction '{{notification.bid_title}}'
+                          </span>
+                        </span>
+                      </span>
+                      <p class="poted">on {{notification.bid_created_at}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==15">
+                    <div class="col s2">
+                      <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span *ngIf="notification.auction=='Y'">
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.participant_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">has bought your auction item of {{notification.amount}} </span>
+                      </span>
+                      <span *ngIf="notification.auction=='N'">
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.participant_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">has bought your item </span>
+                      </span>
+                      <p class="poted">on {{notification.notification_time}}</p>
+                    </div>
+                  </div>
+                  <div class="notification_check" *ngIf="notification.notification_type==16">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="javascript:void(0)" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="auctionDetails(notification.bid_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+
+                  <div class="notification_check" *ngIf="notification.notification_type==17">
+                    <div class="col s2">
+                      <img src="{{notification.creator_image}}" alt="" class="circle responsive-img thumb65" (click)="publicProfile(notification.creator_id)">
+                      <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.creator_name}}</a>
+                        <span (click)="eventDetails(notification.event_id)" class="event_link">{{notification.notification_title}}</span>
+                      </span>
+                      <p class="poted">on {{notification.event_created_at}}</p>
+                    </div>
+                  </div>
+
+                  <div class="notification_check" *ngIf="notification.notification_type==18">
+                    <div class="col s2">
+                      <a href="javascript:void(0)" (click)="publicProfile(notification.participant_id)">
+                        <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65">
+                      </a>
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.participant_name}}</a>
+                        <a href="javascript:void(0)" (click)="redirectToTgsDetails($event,notification)">{{notification.notification_title}}</a>
+                      </span>
+                      <p class="poted">on {{notification.notification_time}}</p>
+                    </div>
+                  </div>
+          
+                  <div class="notification_check" *ngIf="notification.notification_type==19">
+                    <div class="col s2">
+                      <a href="javascript:void(0)" (click)="publicProfile(notification.participant_id)">
+                        <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65">
+                      </a>
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <!-- <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.participant_name}}</a> -->
+                        <a href="javascript:void(0)" (click)="redirectToTgsDetails($event,notification)">{{notification.notification_title}}</a>
+                      </span>
+                      <p class="poted">on {{notification.notification_time}}</p>
+                    </div>
+                  </div>
+          
+                  <div class="notification_check" *ngIf="notification.notification_type==20">
+                    <div class="col s2">
+                      <a href="javascript:void(0)" (click)="publicProfile(notification.participant_id)">
+                        <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65">
+                      </a>
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="publicProfile(notification.creator_id)"> {{notification.participant_name}}</a>
+                        <a href="javascript:void(0)" (click)="redirectToTgsDetails($event,notification)">{{notification.notification_title}}</a>
+                      </span>
+                      <p class="poted">on {{notification.notification_time}}</p>
+                    </div>
+                  </div>
+          
+                  <div class="notification_check" *ngIf="notification.notification_type==21">
+                    <div class="col s2">
+                      <a href="javascript:void(0)">
+                        <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65">
+                      </a>
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)" (click)="redirectToTgsDetails($event,notification)">{{notification.notification_title}}</a>
+                      </span>
+                      <p class="poted">on {{notification.notification_time}}</p>
+                    </div>
+                  </div>
+          
+                  <div class="notification_check" *ngIf="notification.notification_type==22">
+                    <div class="col s2">
+                      <a href="javascript:void(0)">
+                        <img src="{{notification.participant_image}}" alt="" class="circle responsive-img thumb65">
+                      </a>
+                    </div>
+                    <div class="col s10">
+                      <span>
+                        <a href="javascript:void(0)">{{notification.notification_title}}</a>
+                      </span>
+                      <p class="poted">on {{notification.notification_time}}</p>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row notify-row" *ngIf="!notification_list.length">
+                  <div class="notification_check">
+                    <div class="col s12">
+                      <p class="poted">No Notifications</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+<app-user-common></app-user-common>

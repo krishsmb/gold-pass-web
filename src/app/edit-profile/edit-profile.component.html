@@ -1,0 +1,184 @@
+<app-user-header></app-user-header>
+<div class="top20_margin">
+  <div class="container hideonipad">
+    <div class="row">
+      <!-- left nave -->
+      <app-left-nave></app-left-nave>
+      <div class="col m6 s12">
+
+        <div class="content-wrapper">
+          <div class="content-wrapper-inside">
+
+            <div class="">
+              <div class="row">
+                <form [formGroup]="userForm" (submit)="editProfile()">
+                  <div class="col s12">
+
+                    <div class="top20_margin editpic">
+                      <img [hidden]="profile_image" *ngIf="!profile_image" id="old_pic" src="{{user.profile_image}}" alt="" class="circle">
+                      <img *ngIf="profile_image" id="new_pic" [src]="profile_image" class="circle" />
+                      <a href="javascript:void(0)" (click)="showUploder()" class="btn-edut">
+                        <i class="fas fa-pencil-alt"></i>
+                      </a>
+
+
+
+                    </div>
+                    <div style="display:none;">
+                      <input type="file" id="uploadfile" (change)="fileChangeEvent($event)">
+
+                    </div>
+                    <div class="top20_margin">
+                      <div class="input-field col s12 input-box">
+                        <input placeholder="First Name" [(ngModel)]="user.first_name" formControlName="first_name" id="first_name" type="text" class="validate">
+                        <label for="first_name" class="active">First Name</label>
+                        <control-messages [control]="userForm.controls.first_name"></control-messages>
+
+                      </div>
+                      <div class="input-field col s12 relative input-box">
+
+                        <input placeholder="Last Name" [(ngModel)]="user.last_name" formControlName="last_name" id="last_name" type="text" class="validate">
+                        <label for="last_name" class="active">Last Name</label>
+                        <control-messages [control]="userForm.controls.last_name"></control-messages>
+                      </div>
+                      <div class="input-field col s12 relative input-box">
+
+                        <input placeholder="User Name" [(ngModel)]="user.user_name" formControlName="user_name" id="user_name" type="text" class="validate"
+                          readonly>
+                        <label for="user_name" class="active">Username</label>
+                        <control-messages [control]="userForm.controls.user_name"></control-messages>
+                      </div>
+                      <div class="input-field col s12 relative input-box" *ngIf="user.user_type!=2">
+
+
+
+                        <select [(ngModel)]="user.industry_id" [ngModelOptions]="{standalone: true}" onchange="$(this).trigger('click');" (click)="industryUpdate($event)">
+
+                          <option class='option' *ngFor="let industry of industries" [value]="industry.id" [selected]="industry.id ==user.industry_id">
+                          {{industry.title}} </option>
+                        </select>
+
+
+                        <label for="industry_id" class="active">Industry</label>
+                        <!-- <control-messages [control]="userForm.controls.industry_id"></control-messages> -->
+                      </div>
+                      <div class="input-field col s12 relative input-box">
+
+                        <input placeholder="Email" [(ngModel)]="user.email" formControlName="email" id="email" type="text" class="validate">
+                        <label for="email" class="active">Email Address</label>
+                        <control-messages [control]="userForm.controls.email"></control-messages>
+                      </div>
+                      <div class="input-field col s12 relative input-box">
+                        <textarea placeholder="About" [(ngModel)]="user.about" formControlName="about" id="about" id="textarea1" class="materialize-textarea">
+
+                        </textarea>
+                        <label for="about" class="active">About Me</label>
+                        <control-messages [control]="userForm.controls.about"></control-messages>
+                      </div>
+                      <div class="clear-fix"></div>
+                    </div>
+
+                  </div>
+                  <div class="col s12" style="text-align: center;">
+
+                    <div class="button-corp top20_margin">
+                      <button class="btn-large waves-effect waves-light  btn-primary s12" type="submit" name="action" [disabled]="!userForm.valid">SUBMIT </button>
+                    </div>
+
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+
+      <div id="modalPicture" class="modal" style="max-width:500px !important;max-height:500px !important">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s8">
+              <!-- <h4>Upload Picture</h4> -->
+            </div>
+            <div class="col s4 right-align">
+              <a href="javascript:void(0)" (click)="closePictureModal()">
+                <i class="material-icons">close</i>
+              </a>
+            </div>
+          </div>
+          <!-- <div class="pull-left">
+                    <h3>Sample cropper000000 </h3>
+                    <img-cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+                    <br>
+                    <span class="result" *ngIf="data1.image" >
+                        <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight">
+                    </span>
+                </div> -->
+          <div class="row no-marginbottom" style="text-align: center; max-height:500px; max-width:500px">
+            <image-cropper style=" width: auto; display: inline-block;" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+              [aspectRatio]="1 / 1" [resizeToWidth]="0" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>
+          </div>
+
+
+          <div class="row">
+
+            <div class="input-field col s12">
+              <button (click)="savePictureModal()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">OK</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <app-notifications></app-notifications>
+    </div>
+  </div>
+</div>
+
+<app-user-common></app-user-common>
+
+<div id="editNotification" class="modal notification_modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s8">
+        <!-- <h4>Post Event</h4> -->
+      </div>
+      <div class="col s4 right-align">
+        <a href="javascript:void(0)" (click)="closeEditNotification()">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="modal-content">
+      <h5 class="notification_title">Profile Updated</h5>
+    </div>
+
+    <div class="row no-marginbottom">
+      <div class="input-field col s12">
+        <p class="center">Profile updated Successfully! </p>
+      </div>
+    </div>
+
+
+    <div class="row">
+
+      <div class="input-field col s12">
+        <button (click)="closeEditNotification()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">OK</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>

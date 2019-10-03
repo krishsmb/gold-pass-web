@@ -1,0 +1,293 @@
+<footer class="page-footer gpfooter">
+    <div class="container">
+    <div class="row">
+    <div class="col l3 s12 footer-logo">
+    <img src="assets/img/logofooter.png" alt="">
+    </div>
+    <div class="col l3 s6 sub-links">
+    <ul>
+      <li><a class="grey-text text-lighten-3" routerLink="/home" [routerLinkActive]="['active']">Home</a></li>
+      <!-- <li><a class="grey-text text-lighten-3" routerLink="/about" [routerLinkActive]="['active']">About</a></li> -->
+      <li><a class="grey-text text-lighten-3" routerLink="/contact" [routerLinkActive]="['active']">Contact</a></li>                    
+    </ul>
+    </div>
+    <div class="col l3 s6 sub-links">
+      <ul>
+        <li><a href="#!">FAQ        </a></li>
+        <li><a href="#!">Terms & Conditions</a></li>                                        
+      </ul>
+    </div>
+    <div class="col l3 s12 sub-links">
+        <ul class="social">
+          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li> 
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>  
+          <li><a href="#"><i class="fab fa-google"></i></a></li> 
+          <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>                                    
+        </ul>
+      </div>
+    </div>
+    </div>
+    <div class="footer-copyright">
+    <div class="container center-align">
+    © 2018, Gold Pass.              
+    </div>
+    </div>
+    </footer>
+
+    <ng4-loading-spinner> </ng4-loading-spinner>
+    <!-- <ng4-loading-spinner [threshold]="1000" [template]="template" [loadingText]="'Please wait...'" [zIndex]="999" ></ng4-loading-spinner> -->
+
+
+
+
+
+  <!--  FullScreen Content -->
+<div id="userNav" class="overlay">          
+  <!-- Button to close the overlay navigation -->
+  <a href="javascript:void(0)" class="closebtn" (click)="closeUserNav()">&times;</a>          
+  <!-- Overlay content -->
+  <div class="full-wrapper">
+  <div class="child-wrapper col s12 m6 l6 user-signup hide-on-small-only">
+  <div  class="corporate-content">
+    <img src="assets/img/corporate_logo.png" alt="">
+    <h3>Welcome!!</h3>
+    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle .</p>
+  </div>
+  
+  </div>
+  <div class="child-wrapper s12 m6 l6">
+  <div class="corporate-content">
+  <h3>User Sign Up</h3>
+
+  
+  
+ 
+  
+  <form [formGroup]="regForm" (submit)="signUp()"> 
+  <div class="row login-tab active" >
+      <div class="text-center">
+          <div *ngIf="success_message" class="Success"> {{success_message}} </div>
+          <div *ngIf="error_message" class="notErrors"> {{error_message}} </div>
+          </div>
+      <div class="input-field col s12 input-select">
+          <select formControlName="user_type" id="user_type">
+            <!-- <option value="0" disabled selected>Choose your option</option> -->
+            
+            <option value="2">Consumer</option>
+            <option value="1">Celebrity</option>
+          </select> 
+
+       
+
+          
+          <label for="user_type" class="active">Select User Type</label>
+          <control-messages [control]="regForm.controls.user_type"></control-messages>
+        </div>
+      <div class="input-field col s12 input-box">
+        <input placeholder="Placeholder" formControlName="first_name" id="first_name_reg" type="text" class="validate">
+        <label for="first_name" class="active">First Name</label>
+        <control-messages [control]="regForm.controls.first_name"></control-messages>
+      </div>
+      <div class="input-field col s12 input-box">
+          <input placeholder="Placeholder" formControlName="last_name" id="last_name_reg" type="text" class="validate">
+          <label for="last_name" class="active">Last Name</label>
+          <control-messages [control]="regForm.controls.last_name"></control-messages>
+        </div>
+     <div class="input-field col s12 input-box">
+          <input placeholder="Placeholder" formControlName="email" id="email_reg" type="text" class="validate">
+          <label for="email" class="active"> Email</label>
+          <control-messages [control]="regForm.controls.email"></control-messages>
+        </div>
+        
+        <div class="input-field col s12 input-box">
+            <input placeholder="Placeholder"formControlName="user_name" id="user_name_reg" type="text" class="validate">
+            <label for="user_name" class="active">Username</label>
+            <control-messages [control]="regForm.controls.user_name"></control-messages>
+          </div>
+      <div class="input-field col s12 relative input-box">
+          <a href="#" class="pass-view"> <i class="fas fa-eye-slash"></i> </a>
+          <input placeholder="Placeholder" formControlName="password" id="password_reg" type="password" class="validate">
+          <label for="password" class="active">Password</label>
+          <control-messages [control]="regForm.controls.password"></control-messages>
+        </div>                      
+          <div class="input-field col s12 relative input-box">
+              <a href="#" class="pass-view"> <i class="fas fa-eye-slash"></i> </a>
+              <input placeholder="Placeholder" formControlName="confirm_password" id="confirm_password_reg" type="password" class="validate">
+              <label for="confirm_password" class="active">Confirm Password</label>
+              <control-messages [control]="regForm.controls.confirm_password"></control-messages>
+            </div>
+            <div class="clear-fix"></div>
+            <div class="col s12  button-corp">
+                <button class="btn-large waves-effect waves-light  btn-yellow s12" type="submit" name="action" [disabled]="!regForm.valid">SIGN UP </button>
+              </div> 
+  
+            
+  
+  </div>  
+  </form>               
+  </div>
+  
+  
+  
+  
+  </div>
+  </div>     
+  </div>
+
+  <!-- Use any element to open/show the overlay navigation menu -->
+
+    <!--  FullScreen Content -->
+<div id="forgotNav" class="overlay">          
+    <!-- Button to close the overlay navigation -->
+    <a href="javascript:void(0)" class="closebtn" (click)="closeForgotNav()">&times;</a>          
+    <!-- Overlay content -->
+    <div class="full-wrapper">
+    <div class="child-wrapper col s12 m6 l6 user-signup hide-on-small-only">
+    <div  class="corporate-content">
+      <img src="assets/img/corporate_logo.png" alt="">
+      <h3>Welcome!!</h3>
+      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle .</p>
+    </div>
+    
+    </div>
+    <div class="child-wrapper s12 m6 l6">
+    <div class="corporate-content">
+      <div *ngIf="!reset">
+          <h3>Forgot Password</h3>
+          <p>Please enter your Registered Email address.</p>
+          <p>A reset code will be send to the provided Email Address </p><br>
+        
+          
+          
+         
+          
+          <form [formGroup]="forgotForm" (submit)="forgotPassword()"> 
+          <div class="row  active" > 
+                  
+                <div class="input-field col s12 input-box">
+                  <input placeholder="Email" formControlName="email_id" id="email_id" type="text" class="validate">
+                  <label for="email" class="active"> Email</label>
+                  <control-messages [control]="forgotForm.controls.email_id"></control-messages>
+                  <div>{{error_message}}</div>
+                  
+                </div>        
+                <div class="clear-fix"></div>
+                  <div class="col s12  button-corp">
+                        <button class="btn-large waves-effect waves-light  btn-yellow s12" type="submit" name="action" [disabled]="!forgotForm.valid">SUBMIT </button>
+                  </div>   
+      
+          
+          </div> 
+          </form> 
+      </div>
+      <div *ngIf="reset">
+          <h3>Reset Password</h3>
+         
+          
+          
+         
+          
+          <form [formGroup]="resetForm" (submit)="resetPassword()"> 
+          <div class="row  active" >
+              <div class="text-center"> 
+              <div *ngIf="success_message" class="Success"> {{success_message}} </div>
+              <div *ngIf="error_message"  class="notErrors"> {{error_message}} </div>
+              </div>    
+                <div class="input-field col s12 input-box">
+                  <input placeholder="Reset Code" formControlName="reset_code" id="reset_code" type="text" class="validate">
+                  <label for="email" class="active"> Reset Code</label>
+                  <control-messages [control]="resetForm.controls.reset_code"></control-messages>
+                  
+                </div> 
+                <div class="input-field col s12 input-box">
+                    <input placeholder="Password" formControlName="new_password" id="new_password" type="password" class="validate">
+                    <label for="email" class="active"> Password</label>
+                    <control-messages [control]="resetForm.controls.new_password"></control-messages>
+                    
+                  </div>
+                <div class="input-field col s12 input-box">
+                      <input placeholder="Confirm Password" formControlName="cnf_password" id="cnf_password" type="password" class="validate">
+                      <label for="email" class="active"> Confirm Password</label>
+                      <control-messages [control]="resetForm.controls.cnf_password"></control-messages>
+                      
+                    </div>       
+                <div class="clear-fix"></div>
+                  <div class="col s12  button-corp">
+                        <button class="btn-large waves-effect waves-light  btn-yellow s12" type="submit" name="action" [disabled]="!resetForm.valid">SUBMIT </button>
+                  </div>   
+      
+          
+          </div> 
+          </form> 
+      </div>
+
+                
+    </div>
+    
+    
+    
+    
+    </div>
+    </div>     
+    </div>
+  
+    <!-- Use any element to open/show the overlay navigation menu -->
+    
+     <!-- START MODAL Common Notifications -->
+
+  <div id="modalNotification" class="modal notification_modal">
+      <div class="modal-content">
+      <div class="row">
+      <div class="col s8">
+        <!-- <h4>Post Event</h4> -->
+      </div>
+      <div class="col s4 right-align"><a href="javascript:void(0)" (click)="closeNotification()"><i class="material-icons">close</i></a></div>
+      </div>  
+      
+        <div class="row no-marginbottom">
+            <div class="input-field col s12">
+               <p class="center">{{notification_message}}</p>
+              </div>            
+          </div>      
+          
+        
+          <div class="row">
+  
+            <div class="input-field col s12">           
+                <button (click)="closeNotification()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">OK</button>
+            </div>
+          </div>
+     
+           
+      </div>   
+      </div>
+  
+
+      <div id="resetNotification" class="modal notification_modal">
+          <div class="modal-content">
+          <div class="row">
+          <div class="col s8">
+            <!-- <h4>Post Event</h4> -->
+          </div>
+          <div class="col s4 right-align"><a href="javascript:void(0)" (click)="closeResetNotification()"><i class="material-icons">close</i></a></div>
+          </div>  
+          
+            <div class="row no-marginbottom">
+                <div class="input-field col s12">
+                   <p class="center">{{notification_message}}</p>
+                  </div>            
+              </div>      
+              
+            
+              <div class="row">
+      
+                <div class="input-field col s12">           
+                    <button (click)="closeResetNotification()" class="btn waves-effect waves-light col s12 btn-primary-square" type="submit" name="action">OK</button>
+                </div>
+              </div>
+         
+               
+          </div>   
+          </div>
+        
+  

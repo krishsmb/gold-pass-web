@@ -1,0 +1,302 @@
+<app-publicheader></app-publicheader>
+
+<section class="homebanner">
+  <div class="container fexhome">
+    <div class="txt_banner center">
+      <h1>Neque porro quisquam est qui dolorem ipsum ame...</h1>
+      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,
+        by injected humour, or randomised words which don't look even slightly believable.</p>
+    </div>
+    <div class="signinbox">
+      <div class="row">
+        <div class="col l6">
+          <h3>Login</h3>
+        </div>
+        <div class="col l6 right-align">
+          <h3>
+            <span>New user ?</span>
+            <a href="javascript:void(0);" onclick="openuserNav()">Sign Up</a>
+          </h3>
+        </div>
+      </div>
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="form-group" [ngClass]="displayFieldCss('user_name')">
+            <div class="input-field input-login col l6 s12">
+              <input placeholder="Username" id="login_username" type="text" class="validate" formControlName="user_name">
+              <app-field-error-display [displayError]="isFieldValid('user_name')" errorMsg="* Please enter your user name">
+              </app-field-error-display>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="displayFieldCss('user_name')">
+            <div class="input-field input-login col l6 s12">
+              <input placeholder="Password" id="login_password" type="password" class="validate" formControlName="password">
+              <app-field-error-display [displayError]="isFieldValid('password')" errorMsg="* Please enter your password">
+              </app-field-error-display>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="row row_default">
+          <div class="col l6 s12">
+            <button class="btn waves-effect waves-light btn-large btn-yellow col l12 s12" type="button" name="action" (click)="onSubmit()">Login</button>
+          </div>
+          <div class="col l6 s12 valign-wrapper forgotpass">
+            <a href="#">Forgot your password?</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+<section class="section_pd120">
+  <div class="container">
+    <div class="row">
+      <div class="col l4 m4 s12 center-align feature_col">
+        <i>
+          <img src="assets/img/icon_meeting.png" alt="">
+        </i>
+        <div>
+          <h3>Meetings</h3>
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by
+          injected humour.
+        </div>
+      </div>
+      <div class="col l4 m4 s12 center-align feature_col">
+        <i>
+          <img src="assets/img/icon_bids.png" alt="">
+        </i>
+        <div>
+          <h3>Bids</h3>
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form </div>
+      </div>
+      <div class="col l4 m4 s12 center-align feature_col">
+        <i>
+          <img src="assets/img/icon_event.png" alt="">
+        </i>
+        <div>
+          <h3>Events</h3>
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by
+          injected humour, or randomised words. </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section_pd120 primarybg">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 m6 s9">
+        <h3 class="section-head">Popular Meetings</h3>
+      </div>
+      <div class="col l6 m6 s3 right-align viewall-black">
+        <a href="#">View All</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m6" *ngFor="let meetings of popular_meetings">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s3 ">
+              <img src="{{meetings.posted_by_image}}" alt="" class="circle responsive-img">
+            </div>
+            <div class="col s9 pop-meeting">
+              <h3>{{meetings.title | words : 4 :""}}
+                <br>
+                <span class="grey-text darken-1">@ {{meetings.venue | words : 4 :""}}</span>
+              </h3>
+              <p>
+                <span class="black-text ">{{meetings.posted_by}}</span>
+              </p>
+              <p>
+                <span class="grey-text darken-1"> Meeting Proceeding to </span>- {{meetings.proceeding_category}}</p>
+              <p class="black-text">{{meetings.date}} @ {{meetings.time}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col s12 m6">
+  <div class="card-panel grey lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+      <div class="col s3 ">
+        <img src="assets/img/thumb130.png" alt="" class="circle responsive-img">
+      </div>
+      <div class="col s9 pop-meeting">
+        <h3>Hang Out with Me  <br><span class="grey-text darken-1">@ Frank’s Cafe</span></h3>
+        <p><span class="black-text ">Katy Perry</span></p>
+        <p><span class="grey-text darken-1"> Meeting Proceeding to </span>- Scholarship</p>
+        <p class="black-text">12-12-2017 @ 06:30 pm</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+    </div>
+
+  </div>
+
+</section>
+<section class="section_pd120">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 m6 s9">
+        <h3 class="section-head">Popular Bids</h3>
+      </div>
+      <div class="col l6 m6 s3 right-align viewall-black">
+        <a href="#">View All</a>
+      </div>
+    </div>
+    <div class="row no-margin">
+
+      <div class="col s12 m6 l4" *ngFor="let bids of popular_bids">
+        <div class="card popular-bid-col white-text">
+          <div class="card-image">
+            <img src="{{bids.image}}">
+            <div class="card-title black-grdnt">
+              <span class="hide-on-small-only">Bid for this at </span>$35
+              <a class="waves-effect waves-light btn right">Bid Now</a>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="row">
+              <div class="col s2">
+                <img src="assets/img/icon_bidwhite.png" alt="" class="responsive-img">
+                <!-- notice the "circle" class -->
+              </div>
+              <div class="col s10">
+                <div class="text-bold">{{bids.title}}
+                  <br>
+                  <span class="text-norm">Bid End Date: {{bids.bid_end_date}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row no-margin">
+              <div class="col s2">
+                <img src="assets/img/thumb130.png" alt="" class="circle responsive-img">
+                <!-- notice the "circle" class -->
+              </div>
+              <div class="col s10">
+                <span class="text-bold text-med">{{bids.posted_by}}</span>
+                <br>
+                <span class="text-gray">Posted on: {{bids.post_date}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+<section class="section_pd120">
+  <div class="container">
+    <div class="row">
+      <div class="row">
+        <div class="col l6 m6 s8">
+          <h3 class="section-head">Corporate Events</h3>
+        </div>
+        <div class="col l6 m6 s4 right-align viewall-black">
+          <a href="#">View All</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col m7 s12">
+          <div class="col s12 div-default event-tile tile01">
+            <img src="assets/img/event01.png" alt="" class="responsive-img">
+            <div class="event-footer">Music Party @ New Jersey
+              <br>
+              <span>Date: 22-11-2017</span>
+            </div>
+          </div>
+        </div>
+        <div class="col m5 s12">
+          <div class="col s12 div-default event-tile tile02">
+            <img src="assets/img/event_370.png" alt="" class="responsive-img">
+            <div class="event-footer">Music Party @ New Jersey
+              <br>
+              <span>Date: 22-11-2017</span>
+            </div>
+          </div>
+          <div class="col s12 div-default event-tile tile02 event-endchild">
+            <img src="assets/img/event_370.png" alt="" class="responsive-img">
+            <div class="event-footer">Music Party @ New Jersey
+              <br>
+              <span>Date: 22-11-2017</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col l12 m12 s12">
+        <h3 class="section-head">Testimonials</h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="testimonibg">
+      <div class="container">
+        <div class="automatic-slider">
+          <ul>
+            <!-- <li *ngFor="let testimonials of popular_testimonials">
+            <div class="row row-flex mrg0">
+                <div class="col l4 m4 s12"> <div class="thumb_holder"><img src="assets/img/testimonoal_thumb.png" alt="" class="responsive-img thump-testimoni"></div>  </div>
+                  <div class="col l8 m8 s12 text-testimoni"> 
+                      <h2>Selena Gomez 2<br><span>Posted a Testionial for you</span></h2>                                        
+                     {{testimonials.review}}
+                  </div>
+                  <div class="clear-fix"></div>
+                </div>
+
+        </li> -->
+            <li *ngFor="let testimonials of popular_testimonials">
+              <div class="row row-flex">
+                <div class="col l4 m4 s12">
+                  <div class="thumb_holder">
+                    <img src="{{testimonials.creator_image}}" alt="" class="responsive-img thump-testimoni">
+                  </div>
+                </div>
+                <div class="col l8 m8 s12 text-testimoni">
+                  <h2>{{testimonials.creator_name}}
+                    <br>
+                    <span>Posted a Testionial</span>
+                  </h2>
+                  <p>{{testimonials.review}}</p>
+                </div>
+                <div class="clear-fix"></div>
+              </div>
+            </li>
+            <!-- <li>
+            <div class="row row-flex">
+                <div class="col l4 m4 s12"> <div class="thumb_holder"><img src="assets/img/testimonoal_thumb.png" alt="" class="responsive-img thump-testimoni"></div>  </div>
+                  <div class="col l8 m8 s12 text-testimoni">
+                      <h2>Selena Gomez3 <br><span>Posted a Testionial for you</span></h2> 
+                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                  </div>
+                  <div class="clear-fix"></div>
+                </div>
+        </li>
+        <li> 
+          <div class="row row-flex">
+            <div class="col l4 m4 s12"> <div class="thumb_holder"><img src="assets/img/testimonoal_thumb.png" alt="" class="responsive-img thump-testimoni"></div>  </div>
+              <div class="col l8 m8 s12 text-testimoni">
+                  <h2>Selena Gomez 4<br><span>Posted a Testionial for you</span></h2> 
+                  <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+              </div>
+              <div class="clear-fix"></div>
+            </div></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-publicfooter></app-publicfooter>

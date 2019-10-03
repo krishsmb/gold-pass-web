@@ -1,0 +1,40 @@
+ <!-- header-->
+ <app-user-header></app-user-header>
+ <div class="top20_margin">
+   <div class="container hideonipad">
+       <div class="row">
+         <!-- left nave -->
+         <app-left-nave></app-left-nave>
+          <div class="col m6 s12 testimonial">
+            
+            <div class="post-wrapper" *ngFor="let testimonial of testimonials; index as i;">
+              <div class="row post-padding">
+                 <div class="col s2">
+                    <img src="{{testimonial.posted_user_image}}" alt="" class="circle responsive-img thumb65"> <!-- notice the "circle" class -->
+                 </div>
+                 <div class="col s10">
+                    <span class="user-title">{{testimonial.posted_user_name}} </span><br>
+                    
+                    <rating [(ngModel)]="testimonial.rating" (click)="test(testimonial)"></rating>
+                 </div>
+              </div>
+              <div class="row post-padding postpad">
+                 <div>
+                    <p class="user-description">{{testimonial.review}}</p>
+                 </div>
+                 <!-- <div class="post-eventtime no-bottompadding">
+                    <div>Posted on:  {{testimonial.created_at}}</div>
+                    <button class="Sharebtn btn-primary" ><i class="fas fa-share-alt"></i><span> Share</span></button>
+                 </div> -->
+              </div>
+            </div>
+            <div class="post-wrapper" *ngIf="!testimonials.length">
+              No Gold Ovations
+            </div>
+          </div>
+         <!-- notifications -->
+         <app-notifications></app-notifications>
+       </div>
+       </div>     
+ </div> 
+ <app-user-common></app-user-common>

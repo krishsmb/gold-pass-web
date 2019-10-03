@@ -1,0 +1,26 @@
+.text-add{
+    margin: 0px;
+    color: #000;
+    font-size: 22px;
+}
+.text-add span{
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    display: block;
+}
+.b-padding{
+    padding-bottom: 0px;
+}
+
+.viewButton{
+    position: absolute;
+    min-width: 80px;
+    right: 8px;
+    width: auto !important;
+    text-decoration: underline;
+    font-size: 10px !important;
+    background: transparent;
+    border: none;
+    font-weight: bold;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Gold Pass</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="assets/css/custom.css"  media="screen,projection"/>
+    <!-- <link type="text/css" rel="stylesheet" href="assets/css/qmefeed.css"  media="screen,projection"/> -->
+    <link href="assets/css/fontawesome-all.min.css" rel="stylesheet">
+    <!-- <link rel='stylesheet prefetch' href='https://raw.github.com/jamesflorentino/nanoScrollerJS/master/bin/css/nanoscroller.css'>
+    <link rel="stylesheet" href="assets/nanoscrool/css/style.css"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/x-icon" href="assets/img/fav.png">
+    <base href="../">
+    <!-- <base href="/"> -->
+    <style>
+   .lds-roller {   
+    left: 0 !important;   
+    }
+  .picker--opened .picker__holder {
+   top: 20%;
+   bottom: -50%;  
+    }
+
+
+    </style>
+    
+  </head>
+
+<body class="landing-page">
+  <app-root></app-root>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="assets/js/bin/materialize.min.js"></script>
+      <script type="text/javascript" src="assets/js/page.js"></script>
+      <script type="text/javascript" src="assets/js/encoder.js"></script>
+      <script type="text/javascript" src="assets/js/unslider-min.js"></script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+      <script type="text/javascript" src="assets/js/nanoScrollbar.js"></script> 
+      <script type="text/javascript" src="assets/js/autocomplete.js"></script>
+      <!-- <script type="text/javascript"  src="assets/nanoscrool/js/index.js"></script> -->
+      <!-- <script type="text/javascript" src="assets/js/nanoscroll.js"></script> 
+      <script type="text/javascript" src="assets/js/sticky.js"></script> -->
+<script>
+//  $('.automatic-slider').unslider({
+//   keys: true,
+//   arrows: false,
+//   nav: true
+//   });
+  /* Open */
+// function openNav() {
+//     document.getElementById("myNav").style.display = "block";
+// }
+
+/* Close */
+// function closeNav() {
+//     document.getElementById("myNav").style.display = "none";
+// }
+
+/* Close user sign up*/
+// function closeuserNav() {
+//     document.getElementById("userNav").style.display = "none";
+// }
+
+  /* Open user sign up*/
+//   function openuserNav() {
+//     document.getElementById("userNav").style.display = "block";
+// }
+</script>
+
+<script>
+ 
+
+
+    $(".nano").nanoScroller();
+
+
+     Stripe.setPublishableKey('pk_test_tFTOAyinaPuz4NntybtCxxzZ');
+</script>
+
+    </body>
+</html>

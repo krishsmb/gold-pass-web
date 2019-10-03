@@ -1,0 +1,205 @@
+<div class="col m3 s12 notification-wrappe is-stickable">
+  <div class="is-p">
+    <div class="is-f">
+      <div class="editpic">
+        <img src="{{user.profile_image}}" alt="" class="circle">
+        <div class="user_star" *ngIf="user.celebrity_rank <='1' && user.user_type == '1'">
+          <img src="assets/img/3.png" alt="" class="circle responsive-img thumb65">
+        </div>
+        <div class="user_star" *ngIf="user.celebrity_rank=='2' && user.user_type == '1'">
+          <img src="assets/img/1.png" alt="" class="circle responsive-img thumb65">
+        </div>
+        <div class="user_star" *ngIf="user.celebrity_rank=='3' && user.user_type == '1'">
+          <img src="assets/img/2.png" alt="" class="circle responsive-img thumb65">
+        </div>
+      </div>
+      <div class="center profile-name">
+        <h5>{{user.first_name}} {{user.last_name}}
+          <br> </h5>
+      </div>
+      <div class="follow-count">
+        <div class="center" (click)="getFollowingList()" [hidden]="user.user_type == '1'"> {{user.following_count}}
+          <br>
+          <span>FOLLOWING</span>
+        </div>
+        <!-- <div class="center" [hidden]="user.user_type == '2'" *ngIf="router.url != '/my-home'"> {{user.followers_count}} <br>
+        <span>FOLLOWERS</span></div> -->
+        <div class="center" [hidden]="user.user_type=='2'" (click)="getFollowersList()"> {{user.followers_count}}
+          <br>
+          <span>FOLLOWERS</span>
+        </div>
+      </div>
+      <ng-container *ngIf="((router.url == '/my-profile') || (router.url == '/my-following') || (router.url == '/my-followersList')) else homeMenu">
+        <div class="divider"></div>
+        <div class="hosted-count">
+          <!-- Auctions Hosted -->
+          <div class="center" [hidden]="profile_info.user_type==2"> Gold TGS Hosted
+            <br>
+            <span>{{profile_info.auctions_hosted}}</span>
+          </div>
+          <div class="center" [hidden]="profile_info.user_type==2"> Gold Events Hosted
+            <br>
+            <span>{{profile_info.events_hosted}}</span>
+          </div>
+          <div class="center" [hidden]="profile_info.user_type==1"> TGS Purchased
+            <br>
+            <span>{{profile_info.auctions_win}}</span>
+          </div>
+          <div class="center" [hidden]="profile_info.user_type==1"> Events Attended
+            <br>
+            <span>{{profile_info.events_attented}}</span>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #homeMenu>
+        <ul class="profile-menu" *ngIf="user.user_type=='1'">
+          <li>
+            <a routerLink="/my-home" [routerLinkActive]="['active']">
+              <span class="icon_myhome"></span> Gold Pass</a>
+          </li>
+          <!-- Search Celebrity  -->
+          <li>
+            <a routerLink="/search-celebrity" [routerLinkActive]="['active']">
+              <span class="icon_search"></span>Gold Pass Stars</a>
+          </li>
+          <!-- all gp events -->
+          <li>
+            <a routerLink="/all-gp-events" [routerLinkActive]="['active']">
+              <span class="icon-goldgts"></span>Nationwide Gold Events</a>
+          </li>
+          <!-- My GP Events -->
+          <!-- <li>
+            <a routerLink="/my-meetings" [routerLinkActive]="['active']">
+              <span class="icon_gpevent"></span>Events I'm Following</a>
+          </li> -->
+          <!-- <li><a href="#"><span class="icon_corporate_event"></span>Corporate  Events</a></li> -->
+          <li>
+            <a href="javascript:void(0)" (click)="openModalEvent()">
+              <span class="icon_post_event"></span>Post a Gold Event</a>
+          </li>
+
+           <!-- All TGS -->
+           <li>
+            <a routerLink="/all-tgs" [routerLinkActive]="['active']">
+              <span class="icon-start-goldgts"></span>National Gold TGS</a>
+          </li>
+
+          <!-- Start an Auction -->
+          <!-- <li>
+            <a href="javascript:void(0)" (click)="openModalAuction()">
+              <span class="icon_start_auction"></span>Start a Gold Retail</a>
+          </li> -->
+
+          <!-- Start a TGS -->
+          <li>
+            <a href="javascript:void(0)" (click)="openModalTgs()">
+              <span class="icon-start-a-goldtgs"></span>Start a Gold TGS</a>
+          </li>
+
+          
+          <!-- All Auctions -->
+          <!-- <li>
+            <a routerLink="/all_auctions" [routerLinkActive]="['active']">
+              <span class="icon_start_auction"></span>National Gold Retail</a>
+          </li> -->
+
+         
+          <li>
+            <a routerLink="/my-tgs" [routerLinkActive]="['active']">
+              <span class="icon_allgpevent"></span>My Gold TGS Events</a>
+          </li>
+
+          <!-- <li>
+            <a routerLink="/my_auctions" [routerLinkActive]="['active']">
+              <span class="icon_mybid"></span>My Gold Retail Bids</a>
+          </li> -->
+          <!-- Events I Host -->
+          <!-- <li>
+            <a routerLink="/event_hosted" [routerLinkActive]="['active']">
+              <span class="icon_event_host"></span>Gold Events Hosted</a>
+          </li> -->
+          <!-- Auctions I Host 1.  -->
+          <!-- <li>
+            <a routerLink="/auctions_hosted" [routerLinkActive]="['active']">
+              <span class="icon_post_event"></span>My Gold Retail</a>
+          </li> -->
+
+          <!-- Tgs I Host 1 -->
+          <li>
+            <a routerLink="/tgs-hosted" [routerLinkActive]="['active']">
+              <span class="icon_mybid"></span>My Gold TGS Retail</a>
+          </li>
+
+          <li>
+            <a routerLink="/gold-stats" [routerLinkActive]="['active']">
+              <span class="icon-gold-stats"></span>My Gold Pass Stats</a>
+          </li>
+
+          <!-- Testimonials -->
+          <li>
+            <a routerLink="/testimonials" [routerLinkActive]="['active']">
+              <span class="icon_testimonial"></span>Gold Ovation</a>
+          </li>
+          <li>
+            <a routerLink="/my-profile" [routerLinkActive]="['active']">
+              <span class="icon_myprofile"></span>My Profile</a>
+          </li>
+          <!-- <li>
+            <a routerLink="/settings" [routerLinkActive]="['active']">
+              <span class="icon_settings"></span>Gold Pass Settings</a>
+          </li> -->
+        </ul>
+
+        <ul class="profile-menu" *ngIf="user.user_type=='2'">
+          <li>
+            <a routerLink="/my-home" [routerLinkActive]="['active']">
+              <span class="icon_myhome"></span> Gold Pass</a>
+          </li>
+          <li>
+            <a routerLink="/search-celebrity" [routerLinkActive]="['active']">
+              <span class="icon_search"></span>Gold Pass Stars</a>
+          </li>
+          <li>
+            <a routerLink="/all-gp-events" [routerLinkActive]="['active']">
+              <span class="icon-goldgts"></span>Nationwide Gold Events</a>
+          </li>
+          <!-- <li>
+            <a routerLink="/my-meetings" [routerLinkActive]="['active']">
+              <span class="icon_gpevent"></span>Events I'm Following</a>
+          </li> -->
+          <!-- <li>
+            <a routerLink="/all_auctions" [routerLinkActive]="['active']">
+              <span class="icon_start_auction"></span>National Gold Retail</a>
+          </li> -->
+
+          <!-- All TGS -->
+          <li>
+            <a routerLink="/all-tgs" [routerLinkActive]="['active']">
+              <span class="icon-start-goldgts"></span>National Gold TGS</a>
+          </li>
+          <!-- <li>
+            <a routerLink="/my_auctions" [routerLinkActive]="['active']">
+              <span class="icon_mybid"></span>My Gold Retail Bids</a>
+          </li>
+          <li>
+            <a routerLink="/user_retail" [routerLinkActive]="['active']">
+              <span class="icon_start_auction"></span>My Gold Retail</a>
+          </li> -->
+          <li>
+            <a routerLink="/my-tgs" [routerLinkActive]="['active']">
+              <span class="icon_allgpevent"></span>My Gold TGS Events</a>
+          </li>
+          
+          <li>
+            <a routerLink="/my-profile" [routerLinkActive]="['active']">
+              <span class="icon_myprofile"></span>My Profile</a>
+          </li>
+          <!-- <li>
+            <a routerLink="/settings" [routerLinkActive]="['active']">
+              <span class="icon_settings"></span>Gold Pass Settings</a>
+          </li> -->
+        </ul>
+      </ng-template>
+    </div>
+  </div>
+</div>
