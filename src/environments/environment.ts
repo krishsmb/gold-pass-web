@@ -5,4 +5,5 @@
 
 export const environment = {
   production: false
+  ,apiUrl: 'http://10.10.10.88:5050/web/'
 };

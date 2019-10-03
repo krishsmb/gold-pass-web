@@ -14,6 +14,7 @@ import { HttpClientModule, HttpClient, HttpParams, HttpHeaders, HttpErrorRespons
 //import { AppAlertProvider } from '../../providers/app-alert/app-alert';
 //import { LoginPage } from '../../pages/login/login';
 import { Subject } from 'rxjs/Subject';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ApiService {
@@ -28,9 +29,7 @@ export class ApiService {
   private subject = new Subject<any>();
   constructor(public http: Http, private httpInterceptor: HttpInterceptorService,
     protected storage: AsyncLocalStorage, public HttpClient: HttpClient) {
-    // this.api_url = 'http://10.10.10.85:5050/web/';
-    // this.api_url = 'http://10.10.10.88:5050/web/';
-    this.api_url = 'http://demo.newagesme.com:5060/web/';
+    this.api_url = environment.apiUrl;
     this.httpInterceptor.request().addInterceptor((data, method) => {
       this.headers = getHttpHeadersOrInit(data, method);
       return data;
