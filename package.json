@@ -26,7 +26,7 @@
     "angular2-jwt": "^0.2.3",
     "angular2-text-mask": "^8.0.5",
     "core-js": "^2.5.7",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "ng-http-interceptor": "^4.0.0",
     "ng-lazyload-image": "^4.0.0",
     "ng-simple-slideshow": "^1.2.3",
